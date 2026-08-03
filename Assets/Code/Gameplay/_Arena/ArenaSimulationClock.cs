@@ -74,10 +74,6 @@ namespace Code.Gameplay
                 executedTicks++;
             }
 
-            // Если игра слишком долго не могла обработать кадр,
-            // отбрасываем накопленный хвост, иначе получим
-            // spiral of death: каждый новый кадр будет занят
-            // обработкой старых тиков.
             if (executedTicks == MaxTicksPerFrame &&
                 _accumulator >= TickInterval)
             {

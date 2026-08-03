@@ -13,10 +13,21 @@ namespace Code.Gameplay
             RegisterArenaData(builder);
             RegisterSpatialServices(builder);
             RegisterCombatData(builder);
+            RegisterHud(builder);
             RegisterSimulationSystems(builder);
             RegisterUnitPresentation(builder);
             RegisterApplicationServices(builder);
             RegisterEntryPoints(builder);
+        }
+
+        private static void RegisterHud(
+            IContainerBuilder builder)
+        {
+            builder.Register<BattleHudDirtyTracker>(
+                Lifetime.Scoped);
+
+            builder.RegisterEntryPoint<
+                BattleHealthHudPresenter>();
         }
 
         private static void RegisterCombatData(
@@ -78,6 +89,10 @@ namespace Code.Gameplay
             builder
                 .RegisterComponentInHierarchy<
                     ArenaDebugPanel>();
+
+            builder
+                .RegisterComponentInHierarchy<
+                    BattleHealthHudView>();
         }
 
         private static void RegisterArenaData(

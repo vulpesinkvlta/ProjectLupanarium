@@ -13,6 +13,7 @@ namespace Code.Gameplay
         private readonly UnitViewPool _viewPool;
         private readonly UnitViewRegistry _viewRegistry;
         private readonly ArenaSandboxRoster _sandboxRoster;
+        private readonly BattleHudDirtyTracker _hudDirtyTracker;
 
         private int _nextUnitId;
 
@@ -20,7 +21,8 @@ namespace Code.Gameplay
             ArenaContext context,
             UnitViewPool viewPool,
             UnitViewRegistry viewRegistry,
-            ArenaSandboxRoster sandboxRoster)
+            ArenaSandboxRoster sandboxRoster,
+            BattleHudDirtyTracker hudDirtyTracker)
         {
             _context = context ??
                 throw new ArgumentNullException(nameof(context));
@@ -33,6 +35,10 @@ namespace Code.Gameplay
 
             _sandboxRoster = sandboxRoster ??
                 throw new ArgumentNullException(nameof(sandboxRoster));
+
+            _hudDirtyTracker = hudDirtyTracker ??
+                throw new ArgumentNullException(
+                    nameof(hudDirtyTracker));
         }
 
         public void SpawnBattle(int unitsPerTeam)
@@ -51,6 +57,8 @@ namespace Code.Gameplay
             SpawnTeam(
                 TeamId.Enemy,
                 unitsPerTeam);
+
+            _hudDirtyTracker.MarkRosterChanged();
         }
 
         public void ClearAll()
@@ -75,6 +83,7 @@ namespace Code.Gameplay
             _context.Clear();
 
             _nextUnitId = 0;
+            _hudDirtyTracker.MarkRosterChanged();
         }
 
         private void SpawnTeam(

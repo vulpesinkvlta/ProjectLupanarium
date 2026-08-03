@@ -11,18 +11,23 @@ namespace Code.Gameplay
 
         private readonly ArenaContext _context;
         private readonly UnitDeathBuffer _deathBuffer;
+        private readonly BattleHudDirtyTracker _hudDirtyTracker;
 
         public int DeathsLastTick { get; private set; }
 
         public DeathSystem(
             ArenaContext context,
-            UnitDeathBuffer deathBuffer)
+            UnitDeathBuffer deathBuffer,
+            BattleHudDirtyTracker hudDirtyTracker)
         {
             _context = context ??
                 throw new ArgumentNullException(nameof(context));
 
             _deathBuffer = deathBuffer ??
                 throw new ArgumentNullException(nameof(deathBuffer));
+
+            _hudDirtyTracker = hudDirtyTracker ??
+                throw new ArgumentNullException(nameof(hudDirtyTracker));
         }
 
         public void Tick()
@@ -47,6 +52,11 @@ namespace Code.Gameplay
                     _deathBuffer.Add(unit);
 
                     DeathsLastTick++;
+                }
+
+                if (DeathsLastTick > 0)
+                {
+                    _hudDirtyTracker.MarkHealthChanged();
                 }
             }
         }

@@ -14,10 +14,15 @@ namespace Code.Gameplay
         public int RequestsProcessedLastTick { get; private set; }
         public float DamageAppliedLastTick { get; private set; }
 
-        public DamageSystem(DamageBuffer damageBuffer)
+        private readonly BattleHudDirtyTracker _hudDirtyTracker;
+
+        public DamageSystem(DamageBuffer damageBuffer, BattleHudDirtyTracker hudDirtyTracker)
         {
             _damageBuffer = damageBuffer ??
                 throw new ArgumentNullException(nameof(damageBuffer));
+
+            _hudDirtyTracker = hudDirtyTracker ??
+                throw new ArgumentNullException(nameof(hudDirtyTracker));
         }
 
         public void Tick()
@@ -58,6 +63,11 @@ namespace Code.Gameplay
                 }
 
                 _damageBuffer.Clear();
+
+                if (DamageAppliedLastTick > 0f)
+                {
+                    _hudDirtyTracker.MarkHealthChanged();
+                }
             }
         }
     }

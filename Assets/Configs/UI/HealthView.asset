@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4087a2f5cb69db4495a3c188d2a7d50, type: 3}
+  m_Name: HealthView
+  m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.UnitClassHudCatalog
+  _entries:
+  - _classId: 1
+    _displayName: Murmillo
+    _icon: {fileID: 0}
+    _accentColor: {r: 0.1483176, g: 0.4716981, b: 0, a: 0}
+  - _classId: 2
+    _displayName: Retiatius
+    _icon: {fileID: 0}
+    _accentColor: {r: 0.1483176, g: 0.4716981, b: 0, a: 0}

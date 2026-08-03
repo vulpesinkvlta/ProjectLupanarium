@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
 
@@ -54,7 +55,7 @@ namespace Code.Gameplay
         }
 
         private void CalculateNextPositions(
-            System.Collections.Generic.IReadOnlyList<UnitRuntime> units,
+            IReadOnlyList<UnitRuntime> units,
             float deltaTime)
         {
             for (var i = 0; i < units.Count; i++)
@@ -144,7 +145,7 @@ namespace Code.Gameplay
         }
 
         private void ApplyNextPositions(
-            System.Collections.Generic.IReadOnlyList<UnitRuntime> units)
+            IReadOnlyList<UnitRuntime> units)
         {
             for (var i = 0; i < units.Count; i++)
             {
