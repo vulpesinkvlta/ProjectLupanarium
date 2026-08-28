@@ -14,8 +14,6 @@ namespace Code.Gameplay
 
         private const float TargetSwitchDistanceFactor = 0.75f;
 
-        // Насколько сильнее загруженная цель проигрывает
-        // такой же по расстоянию свободной цели.
         private const float ClaimDistancePenalty = 0.2f;
 
         private static readonly ProfilerMarker TickMarker =
@@ -53,8 +51,6 @@ namespace Code.Gameplay
 
                 var units = _context.AllUnits;
 
-                // Сначала восстанавливаем занятость целей
-                // на основании уже существующих назначений.
                 _engagementRegistry.Rebuild(units);
 
                 for (var i = 0; i < units.Count; i++)
@@ -95,9 +91,6 @@ namespace Code.Gameplay
             {
                 return;
             }
-
-            // Убираем собственную заявку перед повторным поиском.
-            // Благодаря этому боец не считает занятым своё же место.
             if (currentTargetIsValid)
             {
                 _engagementRegistry.ReleaseClaim(
@@ -183,8 +176,6 @@ namespace Code.Gameplay
             float bestFreeTargetScore =
                 float.MaxValue;
 
-            // Если все цели заняты, используем ближайшую
-            // как запасной вариант.
             UnitRuntime nearestFallbackTarget = null;
             float nearestFallbackDistance =
                 float.MaxValue;
@@ -281,7 +272,6 @@ namespace Code.Gameplay
                 }
             }
 
-            // Враг уже стоит рядом — атакуем его.
             if (nearestFreeEngaged != null)
             {
                 selectedSqrDistance =
@@ -290,7 +280,6 @@ namespace Code.Gameplay
                 return nearestFreeEngaged;
             }
 
-            // Враг сам нас преследует — создаём взаимный бой.
             if (nearestFreeReciprocal != null)
             {
                 selectedSqrDistance =
@@ -299,7 +288,6 @@ namespace Code.Gameplay
                 return nearestFreeReciprocal;
             }
 
-            // Предпочтительная свободная цель.
             if (bestFreeTarget != null)
             {
                 selectedSqrDistance =
@@ -308,8 +296,6 @@ namespace Code.Gameplay
                 return bestFreeTarget;
             }
 
-            // Все враги заполнены. Не оставляем бойца без цели:
-            // он идёт к ближайшему и ждёт возможности атаковать.
             selectedSqrDistance =
                 nearestFallbackDistance;
 
@@ -336,8 +322,6 @@ namespace Code.Gameplay
                 _engagementRegistry.HasFreeSlot(
                     candidate);
 
-            // Текущая цель уже заполнена другими бойцами,
-            // а новая ещё имеет место.
             if (!currentHasFreeSlot &&
                 candidateHasFreeSlot)
             {
@@ -358,8 +342,6 @@ namespace Code.Gameplay
             float engagementSqrRange =
                 engagementRange * engagementRange;
 
-            // Уже участвуем в ближнем бою:
-            // не переключаемся без серьёзной причины.
             if (currentSqrDistance <=
                 engagementSqrRange)
             {
@@ -387,8 +369,6 @@ namespace Code.Gameplay
                 _engagementRegistry.GetClaimCount(
                     candidate);
 
-            // Новая цель менее загружена и находится
-            // не более чем примерно на 20% дальше.
             if (candidateHasFreeSlot &&
                 candidateClaims < currentClaims &&
                 candidateSqrDistance <=

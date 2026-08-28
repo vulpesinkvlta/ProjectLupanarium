@@ -11,15 +11,21 @@ namespace Code.Gameplay
         private const float RowSpacing = 0.8f;
 
         private const int InitialViewBufferCapacity = 512;
+        private const int InitialConfigBufferCapacity = 512;
 
         private readonly ArenaContext _context;
         private readonly UnitViewPool _viewPool;
         private readonly UnitViewRegistry _viewRegistry;
-        private readonly ArenaSandboxRoster _sandboxRoster;
         private readonly BattleHudDirtyTracker _hudDirtyTracker;
+        private readonly UnitDefinitionResolver _definitionResolver;
 
         private readonly List<UnitView> _viewReleaseBuffer =
             new(InitialViewBufferCapacity);
+
+        // Состав отряда развёрнутый в плоский список: SquadEntry говорит
+        // "5 мирмиллонов", а сетке размещения нужны позиции по одной.
+        private readonly List<UnitConfig> _configBuffer =
+            new(InitialConfigBufferCapacity);
 
         private int _nextUnitId;
 
@@ -27,8 +33,8 @@ namespace Code.Gameplay
             ArenaContext context,
             UnitViewPool viewPool,
             UnitViewRegistry viewRegistry,
-            ArenaSandboxRoster sandboxRoster,
-            BattleHudDirtyTracker hudDirtyTracker)
+            BattleHudDirtyTracker hudDirtyTracker,
+            UnitDefinitionResolver definitionResolver)
         {
             _context = context ??
                 throw new ArgumentNullException(nameof(context));
@@ -39,30 +45,27 @@ namespace Code.Gameplay
             _viewRegistry = viewRegistry ??
                 throw new ArgumentNullException(nameof(viewRegistry));
 
-            _sandboxRoster = sandboxRoster ??
-                throw new ArgumentNullException(nameof(sandboxRoster));
-
             _hudDirtyTracker = hudDirtyTracker ??
                 throw new ArgumentNullException(
                     nameof(hudDirtyTracker));
+
+            _definitionResolver = definitionResolver ??
+                throw new ArgumentNullException(
+                    nameof(definitionResolver));
         }
 
-        public void SpawnBattle(int unitsPerTeam)
+        public void SpawnSquads(
+            IReadOnlyList<SquadEntry> playerSquad,
+            IReadOnlyList<SquadEntry> enemySquad)
         {
-            if (unitsPerTeam <= 0)
-            {
-                throw new ArgumentOutOfRangeException(
-                    nameof(unitsPerTeam),
-                    "Units per team must be greater than zero.");
-            }
+            if (playerSquad == null)
+                throw new ArgumentNullException(nameof(playerSquad));
 
-            SpawnTeam(
-                TeamId.Player,
-                unitsPerTeam);
+            if (enemySquad == null)
+                throw new ArgumentNullException(nameof(enemySquad));
 
-            SpawnTeam(
-                TeamId.Enemy,
-                unitsPerTeam);
+            SpawnTeam(TeamId.Player, playerSquad);
+            SpawnTeam(TeamId.Enemy, enemySquad);
 
             _hudDirtyTracker.MarkRosterChanged();
         }
@@ -86,8 +89,15 @@ namespace Code.Gameplay
 
         private void SpawnTeam(
             TeamId team,
-            int count)
+            IReadOnlyList<SquadEntry> squad)
         {
+            ExpandSquad(squad);
+
+            int count = _configBuffer.Count;
+
+            if (count == 0)
+                return;
+
             int columns = Mathf.CeilToInt(
                 Mathf.Sqrt(count));
 
@@ -128,15 +138,28 @@ namespace Code.Gameplay
                 float positionY =
                     row * RowSpacing -
                     verticalCenterOffset;
-                UnitConfig config =
-                    _sandboxRoster.GetConfig(
-                        team,
-                        i);
 
                 SpawnUnit(
                     team,
                     new Vector2(positionX, positionY),
-                    config);
+                    _configBuffer[i]);
+            }
+        }
+
+        private void ExpandSquad(
+            IReadOnlyList<SquadEntry> squad)
+        {
+            _configBuffer.Clear();
+
+            for (var i = 0; i < squad.Count; i++)
+            {
+                SquadEntry entry = squad[i];
+
+                if (entry == null || entry.Config == null)
+                    continue;
+
+                for (var unit = 0; unit < entry.Count; unit++)
+                    _configBuffer.Add(entry.Config);
             }
         }
 
@@ -145,13 +168,10 @@ namespace Code.Gameplay
             Vector2 position,
             UnitConfig config)
         {
-            if (config == null)
-                throw new ArgumentNullException(nameof(config));
-
             int unitId = _nextUnitId++;
 
             UnitDefinition definition =
-                config.CreateDefinition();
+                _definitionResolver.Resolve(config, team);
 
             UnitRuntime runtime = new(
                 id: unitId,

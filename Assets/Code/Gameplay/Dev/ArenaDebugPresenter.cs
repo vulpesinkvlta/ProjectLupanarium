@@ -5,37 +5,32 @@ using VContainer.Unity;
 namespace Code.Gameplay
 {
     /// <summary>
-    /// Связывает дебаг-панель песочницы с ареной: кнопки спавна/очистки
-    /// и периодическое обновление счётчиков.
+    /// Дебаг-панель: счётчики симуляции и быстрые команды забега.
     ///
-    /// Инструмент разработчика. Будет выброшен, когда появится настоящий
-    /// цикл забега (подготовка — бой — награды — следующая волна).
+    /// Кнопки панели переехали на управление циклом:
+    /// любая кнопка спавна запускает текущую волну, Clear перезапускает забег.
+    /// Инструмент разработчика, в релизной сборке не регистрируется.
     /// </summary>
     public sealed class ArenaDebugPresenter : IStartable, ITickable, IDisposable
     {
         private const float StatisticsRefreshInterval = 0.25f;
 
-        private readonly ArenaSandboxController _controller;
+        private readonly BattleFlowController _flowController;
         private readonly SimulationDiagnostics _diagnostics;
-        private readonly VictorySystem _victorySystem;
         private readonly ArenaDebugPanel _panel;
 
         private float _remainingRefreshTime;
 
         public ArenaDebugPresenter(
-            ArenaSandboxController controller,
+            BattleFlowController flowController,
             SimulationDiagnostics diagnostics,
-            VictorySystem victorySystem,
             ArenaDebugPanel panel)
         {
-            _controller = controller ??
-                throw new ArgumentNullException(nameof(controller));
+            _flowController = flowController ??
+                throw new ArgumentNullException(nameof(flowController));
 
             _diagnostics = diagnostics ??
                 throw new ArgumentNullException(nameof(diagnostics));
-
-            _victorySystem = victorySystem ??
-                throw new ArgumentNullException(nameof(victorySystem));
 
             _panel = panel ??
                 throw new ArgumentNullException(nameof(panel));
@@ -46,7 +41,7 @@ namespace Code.Gameplay
             _panel.SpawnRequested += OnSpawnRequested;
             _panel.ClearRequested += OnClearRequested;
 
-            _victorySystem.BattleCompleted += OnBattleCompleted;
+            _flowController.StateChanged += OnStateChanged;
 
             RefreshStatistics();
         }
@@ -70,24 +65,22 @@ namespace Code.Gameplay
             _panel.SpawnRequested -= OnSpawnRequested;
             _panel.ClearRequested -= OnClearRequested;
 
-            _victorySystem.BattleCompleted -= OnBattleCompleted;
+            _flowController.StateChanged -= OnStateChanged;
         }
 
-        private void OnSpawnRequested(int unitsPerTeam)
+        private void OnSpawnRequested(int _)
         {
-            _controller.SpawnBattle(unitsPerTeam);
-            RefreshStatistics();
+            _flowController.StartWave();
         }
 
         private void OnClearRequested()
         {
-            _controller.ClearBattle();
-            RefreshStatistics();
+            _flowController.StartRun();
         }
 
-        private static void OnBattleCompleted(BattleResult result)
+        private static void OnStateChanged(BattleFlowState state)
         {
-            Debug.Log($"[ArenaSandbox] Battle completed: {result}.");
+            Debug.Log($"[BattleFlow] {state}");
         }
 
         private void RefreshStatistics()

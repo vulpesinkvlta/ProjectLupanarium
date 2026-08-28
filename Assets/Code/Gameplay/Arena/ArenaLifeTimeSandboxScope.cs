@@ -6,9 +6,15 @@ namespace Code.Gameplay
 {
     public sealed class ArenaLifeTimeSandboxScope : LifetimeScope
     {
+        [Header("Meta configuration")]
+        [SerializeField] private RunConfig _runConfig;
+        [SerializeField] private WaveCatalog _waveCatalog;
+        [SerializeField] private UpgradeCatalog _upgradeCatalog;
+
         protected override void Configure(
             IContainerBuilder builder)
         {
+            RegisterConfiguration(builder);
             RegisterSceneComponents(builder);
             RegisterArenaData(builder);
             RegisterSpatialServices(builder);
@@ -16,9 +22,23 @@ namespace Code.Gameplay
             RegisterHud(builder);
             RegisterSimulationSystems(builder);
             RegisterUnitPresentation(builder);
+            RegisterMeta(builder);
             RegisterApplicationServices(builder);
             RegisterEntryPoints(builder);
             RegisterDeveloperTools(builder);
+        }
+
+        /// <summary>
+        /// Ассеты с балансом. Лежат полями на самом скоупе, чтобы их
+        /// можно было перетащить в инспекторе и не заводить ради трёх
+        /// ссылок отдельный MonoBehaviour.
+        /// </summary>
+        private void RegisterConfiguration(
+            IContainerBuilder builder)
+        {
+            builder.RegisterInstance(_runConfig);
+            builder.RegisterInstance(_waveCatalog);
+            builder.RegisterInstance(_upgradeCatalog);
         }
 
         private static void RegisterHud(
@@ -88,11 +108,13 @@ namespace Code.Gameplay
 
             builder
                 .RegisterComponentInHierarchy<
-                    ArenaSandboxRoster>();
+                    BattleHealthHudView>();
 
             builder
-                .RegisterComponentInHierarchy<
-                    BattleHealthHudView>();
+                .RegisterComponentInHierarchy<RunHudView>();
+
+            builder
+                .RegisterComponentInHierarchy<RewardScreenView>();
         }
 
         private static void RegisterArenaData(
@@ -121,13 +143,36 @@ namespace Code.Gameplay
                 Lifetime.Scoped);
         }
 
+        /// <summary>
+        /// Мета-слой забега. В Фазе 4 переедет в корневой скоуп,
+        /// чтобы пережить переход в лупанарий.
+        /// </summary>
+        private static void RegisterMeta(
+            IContainerBuilder builder)
+        {
+            builder.Register<RunState>(
+                Lifetime.Scoped);
+
+            builder.Register<UpgradeDrafter>(
+                Lifetime.Scoped);
+
+            builder.Register<IUnitModifierSource, RunModifierSource>(
+                Lifetime.Scoped);
+        }
+
         private static void RegisterApplicationServices(
             IContainerBuilder builder)
         {
+            builder.Register<UnitStatsBuilder>(
+                Lifetime.Scoped);
+
+            builder.Register<UnitDefinitionResolver>(
+                Lifetime.Scoped);
+
             builder.Register<UnitSpawner>(
                 Lifetime.Scoped);
 
-            builder.Register<ArenaSandboxController>(
+            builder.Register<BattleController>(
                 Lifetime.Scoped);
         }
 
@@ -137,12 +182,18 @@ namespace Code.Gameplay
             builder
                 .RegisterEntryPoint<ArenaSimulationClock>()
                 .AsSelf();
+
+            builder
+                .RegisterEntryPoint<BattleFlowController>()
+                .AsSelf();
+
+            builder
+                .RegisterEntryPoint<RunFlowPresenter>();
         }
 
         /// <summary>
-        /// Дебаг-панель песочницы и сбор счётчиков. В релизной сборке
-        /// не регистрируются: панель остаётся в сцене, но её никто
-        /// не обновляет и не слушает.
+        /// Дебаг-панель песочницы и сбор счётчиков.
+        /// В релизной сборке не регистрируются.
         /// </summary>
         private static void RegisterDeveloperTools(
             IContainerBuilder builder)
@@ -158,5 +209,19 @@ namespace Code.Gameplay
                 .RegisterEntryPoint<ArenaDebugPresenter>();
 #endif
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_runConfig == null)
+                Debug.LogWarning("Scope: не назначен RunConfig.", this);
+
+            if (_waveCatalog == null)
+                Debug.LogWarning("Scope: не назначен WaveCatalog.", this);
+
+            if (_upgradeCatalog == null)
+                Debug.LogWarning("Scope: не назначен UpgradeCatalog.", this);
+        }
+#endif
     }
 }

@@ -36,26 +36,24 @@ namespace Code.Gameplay
         [SerializeField, Min(1)]
         private int _engagementCapacity = 4;
 
+        [Header("Defence")]
+        [SerializeField, Min(0f)] private float _armor = 0f;
+        [SerializeField, Range(0f, 1f)] private float _critChance = 0f;
         public string Id => _id;
         public UnitClassId ClassId => _classId;
 
-        public UnitDefinition CreateDefinition()
+        public void WriteBaseStats(float[] destination)
         {
             Validate();
-
-            var stats = new UnitStats(
-                maxHealth: _maxHealth,
-                moveSpeed: _moveSpeed,
-                attackDamage: _attackDamage,
-                attackRange: _attackRange,
-                attackCooldown: _attackCooldown,
-                radius: _radius,
-                engagementCapacity: _engagementCapacity);
-
-            return new UnitDefinition(
-                configId: _id,
-                classId: _classId,
-                stats: stats);
+            destination[(int)StatId.MaxHealth] = _maxHealth;
+            destination[(int)StatId.MoveSpeed] = _moveSpeed;
+            destination[(int)StatId.AttackDamage] = _attackDamage;
+            destination[(int)StatId.AttackRange] = _attackRange;
+            destination[(int)StatId.AttackCooldown] = _attackCooldown;  
+            destination[(int)StatId.Radius] = _radius;
+            destination[(int)StatId.EngagementCapacity] = _engagementCapacity;
+            destination[(int)StatId.Armor] = _armor;                
+            destination[(int)StatId.CritChance] = _critChance;              
         }
 
         private void Validate()
