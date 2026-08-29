@@ -15,11 +15,16 @@ namespace Code.Gameplay
         [Header("Starting squad")]
         [SerializeField] private SquadEntry[] _startingSquad;
 
+        [Header("Formation")]
+        [SerializeField] private FormationConfig _defaultFormation;
+
         [Header("Economy")]
         [SerializeField, Min(0)] private int _startingGold;
 
         public IReadOnlyList<SquadEntry> StartingSquad => _startingSquad;
         public int StartingGold => _startingGold;
+
+        public FormationConfig DefaultFormation => _defaultFormation;
 
 #if UNITY_EDITOR
         private void OnValidate()

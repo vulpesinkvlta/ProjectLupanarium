@@ -32,6 +32,8 @@ namespace Code.Gameplay
         private readonly DamageSystem _damageSystem;
         private readonly DeathSystem _deathSystem;
         private readonly UnitCleanupSystem _cleanupSystem;
+        private readonly FormationSystem _formationSystem;
+        private readonly FormationRegistry _formationRegistry;
         private readonly VictorySystem _victorySystem;
 
         private readonly UnitViewPool _viewPool;
@@ -47,6 +49,8 @@ namespace Code.Gameplay
             DamageSystem damageSystem,
             DeathSystem deathSystem,
             UnitCleanupSystem cleanupSystem,
+            FormationSystem formationSystem,
+            FormationRegistry formationRegistry,
             VictorySystem victorySystem,
             UnitViewPool viewPool)
         {
@@ -80,6 +84,12 @@ namespace Code.Gameplay
             _cleanupSystem = cleanupSystem ??
                 throw new ArgumentNullException(nameof(cleanupSystem));
 
+            _formationSystem = formationSystem ??
+                throw new ArgumentNullException(nameof(formationSystem));
+
+            _formationRegistry = formationRegistry ??
+                throw new ArgumentNullException(nameof(formationRegistry));
+
             _victorySystem = victorySystem ??
                 throw new ArgumentNullException(nameof(victorySystem));
 
@@ -95,6 +105,7 @@ namespace Code.Gameplay
             AppendRoster();
             AppendTargeting();
             AppendMovement();
+            AppendFormations();
             AppendGrid();
             AppendCombat();
             AppendViews();
@@ -184,6 +195,37 @@ namespace Code.Gameplay
             AppendLine(
                 "Corrected",
                 _separationSystem.CorrectedUnitsLastTick);
+        }
+
+        private void AppendFormations()
+        {
+            AppendHeader("Formations");
+
+            AppendLine(
+                "Holding formation",
+                _formationSystem.UnitsHoldingFormation);
+
+            AppendTeamFormation("Player", TeamId.Player);
+            AppendTeamFormation("Enemy", TeamId.Enemy);
+        }
+
+        private void AppendTeamFormation(string label, TeamId team)
+        {
+            TeamFormationState state = _formationRegistry.Get(team);
+
+            _builder.Append(label).Append(": ");
+
+            if (!state.IsActive || state.Config == null)
+            {
+                _builder.AppendLine("none");
+                return;
+            }
+
+            _builder
+                .Append(state.Config.DisplayName)
+                .Append(" @ x=")
+                .Append(state.Anchor.x.ToString("F2"))
+                .AppendLine();
         }
 
         private void AppendGrid()

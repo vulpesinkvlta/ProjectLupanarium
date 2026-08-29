@@ -16,6 +16,10 @@ namespace Code.Gameplay
         [Header("Enemies")]
         [SerializeField] private SquadEntry[] _enemies;
 
+        [Header("Formation")]
+        [Tooltip("Строй врага. Пусто — враги строятся сеткой по умолчанию.")]
+        [SerializeField] private FormationConfig _formation;
+
         [Header("Reward")]
         [SerializeField, Min(0)] private int _goldReward = 10;
 
@@ -23,6 +27,8 @@ namespace Code.Gameplay
             _enemies ?? System.Array.Empty<SquadEntry>();
 
         public int GoldReward => _goldReward;
+
+        public FormationConfig Formation => _formation;
 
 #if UNITY_EDITOR
         private void OnValidate()

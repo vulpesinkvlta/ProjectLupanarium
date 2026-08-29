@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16650c1701a544bcad8e809a55856429, type: 3}
+  m_Name: Hospital
+  m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.SchoolBuildingConfig
+  _id: building.hospital
+  _displayName: Hospital
+  _description: 'Hippo... Who?
+
+    Heal your boys'
+  _icon: {fileID: 0}
+  _targetClass: 0
+  _levels:
+  - _cost: 150
+    _modifiers:
+    - _statId: 1
+      _modType: 1
+      _value: 10
+  - _cost: 350
+    _modifiers:
+    - _statId: 1
+      _modType: 1
+      _value: 10
+  - _cost: 500
+    _modifiers:
+    - _statId: 1
+      _modType: 1
+      _value: 10
+    - _statId: 1
+      _modType: 1
+      _value: 10

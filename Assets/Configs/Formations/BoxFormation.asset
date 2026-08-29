@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36831b8c51c04cfca0ec9aa97a20017a, type: 3}
+  m_Name: BoxFormation
+  m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.FormationConfig
+  _id: formation_box
+  _displayName: Kare
+  _description: Form Kare
+  _icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  _layout: 2
+  _rows: 2
+  _columns: 4
+  _rankSpacing: 0.8
+  _fileSpacing: 0.8
+  _marchSpeed: 1.5
+  _breakRange: 2.5
+  _modifiers:
+  - _statId: 8
+    _modType: 1
+    _value: 25

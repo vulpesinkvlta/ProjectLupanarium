@@ -30,12 +30,12 @@ namespace Code.Gameplay
 
         /// <summary>
         /// Заполняет destination составом врагов для волны waveIndex
-        /// и возвращает награду за неё.
+        /// и возвращает её настройки — награду и строй.
         ///
         /// Пишет в переданный список, а не возвращает новый: метод
         /// вызывается на старте каждой волны, и лишний мусор здесь не нужен.
         /// </summary>
-        public int GetWave(int waveIndex, List<SquadEntry> destination)
+        public WaveSetup GetWave(int waveIndex, List<SquadEntry> destination)
         {
             if (waveIndex < 0)
                 throw new ArgumentOutOfRangeException(nameof(waveIndex));
@@ -83,7 +83,9 @@ namespace Code.Gameplay
                 destination.Add(new SquadEntry(entry.Config, count));
             }
 
-            return Mathf.RoundToInt(wave.GoldReward * goldMultiplier);
+            return new WaveSetup(
+                Mathf.RoundToInt(wave.GoldReward * goldMultiplier),
+                wave.Formation);
         }
 
 #if UNITY_EDITOR

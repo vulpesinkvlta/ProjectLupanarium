@@ -18,13 +18,18 @@ namespace Code.Gameplay
         private readonly UnitViewRegistry _viewRegistry;
         private readonly BattleHudDirtyTracker _hudDirtyTracker;
         private readonly UnitDefinitionResolver _definitionResolver;
+        private readonly FormationRegistry _formationRegistry;
+        private readonly FormationSolver _formationSolver;
 
         private readonly List<UnitView> _viewReleaseBuffer =
             new(InitialViewBufferCapacity);
 
-        // Состав отряда развёрнутый в плоский список: SquadEntry говорит
-        // "5 мирмиллонов", а сетке размещения нужны позиции по одной.
+        // Состав отряда, развёрнутый в плоский список: SquadEntry говорит
+        // "5 мирмиллонов", а расстановке нужны позиции по одной.
         private readonly List<UnitConfig> _configBuffer =
+            new(InitialConfigBufferCapacity);
+
+        private readonly List<Vector2> _slotBuffer =
             new(InitialConfigBufferCapacity);
 
         private int _nextUnitId;
@@ -34,7 +39,9 @@ namespace Code.Gameplay
             UnitViewPool viewPool,
             UnitViewRegistry viewRegistry,
             BattleHudDirtyTracker hudDirtyTracker,
-            UnitDefinitionResolver definitionResolver)
+            UnitDefinitionResolver definitionResolver,
+            FormationRegistry formationRegistry,
+            FormationSolver formationSolver)
         {
             _context = context ??
                 throw new ArgumentNullException(nameof(context));
@@ -52,17 +59,41 @@ namespace Code.Gameplay
             _definitionResolver = definitionResolver ??
                 throw new ArgumentNullException(
                     nameof(definitionResolver));
+
+            _formationRegistry = formationRegistry ??
+                throw new ArgumentNullException(
+                    nameof(formationRegistry));
+
+            _formationSolver = formationSolver ??
+                throw new ArgumentNullException(
+                    nameof(formationSolver));
         }
 
         public void SpawnSquads(
             IReadOnlyList<SquadEntry> playerSquad,
-            IReadOnlyList<SquadEntry> enemySquad)
+            FormationConfig playerFormation,
+            IReadOnlyList<SquadEntry> enemySquad,
+            FormationConfig enemyFormation)
         {
             if (playerSquad == null)
                 throw new ArgumentNullException(nameof(playerSquad));
 
             if (enemySquad == null)
                 throw new ArgumentNullException(nameof(enemySquad));
+
+            // Строи выставляются до спавна: FormationModifierSource читает
+            // их из реестра, когда резолвер считает статы.
+            _formationRegistry.Setup(
+                TeamId.Player,
+                playerFormation,
+                new Vector2(-SpawnCenterX, 0f),
+                facingSign: 1f);
+
+            _formationRegistry.Setup(
+                TeamId.Enemy,
+                enemyFormation,
+                new Vector2(SpawnCenterX, 0f),
+                facingSign: -1f);
 
             SpawnTeam(TeamId.Player, playerSquad);
             SpawnTeam(TeamId.Enemy, enemySquad);
@@ -98,24 +129,56 @@ namespace Code.Gameplay
             if (count == 0)
                 return;
 
+            TeamFormationState formation =
+                _formationRegistry.Get(team);
+
+            if (formation.IsActive)
+                SpawnInFormation(team, formation, count);
+            else
+                SpawnInDefaultGrid(team, count);
+        }
+
+        private void SpawnInFormation(
+            TeamId team,
+            TeamFormationState formation,
+            int count)
+        {
+            _formationSolver.BuildSlots(
+                formation.Shape,
+                count,
+                _slotBuffer);
+
+            for (var i = 0; i < count; i++)
+            {
+                Vector2 slotOffset = _slotBuffer[i];
+
+                UnitRuntime runtime = SpawnUnit(
+                    team,
+                    formation.SlotToWorld(slotOffset),
+                    _configBuffer[i]);
+
+                runtime.AssignFormationSlot(slotOffset);
+            }
+        }
+
+        /// <summary>
+        /// Расстановка без строя — та же сетка, что была до Фазы 3.
+        /// Нужна, чтобы бой собирался и без ассетов формаций.
+        /// </summary>
+        private void SpawnInDefaultGrid(
+            TeamId team,
+            int count)
+        {
             int columns = Mathf.CeilToInt(
                 Mathf.Sqrt(count));
 
             int rows = Mathf.CeilToInt(
                 count / (float)columns);
 
-            float teamCenterX = team switch
-            {
-                TeamId.Player => -SpawnCenterX,
-                TeamId.Enemy => SpawnCenterX,
+            float teamCenterX = team == TeamId.Player
+                ? -SpawnCenterX
+                : SpawnCenterX;
 
-                _ => throw new ArgumentOutOfRangeException(
-                    nameof(team),
-                    team,
-                    "Unsupported team.")
-            };
-
-            // Обе армии расширяются от центра арены наружу.
             float depthDirection =
                 team == TeamId.Player
                     ? -1f
@@ -163,7 +226,7 @@ namespace Code.Gameplay
             }
         }
 
-        private void SpawnUnit(
+        private UnitRuntime SpawnUnit(
             TeamId team,
             Vector2 position,
             UnitConfig config)
@@ -197,6 +260,8 @@ namespace Code.Gameplay
 
                 throw;
             }
+
+            return runtime;
         }
     }
 }

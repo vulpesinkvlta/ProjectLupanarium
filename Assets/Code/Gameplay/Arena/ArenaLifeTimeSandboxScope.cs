@@ -6,15 +6,9 @@ namespace Code.Gameplay
 {
     public sealed class ArenaLifeTimeSandboxScope : LifetimeScope
     {
-        [Header("Meta configuration")]
-        [SerializeField] private RunConfig _runConfig;
-        [SerializeField] private WaveCatalog _waveCatalog;
-        [SerializeField] private UpgradeCatalog _upgradeCatalog;
-
         protected override void Configure(
             IContainerBuilder builder)
         {
-            RegisterConfiguration(builder);
             RegisterSceneComponents(builder);
             RegisterArenaData(builder);
             RegisterSpatialServices(builder);
@@ -22,23 +16,11 @@ namespace Code.Gameplay
             RegisterHud(builder);
             RegisterSimulationSystems(builder);
             RegisterUnitPresentation(builder);
+            RegisterFormations(builder);
             RegisterMeta(builder);
             RegisterApplicationServices(builder);
             RegisterEntryPoints(builder);
             RegisterDeveloperTools(builder);
-        }
-
-        /// <summary>
-        /// Ассеты с балансом. Лежат полями на самом скоупе, чтобы их
-        /// можно было перетащить в инспекторе и не заводить ради трёх
-        /// ссылок отдельный MonoBehaviour.
-        /// </summary>
-        private void RegisterConfiguration(
-            IContainerBuilder builder)
-        {
-            builder.RegisterInstance(_runConfig);
-            builder.RegisterInstance(_waveCatalog);
-            builder.RegisterInstance(_upgradeCatalog);
         }
 
         private static void RegisterHud(
@@ -97,6 +79,9 @@ namespace Code.Gameplay
 
             builder.Register<UnitCleanupSystem>(
                 Lifetime.Scoped);
+
+            builder.Register<FormationSystem>(
+                Lifetime.Scoped);
         }
 
         private static void RegisterSceneComponents(
@@ -143,20 +128,39 @@ namespace Code.Gameplay
                 Lifetime.Scoped);
         }
 
+        private static void RegisterFormations(
+            IContainerBuilder builder)
+        {
+            builder.Register<FormationRegistry>(
+                Lifetime.Scoped);
+
+            builder.Register<FormationSolver>(
+                Lifetime.Scoped);
+        }
+
         /// <summary>
-        /// Мета-слой забега. В Фазе 4 переедет в корневой скоуп,
-        /// чтобы пережить переход в лупанарий.
+        /// Мета-слой боя. RunState и каталоги приходят из корневого
+        /// скоупа — здесь только то, что живёт ровно один бой.
         /// </summary>
         private static void RegisterMeta(
             IContainerBuilder builder)
         {
-            builder.Register<RunState>(
-                Lifetime.Scoped);
-
             builder.Register<UpgradeDrafter>(
                 Lifetime.Scoped);
 
-            builder.Register<IUnitModifierSource, RunModifierSource>(
+            // Источники модификаторов регистрируются конкретными типами,
+            // а наружу отдаётся composite: резолвер статов знает только
+            // про интерфейс и не в курсе, сколько слагаемых внутри.
+            builder.Register<RunModifierSource>(
+                Lifetime.Scoped);
+
+            builder.Register<FormationModifierSource>(
+                Lifetime.Scoped);
+
+            builder.Register<LupanariumModifierSource>(
+                Lifetime.Scoped);
+
+            builder.Register<IUnitModifierSource, CompositeUnitModifierSource>(
                 Lifetime.Scoped);
         }
 
@@ -210,18 +214,5 @@ namespace Code.Gameplay
 #endif
         }
 
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (_runConfig == null)
-                Debug.LogWarning("Scope: не назначен RunConfig.", this);
-
-            if (_waveCatalog == null)
-                Debug.LogWarning("Scope: не назначен WaveCatalog.", this);
-
-            if (_upgradeCatalog == null)
-                Debug.LogWarning("Scope: не назначен UpgradeCatalog.", this);
-        }
-#endif
     }
 }

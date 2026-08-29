@@ -2079,9 +2079,6 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  _runConfig: {fileID: 11400000, guid: 463a54506b274ee469f265bfbdd76ba9, type: 2}
-  _waveCatalog: {fileID: 11400000, guid: b2b2f40e9b57cc74fb2fb19b2056f9aa, type: 2}
-  _upgradeCatalog: {fileID: 11400000, guid: 2afeed761f077e443b92f07f9a9b7897, type: 2}
 --- !u!4 &1650444758
 Transform:
   m_ObjectHideFlags: 0

@@ -12,6 +12,9 @@ namespace Code.Gameplay
         private readonly UnitDeathBuffer _deathBuffer;
         private readonly DeadViewQueue _deadViewQueue;
 
+        private readonly FormationRegistry _formationRegistry;
+
+        private readonly FormationSystem _formationSystem;
         private readonly TargetingSystem _targetingSystem;
         private readonly MovementSystem _movementSystem;
         private readonly SeparationSystem _separationSystem;
@@ -35,6 +38,8 @@ namespace Code.Gameplay
             DamageBuffer damageBuffer,
             UnitDeathBuffer deathBuffer,
             DeadViewQueue deadViewQueue,
+            FormationRegistry formationRegistry,
+            FormationSystem formationSystem,
             TargetingSystem targetingSystem,
             MovementSystem movementSystem,
             SeparationSystem separationSystem,
@@ -58,6 +63,12 @@ namespace Code.Gameplay
 
             _deadViewQueue = deadViewQueue ??
                 throw new ArgumentNullException(nameof(deadViewQueue));
+
+            _formationRegistry = formationRegistry ??
+                throw new ArgumentNullException(nameof(formationRegistry));
+
+            _formationSystem = formationSystem ??
+                throw new ArgumentNullException(nameof(formationSystem));
 
             _targetingSystem = targetingSystem ??
                 throw new ArgumentNullException(nameof(targetingSystem));
@@ -110,6 +121,9 @@ namespace Code.Gameplay
 
             PrepareUnitsForTick(deltaTime);
 
+            // Первым: движет якоря строёв, на которые опирается движение.
+            _formationSystem.Tick(deltaTime);
+
             _targetingSystem.Tick();
             _movementSystem.Tick(deltaTime);
 
@@ -148,6 +162,7 @@ namespace Code.Gameplay
             // нумерацию юнитов заново с нуля, и оставшийся в очереди
             // старый id снял бы вью у нового юнита.
             _deadViewQueue.Clear();
+            _formationRegistry.Clear();
 
             _targetingSystem.Reset();
             _victorySystem.Reset();

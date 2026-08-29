@@ -40,6 +40,8 @@ namespace Code.Gameplay
         {
             _hudView.FightRequested += OnFightRequested;
             _hudView.RestartRequested += OnRestartRequested;
+            _hudView.FormationCycleRequested += OnFormationCycleRequested;
+            _hudView.ReturnToLupanariumRequested += OnReturnRequested;
 
             _rewardView.UpgradeSelected += OnUpgradeSelected;
 
@@ -55,6 +57,8 @@ namespace Code.Gameplay
         {
             _hudView.FightRequested -= OnFightRequested;
             _hudView.RestartRequested -= OnRestartRequested;
+            _hudView.FormationCycleRequested -= OnFormationCycleRequested;
+            _hudView.ReturnToLupanariumRequested -= OnReturnRequested;
 
             _rewardView.UpgradeSelected -= OnUpgradeSelected;
 
@@ -70,6 +74,16 @@ namespace Code.Gameplay
         private void OnRestartRequested()
         {
             _flowController.StartRun();
+        }
+
+        private void OnReturnRequested()
+        {
+            _flowController.ReturnToLupanarium();
+        }
+
+        private void OnFormationCycleRequested(int direction)
+        {
+            _flowController.CycleFormation(direction);
         }
 
         private void OnUpgradeSelected(int index)
@@ -102,6 +116,13 @@ namespace Code.Gameplay
                 _runState.WaveNumber,
                 _runState.Gold,
                 _runState.TotalUnitCount);
+
+            FormationConfig formation = _runState.SelectedFormation;
+
+            _hudView.SetFormation(
+                formation != null
+                    ? formation.DisplayName
+                    : null);
         }
     }
 }

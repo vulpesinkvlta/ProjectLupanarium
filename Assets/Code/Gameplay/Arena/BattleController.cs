@@ -56,19 +56,23 @@ namespace Code.Gameplay
             _unitSpawner.ClearAll();
             _simulation.Reset();
 
-            // Между волнами игрок мог взять улучшение. Модификаторы
-            // не входят в ключ кэша дефиниций, поэтому сбрасывать его
-            // обязаны мы — сам он устаревание не заметит.
+            // Между волнами игрок мог взять улучшение или сменить строй.
+            // Ни то, ни другое не входит в ключ кэша дефиниций, поэтому
+            // сбрасывать его обязаны мы — сам он устаревание не заметит.
             _definitionResolver.ClearCache();
 
-            CurrentWaveGoldReward =
+            WaveSetup setup =
                 _waveCatalog.GetWave(
                     _runState.WaveIndex,
                     _enemyBuffer);
 
+            CurrentWaveGoldReward = setup.GoldReward;
+
             _unitSpawner.SpawnSquads(
                 _runState.Squad,
-                _enemyBuffer);
+                _runState.SelectedFormation,
+                _enemyBuffer,
+                setup.Formation);
 
             _simulation.Start();
         }

@@ -20,6 +20,9 @@ namespace Code.Gameplay
         private readonly BattleController _battleController;
         private readonly RunState _runState;
         private readonly UpgradeDrafter _upgradeDrafter;
+        private readonly FormationCatalog _formationCatalog;
+        private readonly LupanariumState _lupanarium;
+        private readonly GameSceneLoader _sceneLoader;
 
         private readonly List<UpgradeConfig> _currentChoices =
             new(RewardChoiceCount);
@@ -39,7 +42,10 @@ namespace Code.Gameplay
             VictorySystem victorySystem,
             BattleController battleController,
             RunState runState,
-            UpgradeDrafter upgradeDrafter)
+            UpgradeDrafter upgradeDrafter,
+            FormationCatalog formationCatalog,
+            LupanariumState lupanarium,
+            GameSceneLoader sceneLoader)
         {
             _victorySystem = victorySystem ??
                 throw new ArgumentNullException(nameof(victorySystem));
@@ -52,13 +58,27 @@ namespace Code.Gameplay
 
             _upgradeDrafter = upgradeDrafter ??
                 throw new ArgumentNullException(nameof(upgradeDrafter));
+
+            _formationCatalog = formationCatalog ??
+                throw new ArgumentNullException(nameof(formationCatalog));
+
+            _lupanarium = lupanarium ??
+                throw new ArgumentNullException(nameof(lupanarium));
+
+            _sceneLoader = sceneLoader ??
+                throw new ArgumentNullException(nameof(sceneLoader));
         }
 
         public void Start()
         {
             _victorySystem.BattleCompleted += OnBattleCompleted;
 
-            StartRun();
+            // Забег обнуляет LupanariumController перед уходом на арену.
+            // Здесь сбрасывать нечего: RunState живёт в корневом скоупе
+            // и уже содержит отряд, с которым игрок вышел из школы.
+            _battleController.ClearArena();
+
+            SetState(BattleFlowState.Preparation);
         }
 
         public void Dispose()
@@ -66,7 +86,22 @@ namespace Code.Gameplay
             _victorySystem.BattleCompleted -= OnBattleCompleted;
         }
 
-        /// <summary>Новый забег с нуля.</summary>
+        /// <summary>
+        /// Возврат в школу. Заработанное золото уже конвертировано
+        /// в денарии при поражении.
+        /// </summary>
+        public void ReturnToLupanarium()
+        {
+            if (State != BattleFlowState.Defeat)
+                return;
+
+            // Если сцены школы ещё нет в билде, не запираем игрока
+            // на экране поражения — перезапускаем забег на месте.
+            if (!_sceneLoader.TryLoad(GameScene.Base))
+                StartRun();
+        }
+
+        /// <summary>Новый забег с нуля, не покидая арену.</summary>
         public void StartRun()
         {
             _runState.Reset();
@@ -84,6 +119,28 @@ namespace Code.Gameplay
             _battleController.StartWave();
 
             SetState(BattleFlowState.Fighting);
+        }
+
+        /// <summary>
+        /// Листает строй. Разрешено только в подготовке: менять строй
+        /// посреди боя нельзя — статы юнитов уже посчитаны и запечены.
+        /// </summary>
+        public void CycleFormation(int direction)
+        {
+            if (State != BattleFlowState.Preparation)
+                return;
+
+            FormationConfig next = _formationCatalog.GetNext(
+                _runState.SelectedFormation,
+                direction);
+
+            if (next == _runState.SelectedFormation)
+                return;
+
+            _runState.SelectFormation(next);
+
+            // Состояние не поменялось, но UI должен перерисоваться.
+            StateChanged?.Invoke(State);
         }
 
         /// <summary>Игрок выбрал карточку улучшения.</summary>
@@ -138,7 +195,7 @@ namespace Code.Gameplay
                 // такое же поражение, как и победа врага.
                 case BattleResult.EnemyVictory:
                 case BattleResult.Draw:
-                    SetState(BattleFlowState.Defeat);
+                    HandleDefeat();
                     break;
 
                 default:
@@ -147,6 +204,18 @@ namespace Code.Gameplay
                         result,
                         "Неизвестный исход боя.");
             }
+        }
+
+        /// <summary>
+        /// Забег окончен. Золото забега превращается в денарии школы —
+        /// это единственный способ получить постоянный прогресс, поэтому
+        /// проигранный забег всё равно продвигает игрока вперёд.
+        /// </summary>
+        private void HandleDefeat()
+        {
+            _lupanarium.AddDenarii(_runState.Gold);
+
+            SetState(BattleFlowState.Defeat);
         }
 
         private void HandleVictory()

@@ -26,6 +26,9 @@ namespace Code.Gameplay
         public int WaveIndex { get; private set; }
         public int Gold { get; private set; }
 
+        /// <summary>Строй, которым игрок выйдет в следующий бой.</summary>
+        public FormationConfig SelectedFormation { get; private set; }
+
         public IReadOnlyList<SquadEntry> Squad => _squad;
         public IReadOnlyList<UpgradeConfig> AcquiredUpgrades => _acquiredUpgrades;
 
@@ -58,6 +61,8 @@ namespace Code.Gameplay
             WaveIndex = 0;
             Gold = _config.StartingGold;
 
+            SelectedFormation = _config.DefaultFormation;
+
             _acquiredUpgrades.Clear();
             _squad.Clear();
 
@@ -74,6 +79,11 @@ namespace Code.Gameplay
                 // писался бы прямо в ассет RunConfig и пережил бы Play Mode.
                 _squad.Add(entry.Clone());
             }
+        }
+
+        public void SelectFormation(FormationConfig formation)
+        {
+            SelectedFormation = formation;
         }
 
         public void AdvanceWave()

@@ -34,6 +34,16 @@ namespace Code.Gameplay
         public string ConfigId { get; }
         public UnitClassId ClassId { get; }
 
+        /// <summary>Место бойца в строю, в локальных координатах формации.</summary>
+        public Vector2 SlotOffset { get; private set; }
+
+        /// <summary>
+        /// Боец ещё держит строй. Сбрасывается навсегда при первом контакте:
+        /// возвращаться в строй после схватки юниты не должны, иначе они
+        /// начнут ходить туда-сюда между слотом и врагом.
+        /// </summary>
+        public bool HoldsFormation { get; private set; }
+
         public float HealthNormalized =>
             Stats.MaxHealth <= 0f
                 ? 0f
@@ -67,6 +77,20 @@ namespace Code.Gameplay
             RemainingTargetRefreshTime = 0f;
 
             State = UnitState.Idle;
+
+            SlotOffset = Vector2.zero;
+            HoldsFormation = false;
+        }
+
+        public void AssignFormationSlot(Vector2 slotOffset)
+        {
+            SlotOffset = slotOffset;
+            HoldsFormation = true;
+        }
+
+        public void BreakFormation()
+        {
+            HoldsFormation = false;
         }
 
         public void BeginSimulationTick(float deltaTime)
@@ -167,6 +191,8 @@ namespace Code.Gameplay
             CurrentHealth = 0f;
             Target = null;
             State = UnitState.Dead;
+
+            HoldsFormation = false;
         }
     }
 }
