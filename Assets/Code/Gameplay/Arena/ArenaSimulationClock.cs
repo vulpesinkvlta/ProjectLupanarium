@@ -82,8 +82,12 @@ namespace Code.Gameplay
 
             InterpolationAlpha =
                 Mathf.Clamp01(_accumulator / TickInterval);
+            // Визуальные эффекты идут по тому же времени, что и симуляция:
+            // на ускоренной перемотке угасание трупов ускоряется вместе
+            // с боем, а не тянется в реальном темпе.
             _viewSynchronizer.UpdateViews(
-                InterpolationAlpha);
+                InterpolationAlpha,
+                frameDelta);
 
             ReportSuccessfulSimulationStart();
         }

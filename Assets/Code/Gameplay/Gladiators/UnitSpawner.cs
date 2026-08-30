@@ -20,6 +20,7 @@ namespace Code.Gameplay
         private readonly UnitDefinitionResolver _definitionResolver;
         private readonly FormationRegistry _formationRegistry;
         private readonly FormationSolver _formationSolver;
+        private readonly UnitViewSynchronizer _viewSynchronizer;
 
         private readonly List<UnitView> _viewReleaseBuffer =
             new(InitialViewBufferCapacity);
@@ -41,7 +42,8 @@ namespace Code.Gameplay
             BattleHudDirtyTracker hudDirtyTracker,
             UnitDefinitionResolver definitionResolver,
             FormationRegistry formationRegistry,
-            FormationSolver formationSolver)
+            FormationSolver formationSolver,
+            UnitViewSynchronizer viewSynchronizer)
         {
             _context = context ??
                 throw new ArgumentNullException(nameof(context));
@@ -67,6 +69,10 @@ namespace Code.Gameplay
             _formationSolver = formationSolver ??
                 throw new ArgumentNullException(
                     nameof(formationSolver));
+
+            _viewSynchronizer = viewSynchronizer ??
+                throw new ArgumentNullException(
+                    nameof(viewSynchronizer));
         }
 
         public void SpawnSquads(
@@ -106,6 +112,10 @@ namespace Code.Gameplay
             // Идём от реестра вью, а не от ArenaContext: погибшие юниты
             // из контекста уже удалены UnitCleanupSystem, но их вью могут
             // ещё ждать возврата в пул.
+            // Догорающие трупы прошлой волны тоже в пул: иначе они
+            // доигрывали бы угасание поверх новой расстановки.
+            _viewSynchronizer.ReleaseAllDying();
+
             _viewRegistry.DrainInto(_viewReleaseBuffer);
 
             for (var i = 0; i < _viewReleaseBuffer.Count; i++)

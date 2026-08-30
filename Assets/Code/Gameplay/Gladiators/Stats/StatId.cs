@@ -12,6 +12,13 @@
         EngagementCapacity = 7,  
         Armor = 8,
         CritChance = 9,
-        Count = 10
+
+        /// <summary>Замах: сколько секунд боец заносит оружие до удара.</summary>
+        AttackWindup = 10,
+
+        /// <summary>Во сколько раз критический удар сильнее обычного.</summary>
+        CritMultiplier = 11,
+
+        Count = 12
     }
 }

@@ -261,6 +261,16 @@ namespace Code.Gameplay
                 "Damage applied",
                 _damageSystem.DamageAppliedLastTick.ToString("F0"));
 
+            AppendLine(
+                "Windups started",
+                _attackSystem.WindupsStartedLastTick);
+
+            AppendLine("Crits", _attackSystem.CritsLastTick);
+
+            AppendLine(
+                "Damage blocked",
+                _damageSystem.DamageBlockedLastTick.ToString("F0"));
+
             AppendLine("Deaths", _deathSystem.DeathsLastTick);
         }
 

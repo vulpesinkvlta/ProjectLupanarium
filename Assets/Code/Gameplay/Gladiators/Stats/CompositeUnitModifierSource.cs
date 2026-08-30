@@ -14,11 +14,13 @@ namespace Code.Gameplay
         private readonly RunModifierSource _runModifiers;
         private readonly FormationModifierSource _formationModifiers;
         private readonly LupanariumModifierSource _lupanariumModifiers;
+        private readonly EquipmentModifierSource _equipmentModifiers;
 
         public CompositeUnitModifierSource(
             RunModifierSource runModifiers,
             FormationModifierSource formationModifiers,
-            LupanariumModifierSource lupanariumModifiers)
+            LupanariumModifierSource lupanariumModifiers,
+            EquipmentModifierSource equipmentModifiers)
         {
             _runModifiers = runModifiers ??
                 throw new ArgumentNullException(nameof(runModifiers));
@@ -30,6 +32,10 @@ namespace Code.Gameplay
             _lupanariumModifiers = lupanariumModifiers ??
                 throw new ArgumentNullException(
                     nameof(lupanariumModifiers));
+
+            _equipmentModifiers = equipmentModifiers ??
+                throw new ArgumentNullException(
+                    nameof(equipmentModifiers));
         }
 
         public void Collect(
@@ -40,6 +46,7 @@ namespace Code.Gameplay
             _runModifiers.Collect(config, team, destination);
             _formationModifiers.Collect(config, team, destination);
             _lupanariumModifiers.Collect(config, team, destination);
+            _equipmentModifiers.Collect(config, team, destination);
         }
     }
 }

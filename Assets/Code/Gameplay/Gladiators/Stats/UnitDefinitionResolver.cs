@@ -50,7 +50,9 @@ namespace Code.Gameplay
             definition = new UnitDefinition(
                 config.Id,
                 config.ClassId,
-                stats);
+                stats,
+                config.GoldReward,
+                config.Ability);
 
             _cache[(config, team)] = definition;
 

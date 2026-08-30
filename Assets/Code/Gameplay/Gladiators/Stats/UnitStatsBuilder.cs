@@ -57,7 +57,9 @@ namespace Code.Gameplay
                     radius: _values[(int)StatId.Radius],
                     engagementCapacity: Mathf.RoundToInt(_values[(int)StatId.EngagementCapacity]),
                     armor: _values[(int)StatId.Armor],
-                    critChance: _values[(int)StatId.CritChance]);
+                    critChance: _values[(int)StatId.CritChance],
+                    attackWindup: _values[(int)StatId.AttackWindup],
+                    critMultiplier: _values[(int)StatId.CritMultiplier]);
         }
     }
 }

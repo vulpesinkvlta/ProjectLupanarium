@@ -80,6 +80,14 @@ namespace Code.Gameplay
                 if (!unit.IsAlive)
                     continue;
 
+                // Оглушённый стоит на месте: позиция уже записана выше,
+                // остаётся только показать состояние.
+                if (unit.IsStunned)
+                {
+                    _nextStates[i] = UnitState.Stunned;
+                    continue;
+                }
+
                 UnitRuntime target = unit.Target;
 
                 bool hasValidTarget = IsTargetValid(unit, target);
@@ -154,7 +162,7 @@ namespace Code.Gameplay
             float distance = Mathf.Sqrt(sqrDistance);
 
             float movementDistance = Mathf.Min(
-                unit.Stats.MoveSpeed * deltaTime,
+                unit.EffectiveMoveSpeed * deltaTime,
                 distance);
 
             _nextPositions[index] =
@@ -233,7 +241,7 @@ namespace Code.Gameplay
                 distance - attackRange;
 
             float maximumMovement =
-                unit.Stats.MoveSpeed * deltaTime;
+                unit.EffectiveMoveSpeed * deltaTime;
 
             float movementDistance =
                 Mathf.Min(

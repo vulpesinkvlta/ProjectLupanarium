@@ -32,6 +32,20 @@ namespace Code.Gameplay
         }
 
         /// <summary>
+        /// Одна кнопка на предмет: если он не куплен — покупаем,
+        /// если куплен, но не надет — надеваем.
+        /// </summary>
+        public bool TryBuyOrEquip(ItemConfig item)
+        {
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
+
+            return _lupanarium.IsOwned(item)
+                ? _lupanarium.TryEquip(item)
+                : _lupanarium.TryBuy(item);
+        }
+
+        /// <summary>
         /// Начинает новый забег и уходит на арену.
         ///
         /// Сброс забега происходит здесь, а не в BattleFlowController:

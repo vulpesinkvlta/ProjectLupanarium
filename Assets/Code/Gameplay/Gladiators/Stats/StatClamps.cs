@@ -24,6 +24,12 @@ namespace Code.Gameplay
                     return Math.Clamp(value, 1f, float.MaxValue);
                 case StatId.Armor:
                     return Math.Clamp(value, 0f, float.MaxValue);
+                case StatId.AttackWindup:
+                    // Ноль допустим: удар без замаха — прежнее поведение.
+                    return Math.Max(value, 0f);
+                case StatId.CritMultiplier:
+                    // Ниже единицы крит бил бы слабее обычного удара.
+                    return Math.Max(value, 1f);
                 case StatId.CritChance:
                     return Math.Clamp(value, 0f, 1f);
                 default:

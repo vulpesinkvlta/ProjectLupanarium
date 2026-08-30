@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.UpgradeCatalog
   _upgrades:
   - {fileID: 11400000, guid: a0ce2632832bc1f4d8fa7ec07c3f7d82, type: 2}
+  - {fileID: 11400000, guid: 84bc0627d441a734a8938d1a4edd1353, type: 2}
+  - {fileID: 11400000, guid: a72ee0e3222b3d349a928f49d7d7536b, type: 2}

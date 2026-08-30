@@ -29,6 +29,13 @@ namespace Code.Gameplay
         [SerializeField, Min(0.01f)]
         private float _attackCooldown = 1f;
 
+        [Tooltip("Секунды замаха до удара. Ноль — бьёт мгновенно.")]
+        [SerializeField, Min(0f)]
+        private float _attackWindup = 0.25f;
+
+        [SerializeField, Min(1f)]
+        private float _critMultiplier = 2f;
+
         [Header("Body")]
         [SerializeField, Min(0.05f)]
         private float _radius = 0.35f;
@@ -39,7 +46,26 @@ namespace Code.Gameplay
         [Header("Defence")]
         [SerializeField, Min(0f)] private float _armor = 0f;
         [SerializeField, Range(0f, 1f)] private float _critChance = 0f;
+        [Header("Ability")]
+        [Tooltip("Необязательно: способность класса.")]
+        [SerializeField] private AbilityConfig _ability;
+
+        [Header("Reward")]
+        [Tooltip("Сколько золота даёт убийство этого юнита.")]
+        [SerializeField, Min(0)] private int _goldReward = 1;
+
         public string Id => _id;
+        public int GoldReward => _goldReward;
+
+        /// <summary>
+        /// Способность в виде, не зависящем от ассета. Пустая, если
+        /// способность не назначена — симуляция обрабатывает оба случая
+        /// одинаково и не проверяет ссылки на null.
+        /// </summary>
+        public AbilitySpec Ability =>
+            _ability != null
+                ? _ability.Spec
+                : AbilitySpec.None;
         public UnitClassId ClassId => _classId;
 
         public void WriteBaseStats(float[] destination)
@@ -53,7 +79,9 @@ namespace Code.Gameplay
             destination[(int)StatId.Radius] = _radius;
             destination[(int)StatId.EngagementCapacity] = _engagementCapacity;
             destination[(int)StatId.Armor] = _armor;                
-            destination[(int)StatId.CritChance] = _critChance;              
+            destination[(int)StatId.CritChance] = _critChance;
+            destination[(int)StatId.AttackWindup] = _attackWindup;
+            destination[(int)StatId.CritMultiplier] = _critMultiplier;              
         }
 
         private void Validate()

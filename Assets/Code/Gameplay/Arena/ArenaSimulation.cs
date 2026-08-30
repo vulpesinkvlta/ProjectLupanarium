@@ -11,6 +11,7 @@ namespace Code.Gameplay
         private readonly DamageBuffer _damageBuffer;
         private readonly UnitDeathBuffer _deathBuffer;
         private readonly DeadViewQueue _deadViewQueue;
+        private readonly BattleFeedbackQueue _feedbackQueue;
 
         private readonly FormationRegistry _formationRegistry;
 
@@ -18,6 +19,7 @@ namespace Code.Gameplay
         private readonly TargetingSystem _targetingSystem;
         private readonly MovementSystem _movementSystem;
         private readonly SeparationSystem _separationSystem;
+        private readonly AbilitySystem _abilitySystem;
         private readonly AttackSystem _attackSystem;
         private readonly DamageSystem _damageSystem;
         private readonly DeathSystem _deathSystem;
@@ -38,11 +40,13 @@ namespace Code.Gameplay
             DamageBuffer damageBuffer,
             UnitDeathBuffer deathBuffer,
             DeadViewQueue deadViewQueue,
+            BattleFeedbackQueue feedbackQueue,
             FormationRegistry formationRegistry,
             FormationSystem formationSystem,
             TargetingSystem targetingSystem,
             MovementSystem movementSystem,
             SeparationSystem separationSystem,
+            AbilitySystem abilitySystem,
             AttackSystem attackSystem,
             DamageSystem damageSystem,
             DeathSystem deathSystem,
@@ -64,6 +68,9 @@ namespace Code.Gameplay
             _deadViewQueue = deadViewQueue ??
                 throw new ArgumentNullException(nameof(deadViewQueue));
 
+            _feedbackQueue = feedbackQueue ??
+                throw new ArgumentNullException(nameof(feedbackQueue));
+
             _formationRegistry = formationRegistry ??
                 throw new ArgumentNullException(nameof(formationRegistry));
 
@@ -78,6 +85,9 @@ namespace Code.Gameplay
 
             _separationSystem = separationSystem ??
                 throw new ArgumentNullException(nameof(separationSystem));
+
+            _abilitySystem = abilitySystem ??
+                throw new ArgumentNullException(nameof(abilitySystem));
 
             _attackSystem = attackSystem ??
                 throw new ArgumentNullException(nameof(attackSystem));
@@ -132,7 +142,11 @@ namespace Code.Gameplay
 
             _separationSystem.Tick(deltaTime);
 
-            _attackSystem.Tick();
+            // Способности до атак: оглушение, наложенное в этом тике,
+            // должно сорвать замах цели уже сейчас, а не через тик.
+            _abilitySystem.Tick();
+
+            _attackSystem.Tick(deltaTime);
             _damageSystem.Tick();
             _deathSystem.Tick();
             _victorySystem.Tick();
@@ -162,6 +176,7 @@ namespace Code.Gameplay
             // нумерацию юнитов заново с нуля, и оставшийся в очереди
             // старый id снял бы вью у нового юнита.
             _deadViewQueue.Clear();
+            _feedbackQueue.Clear();
             _formationRegistry.Clear();
 
             _targetingSystem.Reset();

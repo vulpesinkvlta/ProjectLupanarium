@@ -21,3 +21,6 @@ MonoBehaviour:
   _attackCooldown: 0.95
   _radius: 0.4
   _engagementCapacity: 5
+  _armor: 0
+  _critChance: 0
+  _goldReward: 5

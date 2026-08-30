@@ -92,10 +92,17 @@ namespace Code.Gameplay
         /// </summary>
         public void ReturnToLupanarium()
         {
-            if (State != BattleFlowState.Defeat)
-                return;
+            // Уйти в школу можно и с экрана поражения, и из подготовки
+            // (бросить забег). Запрещён только выход посреди боя.
+            if (State == BattleFlowState.Fighting)
+            {
+                Debug.LogWarning(
+                    "[BattleFlow] Уход в школу посреди боя запрещён.");
 
-            // Если сцены школы ещё нет в билде, не запираем игрока
+                return;
+            }
+
+            // Если сцены школы нет в билде, не запираем игрока
             // на экране поражения — перезапускаем забег на месте.
             if (!_sceneLoader.TryLoad(GameScene.Base))
                 StartRun();

@@ -7,6 +7,8 @@ namespace Code.Gameplay
 {
     public sealed class UnitViewSynchronizer
     {
+        private const int InitialDyingCapacity = 64;
+
         private static readonly ProfilerMarker UpdateMarker =
             new("Arena.ViewSynchronization");
 
@@ -14,6 +16,14 @@ namespace Code.Gameplay
         private readonly UnitViewRegistry _viewRegistry;
         private readonly UnitViewPool _viewPool;
         private readonly DeadViewQueue _deadViewQueue;
+
+        // Вью погибших не возвращаются в пул сразу: им дают доиграть
+        // угасание. Список короткий — столько, сколько успело умереть
+        // за полсекунды.
+        private readonly List<DyingView> _dyingViews =
+            new(InitialDyingCapacity);
+
+        public int DyingViewCount => _dyingViews.Count;
 
         public UnitViewSynchronizer(
             ArenaContext context,
@@ -35,11 +45,12 @@ namespace Code.Gameplay
                     nameof(deadViewQueue));
         }
 
-        public void UpdateViews(float interpolationAlpha)
+        public void UpdateViews(float interpolationAlpha, float deltaTime)
         {
             using (UpdateMarker.Auto())
             {
-                ReleaseDeadViews();
+                StartDeathAnimations();
+                TickDyingViews(deltaTime);
 
                 float alpha =
                     Mathf.Clamp01(interpolationAlpha);
@@ -66,13 +77,26 @@ namespace Code.Gameplay
                             unit.Position,
                             alpha);
 
-                    view.SetVisualPosition(
-                        visualPosition);
+                    view.SetVisualPosition(visualPosition);
+                    view.TickVisuals(deltaTime);
                 }
             }
         }
 
-        private void ReleaseDeadViews()
+        /// <summary>
+        /// Немедленно возвращает все догорающие вью в пул. Нужен при
+        /// зачистке арены: иначе трупы прошлой волны доигрывали бы
+        /// угасание поверх новой.
+        /// </summary>
+        public void ReleaseAllDying()
+        {
+            for (var i = 0; i < _dyingViews.Count; i++)
+                _viewPool.Release(_dyingViews[i].View);
+
+            _dyingViews.Clear();
+        }
+
+        private void StartDeathAnimations()
         {
             IReadOnlyList<int> deadUnitIds =
                 _deadViewQueue.UnitIds;
@@ -86,10 +110,49 @@ namespace Code.Gameplay
                     continue;
                 }
 
-                _viewPool.Release(view);
+                view.PlayDeath();
+
+                _dyingViews.Add(
+                    new DyingView(view, view.DeathDuration));
             }
 
             _deadViewQueue.Clear();
+        }
+
+        private void TickDyingViews(float deltaTime)
+        {
+            for (var i = _dyingViews.Count - 1; i >= 0; i--)
+            {
+                DyingView dying = _dyingViews[i];
+
+                dying.Remaining -= deltaTime;
+                dying.View.TickVisuals(deltaTime);
+
+                if (dying.Remaining > 0f)
+                {
+                    _dyingViews[i] = dying;
+                    continue;
+                }
+
+                _viewPool.Release(dying.View);
+
+                // Порядок догорающих вью не важен, поэтому удаляем
+                // подстановкой последнего вместо сдвига хвоста.
+                _dyingViews[i] = _dyingViews[^1];
+                _dyingViews.RemoveAt(_dyingViews.Count - 1);
+            }
+        }
+
+        private struct DyingView
+        {
+            public readonly UnitView View;
+            public float Remaining;
+
+            public DyingView(UnitView view, float remaining)
+            {
+                View = view;
+                Remaining = remaining;
+            }
         }
     }
 }

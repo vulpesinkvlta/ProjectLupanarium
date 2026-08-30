@@ -14,12 +14,27 @@ namespace Code.Gameplay
         [SerializeField] private Color _playerColor = Color.cyan;
         [SerializeField] private Color _enemyColor = Color.red;
 
+        [Header("Hit flash")]
+        [SerializeField] private Color _hitFlashColor = Color.white;
+        [SerializeField, Min(0.01f)] private float _hitFlashDuration = 0.12f;
+
+        [Header("Death")]
+        [SerializeField, Min(0.01f)] private float _deathDuration = 0.45f;
+
         [Header("Sorting")]
         [SerializeField] private int _baseSortingOrder;
+
+        private Color _baseColor;
+        private float _remainingFlash;
+        private float _remainingDeath;
+        private bool _isDying;
 
         public UnitRuntime Runtime { get; private set; }
 
         public bool IsBound => Runtime != null;
+
+        /// <summary>Сколько секунд занимает анимация гибели.</summary>
+        public float DeathDuration => _deathDuration;
 
         public void Bind(UnitRuntime runtime)
         {
@@ -29,7 +44,7 @@ namespace Code.Gameplay
             gameObject.name =
                 $"UnitView_{runtime.Id}_{runtime.Team}";
 
-            _spriteRenderer.color = runtime.Team switch
+            _baseColor = runtime.Team switch
             {
                 TeamId.Player => _playerColor,
                 TeamId.Enemy => _enemyColor,
@@ -40,12 +55,27 @@ namespace Code.Gameplay
                     "Unsupported team.")
             };
 
+            _isDying = false;
+            _remainingFlash = 0f;
+            _remainingDeath = 0f;
+
+            _spriteRenderer.color = _baseColor;
+
+            transform.localScale = Vector3.one;
+
             SetVisualPosition(runtime.Position);
         }
 
         public void Unbind()
         {
             Runtime = null;
+
+            _isDying = false;
+            _remainingFlash = 0f;
+            _remainingDeath = 0f;
+
+            transform.localScale = Vector3.one;
+
             gameObject.name = nameof(UnitView);
         }
 
@@ -59,6 +89,74 @@ namespace Code.Gameplay
             _spriteRenderer.sortingOrder =
                 _baseSortingOrder -
                 Mathf.RoundToInt(position.y * SortingPrecision);
+        }
+
+        /// <summary>Короткая вспышка при получении удара.</summary>
+        public void Flash()
+        {
+            if (_isDying)
+                return;
+
+            _remainingFlash = _hitFlashDuration;
+        }
+
+        /// <summary>
+        /// Запускает угасание. Вью остаётся живым ещё DeathDuration секунд,
+        /// после чего синхронизатор вернёт его в пул.
+        /// </summary>
+        public void PlayDeath()
+        {
+            _isDying = true;
+            _remainingDeath = _deathDuration;
+        }
+
+        /// <summary>
+        /// Продвигает визуальные эффекты. Вызывается синхронизатором раз
+        /// в кадр, а не в Update: пул держит сотни отключённых объектов,
+        /// и Update на каждом обходился бы дороже одного цикла.
+        /// </summary>
+        public void TickVisuals(float deltaTime)
+        {
+            if (_isDying)
+            {
+                TickDeath(deltaTime);
+                return;
+            }
+
+            if (_remainingFlash <= 0f)
+                return;
+
+            _remainingFlash = Mathf.Max(0f, _remainingFlash - deltaTime);
+
+            float t = _hitFlashDuration <= 0f
+                ? 0f
+                : _remainingFlash / _hitFlashDuration;
+
+            _spriteRenderer.color = Color.Lerp(
+                _baseColor,
+                _hitFlashColor,
+                t);
+        }
+
+        private void TickDeath(float deltaTime)
+        {
+            _remainingDeath = Mathf.Max(0f, _remainingDeath - deltaTime);
+
+            float t = _deathDuration <= 0f
+                ? 0f
+                : _remainingDeath / _deathDuration;
+
+            Color color = _baseColor;
+            color.a = t;
+
+            _spriteRenderer.color = color;
+
+            // Оседает и слегка расплющивается — читается как падение
+            // даже без покадровой анимации.
+            transform.localScale = new Vector3(
+                1f + (1f - t) * 0.2f,
+                Mathf.Lerp(0.4f, 1f, t),
+                1f);
         }
 
 #if UNITY_EDITOR

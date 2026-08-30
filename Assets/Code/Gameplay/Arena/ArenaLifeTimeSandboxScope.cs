@@ -44,6 +44,12 @@ namespace Code.Gameplay
 
             builder.Register<TargetEngagementRegistry>(
                 Lifetime.Scoped);
+
+            builder.Register<BattleFeedbackQueue>(
+                Lifetime.Scoped);
+
+            builder.Register<BattleRandom>(
+                Lifetime.Scoped);
         }
 
         private static void RegisterSpatialServices(
@@ -63,6 +69,9 @@ namespace Code.Gameplay
                 Lifetime.Scoped);
 
             builder.Register<SeparationSystem>(
+                Lifetime.Scoped);
+
+            builder.Register<AbilitySystem>(
                 Lifetime.Scoped);
 
             builder.Register<AttackSystem>(
@@ -100,6 +109,9 @@ namespace Code.Gameplay
 
             builder
                 .RegisterComponentInHierarchy<RewardScreenView>();
+
+            builder
+                .RegisterComponentInHierarchy<BattleFeedbackView>();
         }
 
         private static void RegisterArenaData(
@@ -160,6 +172,9 @@ namespace Code.Gameplay
             builder.Register<LupanariumModifierSource>(
                 Lifetime.Scoped);
 
+            builder.Register<EquipmentModifierSource>(
+                Lifetime.Scoped);
+
             builder.Register<IUnitModifierSource, CompositeUnitModifierSource>(
                 Lifetime.Scoped);
         }
@@ -193,6 +208,14 @@ namespace Code.Gameplay
 
             builder
                 .RegisterEntryPoint<RunFlowPresenter>();
+
+            // Начисляет золото за убитых врагов.
+            builder
+                .RegisterEntryPoint<BattleRewardCollector>();
+
+            // Вычитывает очередь эффектов раз в кадр.
+            builder
+                .RegisterEntryPoint<BattleFeedbackPresenter>();
         }
 
         /// <summary>

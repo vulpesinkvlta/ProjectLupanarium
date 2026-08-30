@@ -95,6 +95,14 @@ namespace Code.Gameplay
 
             if (_returnToLupanariumButton != null)
                 _returnToLupanariumButton.onClick.AddListener(OnReturnClicked);
+            else
+            {
+                // Молчаливый null здесь стоил бы часа поисков: кнопка
+                // визуально есть, а нажатие никуда не приходит.
+                Debug.LogWarning(
+                    "[RunHudView] Кнопка возврата в школу не назначена.",
+                    this);
+            }
         }
 
         private void OnDestroy()

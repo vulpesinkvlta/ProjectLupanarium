@@ -27,6 +27,7 @@ namespace Code.Gameplay
 
         [Header("Lupanarium")]
         [SerializeField] private SchoolCatalog _schoolCatalog;
+        [SerializeField] private ItemCatalog _itemCatalog;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -42,6 +43,7 @@ namespace Code.Gameplay
             builder.RegisterInstance(_upgradeCatalog);
             builder.RegisterInstance(_formationCatalog);
             builder.RegisterInstance(_schoolCatalog);
+            builder.RegisterInstance(_itemCatalog);
         }
 
         private static void RegisterPersistentState(
@@ -62,6 +64,15 @@ namespace Code.Gameplay
 
             builder.Register<LupanariumController>(
                 Lifetime.Singleton);
+
+            builder.Register<ISaveStorage, PlayerPrefsSaveStorage>(
+                Lifetime.Singleton);
+
+            builder.Register<SaveService>(
+                Lifetime.Singleton);
+
+            // Загружает прогресс на старте и пишет его при изменениях.
+            builder.RegisterEntryPoint<SaveRunner>();
         }
 
 #if UNITY_EDITOR
@@ -72,6 +83,7 @@ namespace Code.Gameplay
             WarnIfMissing(_upgradeCatalog, nameof(UpgradeCatalog));
             WarnIfMissing(_formationCatalog, nameof(FormationCatalog));
             WarnIfMissing(_schoolCatalog, nameof(SchoolCatalog));
+            WarnIfMissing(_itemCatalog, nameof(ItemCatalog));
         }
 
         private void WarnIfMissing(Object asset, string label)

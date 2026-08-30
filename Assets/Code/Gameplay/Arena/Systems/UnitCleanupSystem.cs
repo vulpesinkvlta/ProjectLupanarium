@@ -20,6 +20,7 @@ namespace Code.Gameplay
         private readonly ArenaContext _context;
         private readonly UnitDeathBuffer _deathBuffer;
         private readonly DeadViewQueue _deadViewQueue;
+        private readonly BattleFeedbackQueue _feedback;
 
         /// <summary>
         /// Юнит погиб и уже исключён из симуляции.
@@ -33,7 +34,8 @@ namespace Code.Gameplay
         public UnitCleanupSystem(
             ArenaContext context,
             UnitDeathBuffer deathBuffer,
-            DeadViewQueue deadViewQueue)
+            DeadViewQueue deadViewQueue,
+            BattleFeedbackQueue feedback)
         {
             _context = context ??
                 throw new ArgumentNullException(nameof(context));
@@ -44,6 +46,9 @@ namespace Code.Gameplay
             _deadViewQueue = deadViewQueue ??
                 throw new ArgumentNullException(
                     nameof(deadViewQueue));
+
+            _feedback = feedback ??
+                throw new ArgumentNullException(nameof(feedback));
         }
 
         public void Tick()
@@ -61,6 +66,15 @@ namespace Code.Gameplay
                 for (var i = 0; i < deadUnits.Count; i++)
                 {
                     UnitRuntime unit = deadUnits[i];
+
+                    // Позицию берём до удаления из контекста — после
+                    // юнит уже нигде не числится, а эффекту смерти
+                    // нужно знать, где её проигрывать.
+                    _feedback.Push(
+                        BattleFeedbackKind.Death,
+                        unit.Id,
+                        unit.Position,
+                        0f);
 
                     _deadViewQueue.Enqueue(unit.Id);
                     _context.RemoveUnit(unit);

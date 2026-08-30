@@ -33,6 +33,8 @@ namespace Code.Gameplay
                 return false;
             }
 
+            Debug.Log($"[SceneLoader] Переход на сцену '{sceneName}'.");
+
             SceneManager.LoadScene(sceneName);
             return true;
         }

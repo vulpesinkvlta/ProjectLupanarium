@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3570554794360777056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8869107902821828136}
+  - component: {fileID: 9105893836778192561}
+  m_Layer: 0
+  m_Name: ProjectLifetimeScope
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8869107902821828136
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3570554794360777056}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 574.042, y: 429.074, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9105893836778192561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3570554794360777056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93c6fa20cd2043219ac621f413566c67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.ProjectLifetimeScope
+  parentReference:
+    TypeName: 
+  autoRun: 1
+  autoInjectGameObjects: []
+  _runConfig: {fileID: 11400000, guid: 463a54506b274ee469f265bfbdd76ba9, type: 2}
+  _waveCatalog: {fileID: 11400000, guid: b2b2f40e9b57cc74fb2fb19b2056f9aa, type: 2}
+  _upgradeCatalog: {fileID: 11400000, guid: 2afeed761f077e443b92f07f9a9b7897, type: 2}
+  _formationCatalog: {fileID: 11400000, guid: 2427d0a3b2c4899449380f990e1094c1, type: 2}
+  _schoolCatalog: {fileID: 11400000, guid: 2838a5adcbf7adf4a864eb6ce1595311, type: 2}
+  _itemCatalog: {fileID: 11400000, guid: 5789dca083bc6ef408c961c6b77590df, type: 2}

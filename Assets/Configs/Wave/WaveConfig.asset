@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.WaveConfig
   _enemies:
   - _config: {fileID: 11400000, guid: 8304b1c964533a746be39ee62545e5e6, type: 2}
-    _count: 10
-  _formation: {fileID: 11400000, guid: e6a7c3a4cdecff54fa7cc141dea65145, type: 2}
+    _count: 15
+  _formation: {fileID: 11400000, guid: 0105b7955aae3934f991a9bb272e82be, type: 2}
   _goldReward: 10

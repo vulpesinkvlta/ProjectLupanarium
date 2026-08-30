@@ -17,6 +17,12 @@ namespace Code.Gameplay
 
         public float CritChance { get; }
 
+        /// <summary>Секунды замаха до удара. Ноль — удар мгновенный.</summary>
+        public float AttackWindup { get; }
+
+        /// <summary>Множитель урона при критическом ударе.</summary>
+        public float CritMultiplier { get; }
+
         public UnitStats(
             float maxHealth,
             float moveSpeed,
@@ -26,7 +32,9 @@ namespace Code.Gameplay
             float radius,
             int engagementCapacity,
             float armor,
-            float critChance)
+            float critChance,
+            float attackWindup,
+            float critMultiplier)
         {
             if (maxHealth <= 0f)
             {
@@ -76,6 +84,18 @@ namespace Code.Gameplay
                     nameof(critChance));
             }
 
+            if (attackWindup < 0f)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(attackWindup));
+            }
+
+            if (critMultiplier < 1f)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(critMultiplier));
+            }
+
             MaxHealth = maxHealth;
             MoveSpeed = moveSpeed;
             AttackDamage = attackDamage;
@@ -85,6 +105,8 @@ namespace Code.Gameplay
             EngagementCapacity = engagementCapacity;
             Armor = armor;
             CritChance = critChance;
+            AttackWindup = attackWindup;
+            CritMultiplier = critMultiplier;
         }
     }
 }

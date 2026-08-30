@@ -8,11 +8,17 @@ namespace Code.Gameplay
         public string ConfigId { get; }
         public UnitClassId ClassId { get; }
         public UnitStats Stats { get; }
+        public int GoldReward { get; }
+
+        /// <summary>Способность класса. Может быть пустой.</summary>
+        public AbilitySpec Ability { get; }
 
         public UnitDefinition(
             string configId,
             UnitClassId classId,
-            UnitStats stats)
+            UnitStats stats,
+            int goldReward,
+            AbilitySpec ability)
         {
             if (string.IsNullOrWhiteSpace(configId))
             {
@@ -31,6 +37,8 @@ namespace Code.Gameplay
             ConfigId = configId;
             ClassId = classId;
             Stats = stats;
+            GoldReward = goldReward < 0 ? 0 : goldReward;
+            Ability = ability;
         }
     }
 }
