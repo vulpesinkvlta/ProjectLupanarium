@@ -18,11 +18,20 @@ namespace Code.Gameplay
         [Header("Formation")]
         [SerializeField] private FormationConfig _defaultFormation;
 
+        [Header("Rewards")]
+        [Tooltip("Сколько карточек улучшений предлагать после победы.")]
+        [SerializeField, Range(1, 5)] private int _rewardChoiceCount = 2;
+
+        [Tooltip("Сколько контрактов предлагать на выбор в раунде.")]
+        [SerializeField, Range(1, 4)] private int _contractChoiceCount = 3;
+
         [Header("Economy")]
         [SerializeField, Min(0)] private int _startingGold;
 
         public IReadOnlyList<SquadEntry> StartingSquad => _startingSquad;
         public int StartingGold => _startingGold;
+        public int RewardChoiceCount => _rewardChoiceCount;
+        public int ContractChoiceCount => _contractChoiceCount;
 
         public FormationConfig DefaultFormation => _defaultFormation;
 

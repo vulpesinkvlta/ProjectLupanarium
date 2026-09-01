@@ -21,6 +21,7 @@ namespace Code.Gameplay
         private readonly FormationRegistry _formationRegistry;
         private readonly FormationSolver _formationSolver;
         private readonly UnitViewSynchronizer _viewSynchronizer;
+        private readonly ArenaBounds _bounds;
 
         private readonly List<UnitView> _viewReleaseBuffer =
             new(InitialViewBufferCapacity);
@@ -43,7 +44,8 @@ namespace Code.Gameplay
             UnitDefinitionResolver definitionResolver,
             FormationRegistry formationRegistry,
             FormationSolver formationSolver,
-            UnitViewSynchronizer viewSynchronizer)
+            UnitViewSynchronizer viewSynchronizer,
+            ArenaBounds bounds)
         {
             _context = context ??
                 throw new ArgumentNullException(nameof(context));
@@ -73,6 +75,9 @@ namespace Code.Gameplay
             _viewSynchronizer = viewSynchronizer ??
                 throw new ArgumentNullException(
                     nameof(viewSynchronizer));
+
+            _bounds = bounds ??
+                throw new ArgumentNullException(nameof(bounds));
         }
 
         public void SpawnSquads(
@@ -245,6 +250,13 @@ namespace Code.Gameplay
 
             UnitDefinition definition =
                 _definitionResolver.Resolve(config, team);
+
+            // Строй может вынести слот за круг арены — например широкая
+            // фаланга на большом отряде. Вжимаем сразу при спавне, иначе
+            // на первом же тике бойцы заметно дёрнулись бы внутрь.
+            // Радиус берём из посчитанных статов, а не из конфига:
+            // модификаторы могли его изменить.
+            position = _bounds.Clamp(position, definition.Stats.Radius);
 
             UnitRuntime runtime = new(
                 id: unitId,

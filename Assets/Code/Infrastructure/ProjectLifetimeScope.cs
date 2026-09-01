@@ -19,7 +19,7 @@ namespace Code.Gameplay
     {
         [Header("Run")]
         [SerializeField] private RunConfig _runConfig;
-        [SerializeField] private WaveCatalog _waveCatalog;
+        [SerializeField] private ContractCatalog _contractCatalog;
         [SerializeField] private UpgradeCatalog _upgradeCatalog;
 
         [Header("Formations")]
@@ -28,6 +28,13 @@ namespace Code.Gameplay
         [Header("Lupanarium")]
         [SerializeField] private SchoolCatalog _schoolCatalog;
         [SerializeField] private ItemCatalog _itemCatalog;
+
+        [Header("Roster")]
+        [SerializeField] private RosterCatalog _rosterCatalog;
+
+        [Tooltip("Названия и иконки классов. Нужен и в бою, и в школе, " +
+                 "поэтому живёт в корне, а не на HUD арены.")]
+        [SerializeField] private UnitClassHudCatalog _classCatalog;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -39,11 +46,13 @@ namespace Code.Gameplay
         private void RegisterCatalogs(IContainerBuilder builder)
         {
             builder.RegisterInstance(_runConfig);
-            builder.RegisterInstance(_waveCatalog);
+            builder.RegisterInstance(_contractCatalog);
             builder.RegisterInstance(_upgradeCatalog);
             builder.RegisterInstance(_formationCatalog);
             builder.RegisterInstance(_schoolCatalog);
             builder.RegisterInstance(_itemCatalog);
+            builder.RegisterInstance(_rosterCatalog);
+            builder.RegisterInstance(_classCatalog);
         }
 
         private static void RegisterPersistentState(
@@ -73,17 +82,22 @@ namespace Code.Gameplay
 
             // Загружает прогресс на старте и пишет его при изменениях.
             builder.RegisterEntryPoint<SaveRunner>();
+
+            // Частота кадров и поведение экрана под конкретной платформой.
+            builder.RegisterEntryPoint<PlatformBootstrap>();
         }
 
 #if UNITY_EDITOR
         private void OnValidate()
         {
             WarnIfMissing(_runConfig, nameof(RunConfig));
-            WarnIfMissing(_waveCatalog, nameof(WaveCatalog));
+            WarnIfMissing(_contractCatalog, nameof(ContractCatalog));
             WarnIfMissing(_upgradeCatalog, nameof(UpgradeCatalog));
             WarnIfMissing(_formationCatalog, nameof(FormationCatalog));
             WarnIfMissing(_schoolCatalog, nameof(SchoolCatalog));
             WarnIfMissing(_itemCatalog, nameof(ItemCatalog));
+            WarnIfMissing(_rosterCatalog, nameof(RosterCatalog));
+            WarnIfMissing(_classCatalog, nameof(UnitClassHudCatalog));
         }
 
         private void WarnIfMissing(Object asset, string label)

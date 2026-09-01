@@ -25,6 +25,7 @@ namespace Code.Gameplay
         private readonly DeathSystem _deathSystem;
         private readonly VictorySystem _victorySystem;
         private readonly UnitCleanupSystem _cleanupSystem;
+        private readonly ArenaBoundsSystem _boundsSystem;
 
         public bool IsRunning { get; private set; }
 
@@ -51,7 +52,8 @@ namespace Code.Gameplay
             DamageSystem damageSystem,
             DeathSystem deathSystem,
             VictorySystem victorySystem,
-            UnitCleanupSystem cleanupSystem)
+            UnitCleanupSystem cleanupSystem,
+            ArenaBoundsSystem boundsSystem)
         {
             _context = context ??
                 throw new ArgumentNullException(nameof(context));
@@ -103,6 +105,9 @@ namespace Code.Gameplay
 
             _cleanupSystem = cleanupSystem ??
                 throw new ArgumentNullException(nameof(cleanupSystem));
+
+            _boundsSystem = boundsSystem ??
+                throw new ArgumentNullException(nameof(boundsSystem));
         }
 
         public void Start()
@@ -131,16 +136,30 @@ namespace Code.Gameplay
 
             PrepareUnitsForTick(deltaTime);
 
-            // Первым: движет якоря строёв, на которые опирается движение.
+            // Грид строится первым: с него читает и таргетинг, и
+            // расталкивание. Раньше он перестраивался между ними, и
+            // таргетингу приходилось перебирать всю вражескую армию.
+            //
+            // Расталкивание теперь работает по позициям начала тика,
+            // то есть отстаёт на один шаг движения. Это допустимо:
+            // расталкивание — мягкое ограничение, оно доисправляет
+            // перекрытие на следующем тике, а перестраивать грид дважды
+            // ради одного шага в 0.1 юнита не стоит.
+            _spatialGrid.Rebuild(
+                _context.AllUnits);
+
+            // Движет якоря строёв, на которые опирается движение.
             _formationSystem.Tick(deltaTime);
 
             _targetingSystem.Tick();
             _movementSystem.Tick(deltaTime);
 
-            _spatialGrid.Rebuild(
-                _context.AllUnits);
-
             _separationSystem.Tick(deltaTime);
+
+            // После всех, кто двигает юнитов: расталкивание в плотной
+            // свалке толкает крайних наружу, и проверять границу
+            // до него бессмысленно.
+            _boundsSystem.Tick();
 
             // Способности до атак: оглушение, наложенное в этом тике,
             // должно сорвать замах цели уже сейчас, а не через тик.

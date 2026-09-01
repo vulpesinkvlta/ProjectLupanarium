@@ -50,6 +50,9 @@ namespace Code.Gameplay
 
             builder.Register<BattleRandom>(
                 Lifetime.Scoped);
+
+            builder.Register<BattleStatistics>(
+                Lifetime.Scoped);
         }
 
         private static void RegisterSpatialServices(
@@ -89,6 +92,9 @@ namespace Code.Gameplay
             builder.Register<UnitCleanupSystem>(
                 Lifetime.Scoped);
 
+            builder.Register<ArenaBoundsSystem>(
+                Lifetime.Scoped);
+
             builder.Register<FormationSystem>(
                 Lifetime.Scoped);
         }
@@ -112,12 +118,37 @@ namespace Code.Gameplay
 
             builder
                 .RegisterComponentInHierarchy<BattleFeedbackView>();
+
+            builder
+                .RegisterComponentInHierarchy<ContractSelectionView>();
+
+            builder
+                .RegisterComponentInHierarchy<BattleSummaryView>();
+
+            builder
+                .RegisterComponentInHierarchy<SquadSelectionView>();
         }
 
         private static void RegisterArenaData(
             IContainerBuilder builder)
         {
             builder.Register<ArenaContext>(
+                Lifetime.Scoped);
+
+            // Границы копируются со сцены один раз при сборке контейнера.
+            // Через фабрику, а не конструктором с ArenaSceneReference:
+            // ArenaBounds остаётся обычными данными без ссылок на сцену,
+            // и его можно проверить тестами без Unity.
+            builder.Register(
+                resolver =>
+                {
+                    ArenaSceneReference scene =
+                        resolver.Resolve<ArenaSceneReference>();
+
+                    return new ArenaBounds(
+                        scene.ArenaCenter,
+                        scene.ArenaRadius);
+                },
                 Lifetime.Scoped);
 
             builder.Register<ArenaSimulation>(
@@ -158,6 +189,9 @@ namespace Code.Gameplay
             IContainerBuilder builder)
         {
             builder.Register<UpgradeDrafter>(
+                Lifetime.Scoped);
+
+            builder.Register<ContractDrafter>(
                 Lifetime.Scoped);
 
             // Источники модификаторов регистрируются конкретными типами,

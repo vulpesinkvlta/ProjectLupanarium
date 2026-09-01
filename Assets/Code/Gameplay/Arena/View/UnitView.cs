@@ -28,6 +28,7 @@ namespace Code.Gameplay
         private float _remainingFlash;
         private float _remainingDeath;
         private bool _isDying;
+        private int _lastSortingOrder = int.MinValue;
 
         public UnitRuntime Runtime { get; private set; }
 
@@ -36,6 +37,8 @@ namespace Code.Gameplay
         /// <summary>Сколько секунд занимает анимация гибели.</summary>
         public float DeathDuration => _deathDuration;
 
+        [SerializeField]
+        private ParticleSystem _deadEffect;
         public void Bind(UnitRuntime runtime)
         {
             Runtime = runtime ??
@@ -63,7 +66,9 @@ namespace Code.Gameplay
 
             transform.localScale = Vector3.one;
 
-            SetVisualPosition(runtime.Position);
+            _lastSortingOrder = int.MinValue;
+
+            SetVisualPosition(runtime.Position, updateSorting: true);
         }
 
         public void Unbind()
@@ -79,16 +84,32 @@ namespace Code.Gameplay
             gameObject.name = nameof(UnitView);
         }
 
-        public void SetVisualPosition(Vector2 position)
+        /// <summary>
+        /// Ставит вью в позицию. Порядок отрисовки пересчитывается
+        /// не каждый кадр: запись sortingOrder помечает рендерер грязным
+        /// и заставляет пересортировать пакет, а на пятистах юнитах это
+        /// заметная работа впустую — глубина за один кадр меняется
+        /// меньше, чем на толщину спрайта.
+        /// </summary>
+        public void SetVisualPosition(Vector2 position, bool updateSorting)
         {
             transform.position = new Vector3(
                 position.x,
                 position.y,
                 0f);
 
-            _spriteRenderer.sortingOrder =
+            if (!updateSorting)
+                return;
+
+            int order =
                 _baseSortingOrder -
                 Mathf.RoundToInt(position.y * SortingPrecision);
+
+            if (order == _lastSortingOrder)
+                return;
+
+            _lastSortingOrder = order;
+            _spriteRenderer.sortingOrder = order;
         }
 
         /// <summary>Короткая вспышка при получении удара.</summary>
@@ -106,6 +127,11 @@ namespace Code.Gameplay
         /// </summary>
         public void PlayDeath()
         {
+            // Партикл необязателен: на префабах без него Play() падал бы
+            // с NullReference прямо посреди боя.
+            if (_deadEffect != null)
+                _deadEffect.Play();
+
             _isDying = true;
             _remainingDeath = _deathDuration;
         }

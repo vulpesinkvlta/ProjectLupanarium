@@ -65,6 +65,10 @@ namespace Code.Gameplay
                     BuildCircle(count, shape, destination);
                     break;
 
+                case FormationLayout.Maniple:
+                    BuildManiples(count, shape, destination);
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException(
                         nameof(shape),
@@ -135,6 +139,89 @@ namespace Code.Gameplay
 
                 placed += unitsInRank;
                 rank++;
+            }
+        }
+
+        /// <summary>
+        /// Манипулярный строй: бойцы разбиты на отдельные квадраты
+        /// с промежутками, соседние манипулы сдвинуты в глубину —
+        /// получается шахматка, как у римлян.
+        ///
+        /// Сторона квадрата берётся из Columns, промежуток равен
+        /// одному шагу между бойцами.
+        /// </summary>
+        private static void BuildManiples(
+            int count,
+            FormationShape shape,
+            List<Vector2> destination)
+        {
+            int side = Mathf.Max(2, shape.Columns);
+            int perManiple = side * side;
+
+            float manipleWidth = side * shape.FileSpacing;
+            float lateralStep = manipleWidth + shape.FileSpacing;
+
+            // Задние манипулы стоят в промежутках передних.
+            float depthOffset =
+                side * shape.RankSpacing + shape.RankSpacing;
+
+            var placed = 0;
+            var manipleIndex = 0;
+
+            while (placed < count)
+            {
+                int unitsInManiple = Mathf.Min(perManiple, count - placed);
+
+                float manipleY = manipleIndex * lateralStep;
+
+                float manipleX = manipleIndex % 2 == 0
+                    ? 0f
+                    : -depthOffset;
+
+                for (var i = 0; i < unitsInManiple; i++)
+                {
+                    int rank = i / side;
+                    int file = i % side;
+
+                    destination.Add(new Vector2(
+                        manipleX - rank * shape.RankSpacing,
+                        manipleY + (file - (side - 1) * 0.5f) *
+                        shape.FileSpacing));
+                }
+
+                placed += unitsInManiple;
+                manipleIndex++;
+            }
+
+            CenterVertically(destination);
+        }
+
+        /// <summary>
+        /// Сдвигает готовую расстановку так, чтобы её центр по Y
+        /// оказался на якоре. Манипулы строятся слева направо от нуля,
+        /// иначе весь строй уехал бы вбок от острия.
+        /// </summary>
+        private static void CenterVertically(List<Vector2> destination)
+        {
+            if (destination.Count == 0)
+                return;
+
+            float minimum = float.MaxValue;
+            float maximum = float.MinValue;
+
+            for (var i = 0; i < destination.Count; i++)
+            {
+                minimum = Mathf.Min(minimum, destination[i].y);
+                maximum = Mathf.Max(maximum, destination[i].y);
+            }
+
+            float shift = (minimum + maximum) * 0.5f;
+
+            for (var i = 0; i < destination.Count; i++)
+            {
+                destination[i] = new Vector2(
+                    destination[i].x,
+                    destination[i].y - shift);
             }
         }
 

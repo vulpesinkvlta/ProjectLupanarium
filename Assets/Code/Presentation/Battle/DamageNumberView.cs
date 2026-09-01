@@ -25,7 +25,7 @@ namespace Code.Gameplay
 
         public bool IsAlive => _remaining > 0f;
 
-        public void Show(Vector2 position, float amount, bool isCrit)
+        public void Show(Vector3 position, float amount, bool isCrit)
         {
             transform.position = position;
 

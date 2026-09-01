@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 using VContainer.Unity;
 
 namespace Code.Gameplay
@@ -12,6 +13,11 @@ namespace Code.Gameplay
         private readonly LupanariumState _state;
         private readonly SchoolCatalog _schoolCatalog;
         private readonly ItemCatalog _itemCatalog;
+        private readonly RosterCatalog _rosterCatalog;
+        private readonly UnitClassHudCatalog _classCatalog;
+
+        private readonly List<string> _rosterNames = new(8);
+        private readonly List<Sprite> _rosterIcons = new(8);
         private readonly LupanariumController _controller;
         private readonly LupanariumView _view;
 
@@ -19,6 +25,8 @@ namespace Code.Gameplay
             LupanariumState state,
             SchoolCatalog schoolCatalog,
             ItemCatalog itemCatalog,
+            RosterCatalog rosterCatalog,
+            UnitClassHudCatalog classCatalog,
             LupanariumController controller,
             LupanariumView view)
         {
@@ -31,6 +39,11 @@ namespace Code.Gameplay
             _itemCatalog = itemCatalog ??
                 throw new ArgumentNullException(nameof(itemCatalog));
 
+            _rosterCatalog = rosterCatalog ??
+                throw new ArgumentNullException(nameof(rosterCatalog));
+
+            _classCatalog = classCatalog;
+
             _controller = controller ??
                 throw new ArgumentNullException(nameof(controller));
 
@@ -42,12 +55,20 @@ namespace Code.Gameplay
         {
             _view.UpgradeRequested += OnUpgradeRequested;
             _view.ItemActionRequested += OnItemActionRequested;
+            _view.RosterUnlockRequested += OnRosterUnlockRequested;
             _view.StartRunRequested += OnStartRunRequested;
 
             _state.Changed += Refresh;
 
             _view.BuildRows(_schoolCatalog.Buildings);
             _view.BuildItemRows(_itemCatalog.Items);
+
+            BuildRosterLabels();
+
+            _view.BuildRosterRows(
+                _rosterCatalog.Entries,
+                _rosterNames,
+                _rosterIcons);
 
             Refresh();
         }
@@ -56,6 +77,7 @@ namespace Code.Gameplay
         {
             _view.UpgradeRequested -= OnUpgradeRequested;
             _view.ItemActionRequested -= OnItemActionRequested;
+            _view.RosterUnlockRequested -= OnRosterUnlockRequested;
             _view.StartRunRequested -= OnStartRunRequested;
 
             _state.Changed -= Refresh;
@@ -73,6 +95,53 @@ namespace Code.Gameplay
             _controller.TryBuyOrEquip(item);
         }
 
+        private void OnRosterUnlockRequested(RosterEntry entry)
+        {
+            _controller.TryUnlockUnit(entry);
+        }
+
+        private void BuildRosterLabels()
+        {
+            _rosterNames.Clear();
+            _rosterIcons.Clear();
+
+            IReadOnlyList<RosterEntry> entries = _rosterCatalog.Entries;
+
+            for (var i = 0; i < entries.Count; i++)
+            {
+                RosterEntry entry = entries[i];
+
+                UnitClassId classId = entry != null && entry.Unit != null
+                    ? entry.Unit.ClassId
+                    : UnitClassId.None;
+
+                _rosterNames.Add(GetClassName(classId));
+                _rosterIcons.Add(GetClassIcon(classId));
+            }
+        }
+
+        private string GetClassName(UnitClassId classId)
+        {
+            if (_classCatalog != null &&
+                _classCatalog.TryGet(classId, out UnitClassHudCatalog.Entry entry))
+            {
+                return entry.DisplayName;
+            }
+
+            return classId.ToString();
+        }
+
+        private Sprite GetClassIcon(UnitClassId classId)
+        {
+            if (_classCatalog != null &&
+                _classCatalog.TryGet(classId, out UnitClassHudCatalog.Entry entry))
+            {
+                return entry.Icon;
+            }
+
+            return null;
+        }
+
         private void OnStartRunRequested()
         {
             _controller.StartRun();
@@ -84,6 +153,7 @@ namespace Code.Gameplay
 
             RefreshBuildings();
             RefreshItems();
+            RefreshRoster();
         }
 
         private void RefreshBuildings()
@@ -113,6 +183,34 @@ namespace Code.Gameplay
                         cost,
                         hasNextLevel,
                         _state.CanUpgrade(building)));
+
+                rowIndex++;
+            }
+        }
+
+        private void RefreshRoster()
+        {
+            IReadOnlyList<RosterEntry> entries = _rosterCatalog.Entries;
+
+            var rowIndex = 0;
+
+            for (var i = 0; i < entries.Count; i++)
+            {
+                RosterEntry entry = entries[i];
+
+                if (entry == null || entry.Unit == null)
+                    continue;
+
+                _view.RefreshRosterRow(
+                    rowIndex,
+                    new RosterRowData(
+                        _rosterNames[i],
+                        _rosterIcons[i],
+                        _state.IsUnitUnlocked(entry),
+                        _state.MeetsRoundRequirement(entry),
+                        _state.Denarii >= entry.Price,
+                        entry.Price,
+                        entry.RequiredBestRound));
 
                 rowIndex++;
             }

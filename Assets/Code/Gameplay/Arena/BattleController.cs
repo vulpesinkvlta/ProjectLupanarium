@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Code.Gameplay
 {
@@ -12,16 +11,14 @@ namespace Code.Gameplay
     /// </summary>
     public sealed class BattleController
     {
-        private const int InitialEnemyBufferCapacity = 16;
 
         private readonly ArenaSimulation _simulation;
         private readonly UnitSpawner _unitSpawner;
         private readonly UnitDefinitionResolver _definitionResolver;
         private readonly RunState _runState;
-        private readonly WaveCatalog _waveCatalog;
+        private readonly BattleStatistics _statistics;
+        private readonly ArenaContext _context;
 
-        private readonly List<SquadEntry> _enemyBuffer =
-            new(InitialEnemyBufferCapacity);
 
         /// <summary>Награда за волну, которая идёт прямо сейчас.</summary>
         public int CurrentWaveGoldReward { get; private set; }
@@ -31,7 +28,8 @@ namespace Code.Gameplay
             UnitSpawner unitSpawner,
             UnitDefinitionResolver definitionResolver,
             RunState runState,
-            WaveCatalog waveCatalog)
+            BattleStatistics statistics,
+            ArenaContext context)
         {
             _simulation = simulation ??
                 throw new ArgumentNullException(nameof(simulation));
@@ -44,9 +42,11 @@ namespace Code.Gameplay
 
             _runState = runState ??
                 throw new ArgumentNullException(nameof(runState));
+            _statistics = statistics ??
+                throw new ArgumentNullException(nameof(statistics));
 
-            _waveCatalog = waveCatalog ??
-                throw new ArgumentNullException(nameof(waveCatalog));
+            _context = context ??
+                throw new ArgumentNullException(nameof(context));
         }
 
         public void StartWave()
@@ -61,18 +61,21 @@ namespace Code.Gameplay
             // сбрасывать его обязаны мы — сам он устаревание не заметит.
             _definitionResolver.ClearCache();
 
-            WaveSetup setup =
-                _waveCatalog.GetWave(
-                    _runState.WaveIndex,
-                    _enemyBuffer);
+            ContractOffer contract = _runState.ActiveContract;
 
-            CurrentWaveGoldReward = setup.GoldReward;
+            CurrentWaveGoldReward = contract.GoldReward;
+
+            _statistics.Reset();
 
             _unitSpawner.SpawnSquads(
                 _runState.Squad,
                 _runState.SelectedFormation,
-                _enemyBuffer,
-                setup.Formation);
+                contract.Enemies,
+                contract.EnemyFormation);
+
+            // Состав фиксируем после спавна: в итогах боя нужно знать,
+            // сколько бойцов вышло на песок, чтобы посчитать потери.
+            _statistics.CaptureDeployed(_context.PlayerUnits);
 
             _simulation.Start();
         }

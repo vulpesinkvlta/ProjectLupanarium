@@ -138,8 +138,21 @@ namespace Code.Gameplay
                 return false;
             }
 
-            // Здесь появятся миграции со старых версий:
-            // if (data.Version < 2) { ...; data.Version = 2; }
+            if (data.Version == 1)
+            {
+                // 1 -> 2: добавились ростер и лучший раунд. Оба поля
+                // необязательные, поэтому миграция сводится к тому,
+                // чтобы признать сейв годным: постройки, денарии
+                // и снаряжение из него читаются как есть.
+                data.UnlockedUnitIds ??= Array.Empty<string>();
+                data.Version = 2;
+
+                Debug.Log(
+                    "[Save] Сейв версии 1 обновлён до версии 2, " +
+                    "прогресс школы сохранён.");
+
+                return true;
+            }
 
             Debug.LogWarning(
                 $"[Save] Сейв версии {data.Version} не поддерживается, " +

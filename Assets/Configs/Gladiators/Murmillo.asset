@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf10c73a94ea0640bc02174b42207d2, type: 3}
   m_Name: Murmillo
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.UnitConfig
-  _id: gladiator.murmillo
+  _id: unit.murmillo
   _classId: 1
-  _maxHealth: 160
+  _maxHealth: 100
   _moveSpeed: 2.4
   _attackDamage: 26
   _attackRange: 0.85
   _attackCooldown: 0.95
+  _attackWindup: 0.5
+  _critMultiplier: 2
   _radius: 0.4
   _engagementCapacity: 5
-  _armor: 0
-  _critChance: 0
-  _goldReward: 5
+  _armor: 2
+  _critChance: 0.1
+  _ability: {fileID: 0}
+  _goldReward: 12

@@ -14,18 +14,23 @@ namespace Code.Gameplay
     {
         private readonly UnitCleanupSystem _cleanupSystem;
         private readonly RunState _runState;
+        private readonly BattleStatistics _statistics;
 
         public int KillGoldThisBattle { get; private set; }
 
         public BattleRewardCollector(
             UnitCleanupSystem cleanupSystem,
-            RunState runState)
+            RunState runState,
+            BattleStatistics statistics)
         {
             _cleanupSystem = cleanupSystem ??
                 throw new ArgumentNullException(nameof(cleanupSystem));
 
             _runState = runState ??
                 throw new ArgumentNullException(nameof(runState));
+
+            _statistics = statistics ??
+                throw new ArgumentNullException(nameof(statistics));
         }
 
         public void Start()
@@ -49,6 +54,8 @@ namespace Code.Gameplay
                 return;
 
             _runState.AddGold(unit.GoldReward);
+            _statistics.AddGold(unit.GoldReward);
+
             KillGoldThisBattle += unit.GoldReward;
         }
     }

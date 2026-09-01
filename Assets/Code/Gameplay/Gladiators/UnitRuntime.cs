@@ -84,6 +84,13 @@ namespace Code.Gameplay
         /// <summary>Способность бойца. Может быть пустой.</summary>
         public AbilitySpec Ability { get; }
 
+        // Кто ударил последним. Нужно, чтобы засчитать убийство:
+        // хранить ссылку на самого бойца нельзя — он может погибнуть
+        // раньше цели и остаться висеть в памяти только ради статистики.
+        public UnitClassId LastDamageSourceClass { get; private set; }
+        public TeamId LastDamageSourceTeam { get; private set; }
+        public bool HasDamageSource { get; private set; }
+
         /// <summary>Место бойца в строю, в локальных координатах формации.</summary>
         public Vector2 SlotOffset { get; private set; }
 
@@ -344,6 +351,16 @@ namespace Code.Gameplay
             }
 
             RemainingTargetRefreshTime = duration;
+        }
+
+        public void RecordDamageSource(UnitRuntime source)
+        {
+            if (source == null)
+                return;
+
+            LastDamageSourceClass = source.ClassId;
+            LastDamageSourceTeam = source.Team;
+            HasDamageSource = true;
         }
 
         public void ApplyDamage(float amount)

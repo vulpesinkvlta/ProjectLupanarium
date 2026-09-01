@@ -170,6 +170,10 @@ namespace Code.Gameplay
             AppendLine(
                 "Full skips",
                 _targetingSystem.FullTargetSkipsLastTick);
+
+            AppendLine(
+                "Full scans",
+                _targetingSystem.FullScanFallbacksLastTick);
         }
 
         private void AppendMovement()
@@ -215,14 +219,14 @@ namespace Code.Gameplay
 
             _builder.Append(label).Append(": ");
 
-            if (!state.IsActive || state.Config == null)
+            if (!state.IsActive)
             {
                 _builder.AppendLine("none");
                 return;
             }
 
             _builder
-                .Append(state.Config.DisplayName)
+                .Append(state.DisplayName)
                 .Append(" @ x=")
                 .Append(state.Anchor.x.ToString("F2"))
                 .AppendLine();

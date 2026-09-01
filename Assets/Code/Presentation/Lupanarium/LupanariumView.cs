@@ -22,17 +22,25 @@ namespace Code.Gameplay
         [SerializeField] private Transform _itemRowsRoot;
         [SerializeField] private ItemRowView _itemRowPrefab;
 
+        [Header("Roster (необязательно)")]
+        [SerializeField] private Transform _rosterRowsRoot;
+        [SerializeField] private RosterRowView _rosterRowPrefab;
+
         [Header("Actions")]
         [SerializeField] private Button _startRunButton;
 
         private readonly List<SchoolBuildingRowView> _rows = new(16);
         private readonly List<ItemRowView> _itemRows = new(16);
+        private readonly List<RosterRowView> _rosterRows = new(16);
 
         public event Action<SchoolBuildingConfig> UpgradeRequested;
         public event Action StartRunRequested;
 
         /// <summary>Нажата кнопка предмета: купить либо надеть.</summary>
         public event Action<ItemConfig> ItemActionRequested;
+
+        /// <summary>Нажата кнопка открытия нового типа гладиаторов.</summary>
+        public event Action<RosterEntry> RosterUnlockRequested;
 
         public int RowCount => _rows.Count;
 
@@ -104,6 +112,48 @@ namespace Code.Gameplay
             }
         }
 
+        /// <summary>
+        /// Создаёт строки ростера. Как и арсенал, секция необязательна:
+        /// не назначили корень — школа работает без неё.
+        /// </summary>
+        public void BuildRosterRows(
+            IReadOnlyList<RosterEntry> entries,
+            IReadOnlyList<string> names,
+            IReadOnlyList<Sprite> icons)
+        {
+            if (entries == null)
+                throw new ArgumentNullException(nameof(entries));
+
+            ClearRosterRows();
+
+            if (_rosterRowPrefab == null || _rosterRowsRoot == null)
+                return;
+
+            for (var i = 0; i < entries.Count; i++)
+            {
+                RosterEntry entry = entries[i];
+
+                if (entry == null || entry.Unit == null)
+                    continue;
+
+                RosterRowView row =
+                    Instantiate(_rosterRowPrefab, _rosterRowsRoot);
+
+                row.Bind(entry, names[i], icons[i]);
+                row.UnlockRequested += OnRosterUnlockRequested;
+
+                _rosterRows.Add(row);
+            }
+        }
+
+        public void RefreshRosterRow(int index, RosterRowData data)
+        {
+            if (index < 0 || index >= _rosterRows.Count)
+                return;
+
+            _rosterRows[index].Refresh(data);
+        }
+
         public void RefreshItemRow(int index, ItemRowData data)
         {
             if (index < 0 || index >= _itemRows.Count)
@@ -139,6 +189,28 @@ namespace Code.Gameplay
 
             ClearRows();
             ClearItemRows();
+            ClearRosterRows();
+        }
+
+        private void ClearRosterRows()
+        {
+            for (var i = 0; i < _rosterRows.Count; i++)
+            {
+                RosterRowView row = _rosterRows[i];
+
+                if (row == null)
+                    continue;
+
+                row.UnlockRequested -= OnRosterUnlockRequested;
+                Destroy(row.gameObject);
+            }
+
+            _rosterRows.Clear();
+        }
+
+        private void OnRosterUnlockRequested(RosterEntry entry)
+        {
+            RosterUnlockRequested?.Invoke(entry);
         }
 
         private void ClearItemRows()

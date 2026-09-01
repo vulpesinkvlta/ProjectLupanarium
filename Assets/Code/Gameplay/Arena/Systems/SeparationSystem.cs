@@ -10,7 +10,20 @@ namespace Code.Gameplay
         private const int MinimumBufferCapacity = 16;
 
         private const float SeparationResponsiveness = 12f;
-        private const float MaximumSeparationSpeed = 5f;
+
+        /// <summary>
+        /// Потолок расталкивания как доля от собственной скорости бойца.
+        ///
+        /// Раньше здесь стояла общая константа 5 юнитов в секунду — вдвое
+        /// быстрее, чем мирмиллон вообще умеет ходить. При выходе клина
+        /// из строя бойцы наваливались друг на друга, и расталкивание
+        /// отстреливало их в стороны быстрее бега. Боец не должен
+        /// разъезжаться быстрее, чем он ходит.
+        /// </summary>
+        private const float MaximumSeparationSpeedFactor = 0.75f;
+
+        /// <summary>Минимальный потолок для совсем медленных бойцов.</summary>
+        private const float MinimumSeparationSpeed = 0.5f;
 
         private static readonly ProfilerMarker TickMarker =
             new("Arena.Separation");
@@ -271,14 +284,6 @@ namespace Code.Gameplay
             IReadOnlyList<UnitRuntime> units,
             float deltaTime)
         {
-            float maximumCorrection =
-                MaximumSeparationSpeed *
-                deltaTime;
-
-            float maximumSqrCorrection =
-                maximumCorrection *
-                maximumCorrection;
-
             for (var i = 0; i < units.Count; i++)
             {
                 UnitRuntime unit =
@@ -296,8 +301,15 @@ namespace Code.Gameplay
                 if (sqrMagnitude <= Mathf.Epsilon)
                     continue;
 
-                if (sqrMagnitude >
-                    maximumSqrCorrection)
+                // Потолок считается от скорости самого бойца, а не общей
+                // константой: тяжёлый мирмиллон и лёгкий ретиарий
+                // расходятся по-разному.
+                float maximumCorrection = Mathf.Max(
+                    MinimumSeparationSpeed,
+                    unit.EffectiveMoveSpeed * MaximumSeparationSpeedFactor) *
+                    deltaTime;
+
+                if (sqrMagnitude > maximumCorrection * maximumCorrection)
                 {
                     correction =
                         correction.normalized *
@@ -305,11 +317,59 @@ namespace Code.Gameplay
                 }
 
                 unit.SetPosition(
-                    unit.Position +
-                    correction);
+                    KeepTargetReachable(
+                        unit,
+                        unit.Position + correction));
 
                 CorrectedUnitsLastTick++;
             }
+        }
+
+        /// <summary>
+        /// Не даёт расталкиванию вытолкнуть бойца из зоны удара по цели.
+        ///
+        /// Без этого толпа вокруг одного врага сама себя выдавливает
+        /// наружу: восемь бойцов радиусом 0.4 не могут встать плотнее
+        /// чем в круг радиусом около 1.02, а бьют они на 0.85 — и бой
+        /// намертво замирает, хотя визуально враг окружён.
+        ///
+        /// Небольшое перекрытие тел здесь меньшее зло, чем застывший бой.
+        /// </summary>
+        private static Vector2 KeepTargetReachable(
+            UnitRuntime unit,
+            Vector2 correctedPosition)
+        {
+            UnitRuntime target = unit.Target;
+
+            if (target == null || !target.IsAlive)
+                return correctedPosition;
+
+            float attackRange = unit.Stats.AttackRange;
+
+            if (attackRange <= 0f)
+                return correctedPosition;
+
+            // Ограничение действует, только если боец уже дошёл: иначе
+            // расталкивание притягивало бы его к цели вместо движения.
+            Vector2 beforeOffset = target.Position - unit.Position;
+
+            if (beforeOffset.sqrMagnitude > attackRange * attackRange)
+                return correctedPosition;
+
+            Vector2 afterOffset = target.Position - correctedPosition;
+            float afterSqrDistance = afterOffset.sqrMagnitude;
+
+            if (afterSqrDistance <= attackRange * attackRange)
+                return correctedPosition;
+
+            float afterDistance = Mathf.Sqrt(afterSqrDistance);
+
+            if (afterDistance <= Mathf.Epsilon)
+                return correctedPosition;
+
+            // Сажаем ровно на границу дальности удара, сохраняя
+            // направление, в которое его вытолкнуло.
+            return target.Position - afterOffset / afterDistance * attackRange;
         }
 
         private void EnsureBufferCapacity(

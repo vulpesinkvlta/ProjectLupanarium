@@ -9,6 +9,13 @@ namespace Code.Gameplay
     {
         private const int InitialDyingCapacity = 64;
 
+        /// <summary>
+        /// Раз во сколько кадров юнит пересчитывает порядок отрисовки.
+        /// Юниты разнесены по кадрам через свой id, поэтому нагрузка
+        /// размазана, а не приходит пиком раз в четыре кадра.
+        /// </summary>
+        private const int SortingUpdateInterval = 4;
+
         private static readonly ProfilerMarker UpdateMarker =
             new("Arena.ViewSynchronization");
 
@@ -22,6 +29,8 @@ namespace Code.Gameplay
         // за полсекунды.
         private readonly List<DyingView> _dyingViews =
             new(InitialDyingCapacity);
+
+        private int _frameIndex;
 
         public int DyingViewCount => _dyingViews.Count;
 
@@ -52,6 +61,8 @@ namespace Code.Gameplay
                 StartDeathAnimations();
                 TickDyingViews(deltaTime);
 
+                _frameIndex++;
+
                 float alpha =
                     Mathf.Clamp01(interpolationAlpha);
 
@@ -77,7 +88,10 @@ namespace Code.Gameplay
                             unit.Position,
                             alpha);
 
-                    view.SetVisualPosition(visualPosition);
+                    bool updateSorting =
+                        (_frameIndex + unit.Id) % SortingUpdateInterval == 0;
+
+                    view.SetVisualPosition(visualPosition, updateSorting);
                     view.TickVisuals(deltaTime);
                 }
             }

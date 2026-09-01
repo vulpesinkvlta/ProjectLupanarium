@@ -25,9 +25,9 @@ namespace Code.Gameplay
             if (destination == null)
                 throw new ArgumentNullException(nameof(destination));
 
-            FormationConfig formation = _registry.Get(team).Config;
+            TeamFormationState formation = _registry.Get(team);
 
-            if (formation == null)
+            if (!formation.IsActive)
                 return;
 
             destination.AddRange(formation.Modifiers);

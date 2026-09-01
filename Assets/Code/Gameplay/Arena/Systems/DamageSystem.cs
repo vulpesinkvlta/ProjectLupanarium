@@ -22,6 +22,7 @@ namespace Code.Gameplay
         private readonly DamageBuffer _damageBuffer;
         private readonly BattleHudDirtyTracker _hudDirtyTracker;
         private readonly BattleFeedbackQueue _feedback;
+        private readonly BattleStatistics _statistics;
 
         public int RequestsProcessedLastTick { get; private set; }
         public float DamageAppliedLastTick { get; private set; }
@@ -30,7 +31,8 @@ namespace Code.Gameplay
         public DamageSystem(
             DamageBuffer damageBuffer,
             BattleHudDirtyTracker hudDirtyTracker,
-            BattleFeedbackQueue feedback)
+            BattleFeedbackQueue feedback,
+            BattleStatistics statistics)
         {
             _damageBuffer = damageBuffer ??
                 throw new ArgumentNullException(nameof(damageBuffer));
@@ -40,6 +42,9 @@ namespace Code.Gameplay
 
             _feedback = feedback ??
                 throw new ArgumentNullException(nameof(feedback));
+
+            _statistics = statistics ??
+                throw new ArgumentNullException(nameof(statistics));
         }
 
         public void Tick()
@@ -90,6 +95,14 @@ namespace Code.Gameplay
 
             DamageAppliedLastTick += appliedDamage;
             RequestsProcessedLastTick++;
+
+            target.RecordDamageSource(request.Source);
+
+            _statistics.RegisterDamage(
+                request.Source,
+                target,
+                appliedDamage,
+                request.Amount - mitigated);
 
             if (appliedDamage <= 0f)
                 return;

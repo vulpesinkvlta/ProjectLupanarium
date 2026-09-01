@@ -19,7 +19,7 @@ namespace Code.Gameplay
         /// чтобы старый сейв можно было опознать и мигрировать,
         /// а не читать как мусор.
         /// </summary>
-        public const int CurrentVersion = 1;
+        public const int CurrentVersion = 2;
 
         public int Version = CurrentVersion;
 
@@ -32,6 +32,12 @@ namespace Code.Gameplay
 
         public string[] EquippedSlotKeys = Array.Empty<string>();
         public string[] EquippedItemIds = Array.Empty<string>();
+
+        // Добавлено в версии 2. В сейвах версии 1 этих полей нет,
+        // JsonUtility оставит их пустыми — ровно то поведение,
+        // которое нужно: старый игрок просто ещё никого не открыл.
+        public string[] UnlockedUnitIds = Array.Empty<string>();
+        public int BestRoundReached;
 
         public void WriteBuildings(Dictionary<string, int> levels)
         {

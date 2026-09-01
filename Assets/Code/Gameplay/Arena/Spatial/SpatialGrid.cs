@@ -152,6 +152,84 @@ namespace Code.Gameplay
             return false;
         }
 
+        /// <summary>
+        /// Собирает живых юнитов указанной команды в радиусе от точки.
+        ///
+        /// Нужен таргетингу: перебирать всех врагов на арене — это O(n·m),
+        /// а бойца интересуют только те, до кого он реально может дойти.
+        /// Пишет в переданный список, чтобы не мусорить каждый тик.
+        /// </summary>
+        public void QueryTeam(
+            Vector2 center,
+            float radius,
+            TeamId team,
+            List<UnitRuntime> destination)
+        {
+            if (destination == null)
+                throw new ArgumentNullException(nameof(destination));
+
+            if (radius <= 0f)
+                throw new ArgumentOutOfRangeException(nameof(radius));
+
+            destination.Clear();
+
+            SpatialCell centerCell = GetCell(center);
+
+            int cellRange = Mathf.Max(
+                1,
+                Mathf.CeilToInt(radius * _inverseCellSize));
+
+            float sqrRadius = radius * radius;
+
+            for (int offsetX = -cellRange; offsetX <= cellRange; offsetX++)
+            {
+                for (int offsetY = -cellRange; offsetY <= cellRange; offsetY++)
+                {
+                    if (!TryGetEntries(
+                            centerCell.X + offsetX,
+                            centerCell.Y + offsetY,
+                            out IReadOnlyList<SpatialGridEntry> entries))
+                    {
+                        continue;
+                    }
+
+                    CollectFromCell(
+                        entries,
+                        center,
+                        sqrRadius,
+                        team,
+                        destination);
+                }
+            }
+        }
+
+        private static void CollectFromCell(
+            IReadOnlyList<SpatialGridEntry> entries,
+            Vector2 center,
+            float sqrRadius,
+            TeamId team,
+            List<UnitRuntime> destination)
+        {
+            for (var i = 0; i < entries.Count; i++)
+            {
+                UnitRuntime unit = entries[i].Unit;
+
+                if (unit.Team != team)
+                    continue;
+
+                if (!unit.IsAlive)
+                    continue;
+
+                // Ячейки квадратные, радиус круглый: углы отсекаем здесь.
+                Vector2 offset = unit.Position - center;
+
+                if (offset.sqrMagnitude > sqrRadius)
+                    continue;
+
+                destination.Add(unit);
+            }
+        }
+
         public void Clear()
         {
             ClearActiveBuckets();

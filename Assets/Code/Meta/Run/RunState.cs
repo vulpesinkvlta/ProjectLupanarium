@@ -29,6 +29,15 @@ namespace Code.Gameplay
         /// <summary>Строй, которым игрок выйдет в следующий бой.</summary>
         public FormationConfig SelectedFormation { get; private set; }
 
+        /// <summary>
+        /// Контракт, взятый на текущий раунд. Хранится копией предложения,
+        /// а не ссылкой на выданное: список предложений переиспользуется
+        /// драфтером и к началу боя будет уже перезаписан.
+        /// </summary>
+        public ContractOffer ActiveContract { get; } = new();
+
+        public bool HasActiveContract => ActiveContract.Source != null;
+
         public IReadOnlyList<SquadEntry> Squad => _squad;
         public IReadOnlyList<UpgradeConfig> AcquiredUpgrades => _acquiredUpgrades;
 
@@ -66,24 +75,31 @@ namespace Code.Gameplay
             _acquiredUpgrades.Clear();
             _squad.Clear();
 
-            IReadOnlyList<SquadEntry> startingSquad = _config.StartingSquad;
+            ActiveContract.Clear();
 
-            for (var i = 0; i < startingSquad.Count; i++)
-            {
-                SquadEntry entry = startingSquad[i];
-
-                if (entry == null || entry.Config == null)
-                    continue;
-
-                // Копия, а не ссылка: рост отряда по ходу забега иначе
-                // писался бы прямо в ассет RunConfig и пережил бы Play Mode.
-                _squad.Add(entry.Clone());
-            }
+            // Отряд намеренно остаётся пустым: его собирает игрок
+            // на экране выбора в начале забега. Состав из RunConfig
+            // подставляется только как запасной вариант, если ростер
+            // ещё не настроен.
+            
         }
 
         public void SelectFormation(FormationConfig formation)
         {
             SelectedFormation = formation;
+        }
+
+        public void AcceptContract(ContractOffer offer)
+        {
+            if (offer == null)
+                throw new ArgumentNullException(nameof(offer));
+
+            ActiveContract.CopyFrom(offer);
+        }
+
+        public void ClearContract()
+        {
+            ActiveContract.Clear();
         }
 
         public void AdvanceWave()
@@ -97,6 +113,21 @@ namespace Code.Gameplay
                 throw new ArgumentOutOfRangeException(nameof(amount));
 
             Gold += amount;
+        }
+
+        /// <summary>
+        /// Забирает всё золото забега, обнуляя счёт.
+        ///
+        /// Именно забирает, а не читает: золото переезжает в денарии
+        /// школы, и после переезда его на счету забега быть не должно.
+        /// Иначе повторный вызов начислил бы те же деньги второй раз.
+        /// </summary>
+        public int TakeAllGold()
+        {
+            int taken = Gold;
+            Gold = 0;
+
+            return taken;
         }
 
         public bool TrySpendGold(int amount)
@@ -120,6 +151,36 @@ namespace Code.Gameplay
 
             if (upgrade.AddsUnits)
                 AddUnits(upgrade.UnitToAdd, upgrade.UnitAddCount);
+        }
+
+        /// <summary>Ставит стартовый отряд из одного типа бойцов.</summary>
+        public void SetStartingSquad(UnitConfig config, int count)
+        {
+            if (config == null)
+                throw new ArgumentNullException(nameof(config));
+
+            _squad.Clear();
+            AddUnits(config, count);
+        }
+
+        /// <summary>Запасной путь: состав целиком из RunConfig.</summary>
+        public void ApplyFallbackSquad()
+        {
+            _squad.Clear();
+
+            IReadOnlyList<SquadEntry> startingSquad = _config.StartingSquad;
+
+            for (var i = 0; i < startingSquad.Count; i++)
+            {
+                SquadEntry entry = startingSquad[i];
+
+                if (entry == null || entry.Config == null)
+                    continue;
+
+                // Копия, а не ссылка: рост отряда по ходу забега иначе
+                // писался бы прямо в ассет и пережил бы Play Mode.
+                _squad.Add(entry.Clone());
+            }
         }
 
         public void AddUnits(UnitConfig config, int count)

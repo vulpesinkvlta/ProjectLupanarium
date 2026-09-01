@@ -45,6 +45,14 @@ namespace Code.Gameplay
                 : _lupanarium.TryBuy(item);
         }
 
+        public bool TryUnlockUnit(RosterEntry entry)
+        {
+            if (entry == null)
+                throw new ArgumentNullException(nameof(entry));
+
+            return _lupanarium.TryUnlockUnit(entry);
+        }
+
         /// <summary>
         /// Начинает новый забег и уходит на арену.
         ///

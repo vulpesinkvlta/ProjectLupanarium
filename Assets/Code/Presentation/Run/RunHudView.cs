@@ -41,7 +41,7 @@ namespace Code.Gameplay
         public void SetRunInfo(int waveNumber, int gold, int squadSize)
         {
             if (_waveLabel != null)
-                _waveLabel.text = $"Волна {waveNumber}";
+                _waveLabel.text = $"Раунд {waveNumber}";
 
             if (_goldLabel != null)
                 _goldLabel.text = $"Золото: {gold}";
@@ -76,7 +76,7 @@ namespace Code.Gameplay
         public void SetDefeatText(int waveNumber)
         {
             if (_defeatLabel != null)
-                _defeatLabel.text = $"Поражение на волне {waveNumber}";
+                _defeatLabel.text = $"Поражение в раунде {waveNumber}";
         }
 
         private void Awake()

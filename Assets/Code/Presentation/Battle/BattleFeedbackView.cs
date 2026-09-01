@@ -20,6 +20,16 @@ namespace Code.Gameplay
         [SerializeField] private DamageNumberView _damageNumberPrefab;
         [SerializeField] private Transform _numbersRoot;
 
+        [Tooltip("Включите, если корень цифр лежит под Canvas в режиме " +
+                 "Screen Space. Там transform.position задаётся в пикселях " +
+                 "экрана, и мировая координата бойца превратилась бы " +
+                 "в левый нижний угол.")]
+        [SerializeField] private bool _numbersInScreenSpace = true;
+
+        [Tooltip("Камера, которой считается перевод мира в экран. " +
+                 "Пусто — берётся Camera.main.")]
+        [SerializeField] private Camera _worldCamera;
+
         [Tooltip("Показывать цифру не чаще, чем раз в N ударов. " +
                  "На больших боях спасает от тысячи цифр в кадре.")]
         [SerializeField, Min(1)] private int _showEveryNthHit = 1;
@@ -35,6 +45,12 @@ namespace Code.Gameplay
         [SerializeField] private AudioClip[] _critClips;
         [SerializeField] private AudioClip[] _deathClips;
         [SerializeField] private AudioClip[] _abilityClips;
+
+        [Header("Battle outcome")]
+        [SerializeField] private AudioClip _victoryClip;
+        [SerializeField] private AudioClip _defeatClip;
+
+        [SerializeField, Range(0f, 1f)] private float _outcomeVolume = 0.8f;
 
         [Tooltip("Не больше стольких звуков за кадр: иначе на массовой " +
                  "рубке звук превращается в белый шум и клиппует.")]
@@ -55,7 +71,7 @@ namespace Code.Gameplay
             _soundsThisFrame = 0;
         }
 
-        public void ShowDamage(Vector2 position, float amount, bool isCrit)
+        public void ShowDamage(Vector2 worldPosition, float amount, bool isCrit)
         {
             if (_damageNumberPrefab == null)
                 return;
@@ -74,7 +90,11 @@ namespace Code.Gameplay
 
             DamageNumberView number = _numberPool.Get();
 
-            number.Show(position, amount, isCrit);
+            number.Show(
+                ToNumberSpace(worldPosition),
+                amount,
+                isCrit);
+
             _activeNumbers.Add(number);
         }
 
@@ -97,6 +117,39 @@ namespace Code.Gameplay
         public void PlayAbility()
         {
             PlayClip(_abilityClips);
+        }
+
+        /// <summary>
+        /// Исход боя звучит в обход лимита на звуки за кадр: это одно
+        /// событие на всю волну, и заглушать его нельзя.
+        /// </summary>
+        public void PlayOutcome(bool isVictory)
+        {
+            AudioClip clip = isVictory ? _victoryClip : _defeatClip;
+
+            if (_audioSource == null || clip == null)
+                return;
+
+            _audioSource.PlayOneShot(clip, _outcomeVolume);
+        }
+
+        /// <summary>
+        /// Переводит мировую позицию бойца в пространство, в котором
+        /// живут цифры урона.
+        /// </summary>
+        private Vector3 ToNumberSpace(Vector2 worldPosition)
+        {
+            if (!_numbersInScreenSpace)
+                return worldPosition;
+
+            Camera camera = _worldCamera != null
+                ? _worldCamera
+                : Camera.main;
+
+            if (camera == null)
+                return worldPosition;
+
+            return camera.WorldToScreenPoint(worldPosition);
         }
 
         private void Awake()

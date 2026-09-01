@@ -25,7 +25,16 @@ namespace Code.Gameplay
         private readonly Dictionary<string, string> _equippedBySlot =
             new(InitialItemCapacity);
 
+        private readonly HashSet<string> _unlockedUnits =
+            new(InitialItemCapacity);
+
         public int Denarii { get; private set; }
+
+        /// <summary>
+        /// Самый дальний раунд, до которого игрок доходил за все забеги.
+        /// Порог для открытия новых бойцов.
+        /// </summary>
+        public int BestRoundReached { get; private set; }
 
         /// <summary>Состояние изменилось — UI перерисоваться, сейв записаться.</summary>
         public event Action Changed;
@@ -73,6 +82,57 @@ namespace Code.Gameplay
 
             Changed?.Invoke();
             return true;
+        }
+
+        // ---------- ростер ----------
+
+        public bool IsUnitUnlocked(RosterEntry entry)
+        {
+            if (entry == null)
+                throw new ArgumentNullException(nameof(entry));
+
+            return entry.UnlockedFromStart ||
+                   _unlockedUnits.Contains(entry.Id);
+        }
+
+        public bool MeetsRoundRequirement(RosterEntry entry)
+        {
+            return BestRoundReached >= entry.RequiredBestRound;
+        }
+
+        public bool CanUnlockUnit(RosterEntry entry)
+        {
+            return !IsUnitUnlocked(entry) &&
+                   MeetsRoundRequirement(entry) &&
+                   Denarii >= entry.Price;
+        }
+
+        public bool TryUnlockUnit(RosterEntry entry)
+        {
+            if (entry == null)
+                throw new ArgumentNullException(nameof(entry));
+
+            if (!CanUnlockUnit(entry))
+                return false;
+
+            Denarii -= entry.Price;
+            _unlockedUnits.Add(entry.Id);
+
+            Changed?.Invoke();
+            return true;
+        }
+
+        /// <summary>
+        /// Запоминает, как далеко зашёл забег. Только рекорд —
+        /// неудачный забег не должен отбирать уже открытые пороги.
+        /// </summary>
+        public void RegisterRoundReached(int roundNumber)
+        {
+            if (roundNumber <= BestRoundReached)
+                return;
+
+            BestRoundReached = roundNumber;
+            Changed?.Invoke();
         }
 
         // ---------- предметы ----------
@@ -163,8 +223,10 @@ namespace Code.Gameplay
             _buildingLevels.Clear();
             _ownedItems.Clear();
             _equippedBySlot.Clear();
+            _unlockedUnits.Clear();
 
             Denarii = 0;
+            BestRoundReached = 0;
 
             Changed?.Invoke();
         }
@@ -178,6 +240,11 @@ namespace Code.Gameplay
 
             data.Version = GameSaveData.CurrentVersion;
             data.Denarii = Denarii;
+            data.BestRoundReached = BestRoundReached;
+
+            var unlocked = new string[_unlockedUnits.Count];
+            _unlockedUnits.CopyTo(unlocked);
+            data.UnlockedUnitIds = unlocked;
 
             data.WriteBuildings(_buildingLevels);
             data.WriteEquipment(_equippedBySlot);
@@ -197,6 +264,20 @@ namespace Code.Gameplay
                 throw new ArgumentNullException(nameof(data));
 
             Denarii = Math.Max(0, data.Denarii);
+            BestRoundReached = Math.Max(0, data.BestRoundReached);
+
+            _unlockedUnits.Clear();
+
+            if (data.UnlockedUnitIds != null)
+            {
+                for (var i = 0; i < data.UnlockedUnitIds.Length; i++)
+                {
+                    string id = data.UnlockedUnitIds[i];
+
+                    if (!string.IsNullOrEmpty(id))
+                        _unlockedUnits.Add(id);
+                }
+            }
 
             data.ReadBuildings(_buildingLevels);
             data.ReadEquipment(_equippedBySlot);

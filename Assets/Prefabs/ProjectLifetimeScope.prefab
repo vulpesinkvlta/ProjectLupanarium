@@ -49,7 +49,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   _runConfig: {fileID: 11400000, guid: 463a54506b274ee469f265bfbdd76ba9, type: 2}
-  _waveCatalog: {fileID: 11400000, guid: b2b2f40e9b57cc74fb2fb19b2056f9aa, type: 2}
+  _contractCatalog: {fileID: 11400000, guid: 105f66b6dec7ca946b6877c7d28b6b8d, type: 2}
   _upgradeCatalog: {fileID: 11400000, guid: 2afeed761f077e443b92f07f9a9b7897, type: 2}
   _formationCatalog: {fileID: 11400000, guid: 2427d0a3b2c4899449380f990e1094c1, type: 2}
   _schoolCatalog: {fileID: 11400000, guid: 2838a5adcbf7adf4a864eb6ce1595311, type: 2}

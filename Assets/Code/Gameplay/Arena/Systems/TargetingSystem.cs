@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
 
@@ -16,6 +17,16 @@ namespace Code.Gameplay
 
         private const float ClaimDistancePenalty = 0.2f;
 
+        /// <summary>
+        /// В каком радиусе боец ищет цель через грид. Заведомо больше
+        /// ReciprocalTargetPriorityRange, иначе приоритет «бьёт меня в ответ»
+        /// перестал бы работать. Если в радиусе никого — система честно
+        /// откатывается к полному перебору.
+        /// </summary>
+        private const float TargetSearchRadius = 6f;
+
+        private const int InitialCandidateCapacity = 64;
+
         private static readonly ProfilerMarker TickMarker =
             new("Arena.Targeting");
 
@@ -23,14 +34,26 @@ namespace Code.Gameplay
         private readonly TargetEngagementRegistry
             _engagementRegistry;
 
+        private readonly SpatialGrid _spatialGrid;
+
+        private readonly List<UnitRuntime> _candidateBuffer =
+            new(InitialCandidateCapacity);
+
         public int DistanceChecksLastTick { get; private set; }
         public int AssignedTargetsLastTick { get; private set; }
         public int RetargetedUnitsLastTick { get; private set; }
         public int FullTargetSkipsLastTick { get; private set; }
 
+        /// <summary>
+        /// Сколько раз за тик пришлось перебирать всю армию, потому что
+        /// в радиусе поиска не нашлось ни одного врага.
+        /// </summary>
+        public int FullScanFallbacksLastTick { get; private set; }
+
         public TargetingSystem(
             ArenaContext context,
-            TargetEngagementRegistry engagementRegistry)
+            TargetEngagementRegistry engagementRegistry,
+            SpatialGrid spatialGrid)
         {
             _context = context ??
                 throw new ArgumentNullException(nameof(context));
@@ -38,6 +61,9 @@ namespace Code.Gameplay
             _engagementRegistry = engagementRegistry ??
                 throw new ArgumentNullException(
                     nameof(engagementRegistry));
+
+            _spatialGrid = spatialGrid ??
+                throw new ArgumentNullException(nameof(spatialGrid));
         }
 
         public void Tick()
@@ -48,6 +74,7 @@ namespace Code.Gameplay
                 AssignedTargetsLastTick = 0;
                 RetargetedUnitsLastTick = 0;
                 FullTargetSkipsLastTick = 0;
+                FullScanFallbacksLastTick = 0;
 
                 var units = _context.AllUnits;
 
@@ -152,14 +179,44 @@ namespace Code.Gameplay
             RestartRefreshTimer(unit);
         }
 
+        /// <summary>
+        /// Кандидаты в цели: сначала ближние через грид, и только если
+        /// рядом никого — вся вражеская армия.
+        ///
+        /// Полный перебор оставлен намеренно как запасной путь: армии
+        /// в начале волны могут стоять дальше радиуса поиска, и без
+        /// отката бойцы просто не нашли бы друг друга.
+        /// </summary>
+        private IReadOnlyList<UnitRuntime> SelectCandidates(
+            UnitRuntime searchingUnit)
+        {
+            TeamId enemyTeam =
+                searchingUnit.Team == TeamId.Player
+                    ? TeamId.Enemy
+                    : TeamId.Player;
+
+            _spatialGrid.QueryTeam(
+                searchingUnit.Position,
+                TargetSearchRadius,
+                enemyTeam,
+                _candidateBuffer);
+
+            if (_candidateBuffer.Count > 0)
+                return _candidateBuffer;
+
+            FullScanFallbacksLastTick++;
+
+            return enemyTeam == TeamId.Enemy
+                ? _context.EnemyUnits
+                : _context.PlayerUnits;
+        }
+
         private UnitRuntime FindBestTarget(
             UnitRuntime searchingUnit,
             out float selectedSqrDistance)
         {
-            var possibleTargets =
-                searchingUnit.Team == TeamId.Player
-                    ? _context.EnemyUnits
-                    : _context.PlayerUnits;
+            IReadOnlyList<UnitRuntime> possibleTargets =
+                SelectCandidates(searchingUnit);
 
             UnitRuntime nearestFreeEngaged = null;
             float nearestFreeEngagedDistance =
