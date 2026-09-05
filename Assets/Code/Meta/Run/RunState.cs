@@ -26,7 +26,11 @@ namespace Code.Gameplay
         public int WaveIndex { get; private set; }
         public int Gold { get; private set; }
 
-        /// <summary>Строй, которым игрок выйдет в следующий бой.</summary>
+        /// <summary>
+        /// Строй, которым игрок выйдет в следующий бой.
+        /// null означает бой без строя — это законное состояние,
+        /// а не «не выбрано»: в начале игры не открыт ни один строй.
+        /// </summary>
         public FormationConfig SelectedFormation { get; private set; }
 
         /// <summary>
@@ -70,18 +74,16 @@ namespace Code.Gameplay
             WaveIndex = 0;
             Gold = _config.StartingGold;
 
-            SelectedFormation = _config.DefaultFormation;
+            // Ни отряда, ни строя: и то, и другое игрок выбирает сам
+            // в начале забега. Состав из RunConfig и строй из него же
+            // подставляются только как запасной вариант, если ростер
+            // или каталог строёв ещё не настроены.
+            SelectedFormation = null;
 
             _acquiredUpgrades.Clear();
             _squad.Clear();
 
             ActiveContract.Clear();
-
-            // Отряд намеренно остаётся пустым: его собирает игрок
-            // на экране выбора в начале забега. Состав из RunConfig
-            // подставляется только как запасной вариант, если ростер
-            // ещё не настроен.
-            
         }
 
         public void SelectFormation(FormationConfig formation)

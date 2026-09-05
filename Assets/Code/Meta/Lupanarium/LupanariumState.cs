@@ -28,6 +28,9 @@ namespace Code.Gameplay
         private readonly HashSet<string> _unlockedUnits =
             new(InitialItemCapacity);
 
+        private readonly HashSet<string> _unlockedFormations =
+            new(InitialItemCapacity);
+
         public int Denarii { get; private set; }
 
         /// <summary>
@@ -135,6 +138,44 @@ namespace Code.Gameplay
             Changed?.Invoke();
         }
 
+        // ---------- строи ----------
+
+        public bool IsFormationUnlocked(FormationEntry entry)
+        {
+            if (entry == null)
+                throw new ArgumentNullException(nameof(entry));
+
+            return entry.UnlockedFromStart ||
+                   _unlockedFormations.Contains(entry.Id);
+        }
+
+        public bool MeetsRoundRequirement(FormationEntry entry)
+        {
+            return BestRoundReached >= entry.RequiredBestRound;
+        }
+
+        public bool CanUnlockFormation(FormationEntry entry)
+        {
+            return !IsFormationUnlocked(entry) &&
+                   MeetsRoundRequirement(entry) &&
+                   Denarii >= entry.Price;
+        }
+
+        public bool TryUnlockFormation(FormationEntry entry)
+        {
+            if (entry == null)
+                throw new ArgumentNullException(nameof(entry));
+
+            if (!CanUnlockFormation(entry))
+                return false;
+
+            Denarii -= entry.Price;
+            _unlockedFormations.Add(entry.Id);
+
+            Changed?.Invoke();
+            return true;
+        }
+
         // ---------- предметы ----------
 
         public bool IsOwned(ItemConfig item)
@@ -224,6 +265,7 @@ namespace Code.Gameplay
             _ownedItems.Clear();
             _equippedBySlot.Clear();
             _unlockedUnits.Clear();
+            _unlockedFormations.Clear();
 
             Denarii = 0;
             BestRoundReached = 0;
@@ -245,6 +287,10 @@ namespace Code.Gameplay
             var unlocked = new string[_unlockedUnits.Count];
             _unlockedUnits.CopyTo(unlocked);
             data.UnlockedUnitIds = unlocked;
+
+            var formations = new string[_unlockedFormations.Count];
+            _unlockedFormations.CopyTo(formations);
+            data.UnlockedFormationIds = formations;
 
             data.WriteBuildings(_buildingLevels);
             data.WriteEquipment(_equippedBySlot);
@@ -276,6 +322,19 @@ namespace Code.Gameplay
 
                     if (!string.IsNullOrEmpty(id))
                         _unlockedUnits.Add(id);
+                }
+            }
+
+            _unlockedFormations.Clear();
+
+            if (data.UnlockedFormationIds != null)
+            {
+                for (var i = 0; i < data.UnlockedFormationIds.Length; i++)
+                {
+                    string id = data.UnlockedFormationIds[i];
+
+                    if (!string.IsNullOrEmpty(id))
+                        _unlockedFormations.Add(id);
                 }
             }
 

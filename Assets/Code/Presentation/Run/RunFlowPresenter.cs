@@ -15,6 +15,12 @@ namespace Code.Gameplay
     /// </summary>
     public sealed class RunFlowPresenter : IStartable, IDisposable
     {
+        private const string NoFormationName = "Без строя";
+
+        private const string NoFormationDescription =
+            "Отряд идёт врассыпную и сходится с врагом сразу, " +
+            "без бонусов и без ожидания.";
+
         private static readonly UnitClassId[] TrackedClasses =
             BuildTrackedClasses();
 
@@ -22,17 +28,20 @@ namespace Code.Gameplay
         private readonly RunState _runState;
         private readonly BattleStatistics _statistics;
         private readonly UnitClassHudCatalog _classCatalog;
+        private readonly UnitDefinitionResolver _definitionResolver;
 
         private readonly RunHudView _hudView;
         private readonly RewardScreenView _rewardView;
         private readonly ContractSelectionView _contractView;
         private readonly BattleSummaryView _summaryView;
         private readonly SquadSelectionView _squadView;
+        private readonly FormationSelectionView _formationView;
         private readonly BattleFeedbackView _feedbackView;
 
         private readonly List<string> _enemyTexts = new(4);
         private readonly List<BattleSummaryRowData> _summaryRows = new(8);
         private readonly List<SquadOptionData> _squadOptions = new(8);
+        private readonly List<FormationOptionData> _formationOptions = new(8);
         private readonly StringBuilder _builder = new(256);
 
         public RunFlowPresenter(
@@ -40,11 +49,13 @@ namespace Code.Gameplay
             RunState runState,
             BattleStatistics statistics,
             UnitClassHudCatalog classCatalog,
+            UnitDefinitionResolver definitionResolver,
             RunHudView hudView,
             RewardScreenView rewardView,
             ContractSelectionView contractView,
             BattleSummaryView summaryView,
             SquadSelectionView squadView,
+            FormationSelectionView formationView,
             BattleFeedbackView feedbackView)
         {
             _flowController = flowController ??
@@ -55,6 +66,9 @@ namespace Code.Gameplay
 
             _statistics = statistics ??
                 throw new ArgumentNullException(nameof(statistics));
+
+            _definitionResolver = definitionResolver ??
+                throw new ArgumentNullException(nameof(definitionResolver));
 
             _hudView = hudView ??
                 throw new ArgumentNullException(nameof(hudView));
@@ -70,6 +84,9 @@ namespace Code.Gameplay
 
             _squadView = squadView ??
                 throw new ArgumentNullException(nameof(squadView));
+
+            _formationView = formationView ??
+                throw new ArgumentNullException(nameof(formationView));
 
             _feedbackView = feedbackView ??
                 throw new ArgumentNullException(nameof(feedbackView));
@@ -88,11 +105,13 @@ namespace Code.Gameplay
             _contractView.ContractSelected += OnContractSelected;
             _summaryView.ClaimRequested += OnClaimRequested;
             _squadView.OptionSelected += OnSquadOptionSelected;
+            _formationView.OptionSelected += OnFormationOptionSelected;
 
             _flowController.StateChanged += OnStateChanged;
             _flowController.RewardOffered += OnRewardOffered;
             _flowController.ContractsOffered += OnContractsOffered;
             _flowController.SquadOptionsOffered += OnSquadOptionsOffered;
+            _flowController.FormationsOffered += OnFormationsOffered;
 
             // BattleFlowController.Start() мог отработать раньше нашего
             // и выставить состояние до того, как мы подписались.
@@ -102,6 +121,8 @@ namespace Code.Gameplay
                 OnContractsOffered(_flowController.ContractOffers);
             else if (_flowController.State == BattleFlowState.SquadSelection)
                 OnSquadOptionsOffered(_flowController.SquadOptions);
+            else if (_flowController.State == BattleFlowState.FormationSelection)
+                OnFormationsOffered(_flowController.FormationOptions);
         }
 
         public void Dispose()
@@ -115,11 +136,13 @@ namespace Code.Gameplay
             _contractView.ContractSelected -= OnContractSelected;
             _summaryView.ClaimRequested -= OnClaimRequested;
             _squadView.OptionSelected -= OnSquadOptionSelected;
+            _formationView.OptionSelected -= OnFormationOptionSelected;
 
             _flowController.StateChanged -= OnStateChanged;
             _flowController.RewardOffered -= OnRewardOffered;
             _flowController.ContractsOffered -= OnContractsOffered;
             _flowController.SquadOptionsOffered -= OnSquadOptionsOffered;
+            _flowController.FormationsOffered -= OnFormationsOffered;
         }
 
         private void OnFightRequested() => _flowController.StartWave();
@@ -136,6 +159,12 @@ namespace Code.Gameplay
         private void OnSquadOptionSelected(int index) =>
             _flowController.SelectStartingSquad(index);
 
+        private void OnFormationOptionSelected(int index) =>
+            _flowController.SelectFormationOption(index);
+
+        private void OnFormationCycleRequested(int direction) =>
+            _flowController.CycleFormation(direction);
+
         private void OnSquadOptionsOffered(IReadOnlyList<RosterEntry> options)
         {
             _squadOptions.Clear();
@@ -143,23 +172,53 @@ namespace Code.Gameplay
             for (var i = 0; i < options.Count; i++)
             {
                 RosterEntry entry = options[i];
+                UnitConfig unit = entry.Unit;
 
-                UnitClassId classId = entry.Unit != null
-                    ? entry.Unit.ClassId
+                UnitClassId classId = unit != null
+                    ? unit.ClassId
                     : UnitClassId.None;
+
+                // Статы берём из того же резолвера, что и бой, а не из
+                // конфига напрямую: игрок должен видеть числа с бонусами
+                // школы и снаряжения, иначе карточка врала бы после
+                // первой же покупки в арсенале.
+                UnitStats stats = unit != null
+                    ? _definitionResolver.Resolve(unit, TeamId.Player).Stats
+                    : default;
 
                 _squadOptions.Add(
                     new SquadOptionData(
                         GetClassName(classId),
+                        GetClassDescription(classId),
                         GetClassIcon(classId),
-                        entry.StartingCount));
+                        entry.StartingCount,
+                        stats.MaxHealth,
+                        stats.AttackDamage,
+                        stats.MoveSpeed));
             }
 
             _squadView.Show(_squadOptions);
         }
 
-        private void OnFormationCycleRequested(int direction) =>
-            _flowController.CycleFormation(direction);
+        private void OnFormationsOffered(
+            IReadOnlyList<FormationConfig> options)
+        {
+            _formationOptions.Clear();
+
+            for (var i = 0; i < options.Count; i++)
+            {
+                FormationConfig formation = options[i];
+
+                _formationOptions.Add(
+                    new FormationOptionData(
+                        GetFormationName(formation),
+                        GetFormationDescription(formation),
+                        formation != null ? formation.Icon : null,
+                        formation == _runState.SelectedFormation));
+            }
+
+            _formationView.Show(_formationOptions);
+        }
 
         private void OnRewardOffered(IReadOnlyList<UpgradeConfig> choices)
         {
@@ -190,6 +249,9 @@ namespace Code.Gameplay
 
             if (state != BattleFlowState.SquadSelection)
                 _squadView.Hide();
+
+            if (state != BattleFlowState.FormationSelection)
+                _formationView.Hide();
 
             if (state == BattleFlowState.BattleSummary)
                 ShowSummary();
@@ -310,6 +372,22 @@ namespace Code.Gameplay
             }
         }
 
+        private static string GetFormationName(FormationConfig formation)
+        {
+            // null — это законный вариант «без строя», а не отсутствие
+            // данных: в начале игры не открыт ни один строй.
+            return formation != null
+                ? formation.DisplayName
+                : NoFormationName;
+        }
+
+        private static string GetFormationDescription(FormationConfig formation)
+        {
+            return formation != null
+                ? formation.Description
+                : NoFormationDescription;
+        }
+
         private string GetClassName(UnitClassId classId)
         {
             if (_classCatalog != null &&
@@ -319,6 +397,17 @@ namespace Code.Gameplay
             }
 
             return classId.ToString();
+        }
+
+        private string GetClassDescription(UnitClassId classId)
+        {
+            if (_classCatalog != null &&
+                _classCatalog.TryGet(classId, out UnitClassHudCatalog.Entry entry))
+            {
+                return entry.Description;
+            }
+
+            return string.Empty;
         }
 
         private Sprite GetClassIcon(UnitClassId classId)
@@ -338,6 +427,11 @@ namespace Code.Gameplay
                 _runState.WaveNumber,
                 _runState.Gold,
                 _runState.TotalUnitCount);
+
+            // Раньше ярлык строя не обновлялся ни разу: SetFormation
+            // не вызывался вообще, и в HUD висел текст из инспектора.
+            _hudView.SetFormation(
+                GetFormationName(_runState.SelectedFormation));
         }
 
         private static UnitClassId[] BuildTrackedClasses()

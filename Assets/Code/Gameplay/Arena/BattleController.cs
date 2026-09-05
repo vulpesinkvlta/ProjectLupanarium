@@ -18,6 +18,7 @@ namespace Code.Gameplay
         private readonly RunState _runState;
         private readonly BattleStatistics _statistics;
         private readonly ArenaContext _context;
+        private readonly FormationRegistry _formationRegistry;
 
 
         /// <summary>Награда за волну, которая идёт прямо сейчас.</summary>
@@ -29,7 +30,8 @@ namespace Code.Gameplay
             UnitDefinitionResolver definitionResolver,
             RunState runState,
             BattleStatistics statistics,
-            ArenaContext context)
+            ArenaContext context,
+            FormationRegistry formationRegistry)
         {
             _simulation = simulation ??
                 throw new ArgumentNullException(nameof(simulation));
@@ -47,6 +49,9 @@ namespace Code.Gameplay
 
             _context = context ??
                 throw new ArgumentNullException(nameof(context));
+
+            _formationRegistry = formationRegistry ??
+                throw new ArgumentNullException(nameof(formationRegistry));
         }
 
         public void StartWave()
@@ -86,6 +91,11 @@ namespace Code.Gameplay
 
             _unitSpawner.ClearAll();
             _simulation.Reset();
+
+            // Строй прошлого боя гасим здесь: иначе его бонусы попадут
+            // в предпросмотр статов на экране выбора отряда при рестарте
+            // забега — реестр живёт весь скоуп сцены, а не один бой.
+            _formationRegistry.Clear();
         }
     }
 }

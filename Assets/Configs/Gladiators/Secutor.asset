@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf10c73a94ea0640bc02174b42207d2, type: 3}
   m_Name: Secutor
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.UnitConfig
-  _id: 
+  _id: unit.secutor
   _classId: 3
   _maxHealth: 115
   _moveSpeed: 2.5

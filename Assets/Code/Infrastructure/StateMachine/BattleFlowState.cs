@@ -10,19 +10,25 @@
         /// <summary>Игрок выбирает, с кем драться в этом раунде.</summary>
         ContractSelection = 2,
 
+        /// <summary>
+        /// Игрок выбирает строй на этот бой. Состояние пропускается,
+        /// пока не открыт ни один строй: выбирать было бы не из чего.
+        /// </summary>
+        FormationSelection = 3,
+
         /// <summary>Контракт взят, отряд собран, ждём команды начать бой.</summary>
-        Preparation = 3,
+        Preparation = 4,
 
         /// <summary>Симуляция идёт.</summary>
-        Fighting = 4,
+        Fighting = 5,
 
         /// <summary>Контракт выполнен, показываем итоги боя.</summary>
-        BattleSummary = 5,
+        BattleSummary = 6,
 
         /// <summary>Игрок выбирает улучшение.</summary>
-        Reward = 6,
+        Reward = 7,
 
         /// <summary>Забег окончен.</summary>
-        Defeat = 7
+        Defeat = 8
     }
 }

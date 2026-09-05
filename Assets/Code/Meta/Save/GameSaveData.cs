@@ -19,7 +19,7 @@ namespace Code.Gameplay
         /// чтобы старый сейв можно было опознать и мигрировать,
         /// а не читать как мусор.
         /// </summary>
-        public const int CurrentVersion = 2;
+        public const int CurrentVersion = 3;
 
         public int Version = CurrentVersion;
 
@@ -38,6 +38,10 @@ namespace Code.Gameplay
         // которое нужно: старый игрок просто ещё никого не открыл.
         public string[] UnlockedUnitIds = Array.Empty<string>();
         public int BestRoundReached;
+
+        // Добавлено в версии 3: открытые строи. Читается тем же способом,
+        // что и ростер, — пустой массив означает «пока ни одного».
+        public string[] UnlockedFormationIds = Array.Empty<string>();
 
         public void WriteBuildings(Dictionary<string, int> levels)
         {

@@ -14,6 +14,7 @@ namespace Code.Gameplay
         private readonly SchoolCatalog _schoolCatalog;
         private readonly ItemCatalog _itemCatalog;
         private readonly RosterCatalog _rosterCatalog;
+        private readonly FormationCatalog _formationCatalog;
         private readonly UnitClassHudCatalog _classCatalog;
 
         private readonly List<string> _rosterNames = new(8);
@@ -26,6 +27,7 @@ namespace Code.Gameplay
             SchoolCatalog schoolCatalog,
             ItemCatalog itemCatalog,
             RosterCatalog rosterCatalog,
+            FormationCatalog formationCatalog,
             UnitClassHudCatalog classCatalog,
             LupanariumController controller,
             LupanariumView view)
@@ -42,6 +44,9 @@ namespace Code.Gameplay
             _rosterCatalog = rosterCatalog ??
                 throw new ArgumentNullException(nameof(rosterCatalog));
 
+            _formationCatalog = formationCatalog ??
+                throw new ArgumentNullException(nameof(formationCatalog));
+
             _classCatalog = classCatalog;
 
             _controller = controller ??
@@ -56,6 +61,7 @@ namespace Code.Gameplay
             _view.UpgradeRequested += OnUpgradeRequested;
             _view.ItemActionRequested += OnItemActionRequested;
             _view.RosterUnlockRequested += OnRosterUnlockRequested;
+            _view.FormationUnlockRequested += OnFormationUnlockRequested;
             _view.StartRunRequested += OnStartRunRequested;
 
             _state.Changed += Refresh;
@@ -70,6 +76,8 @@ namespace Code.Gameplay
                 _rosterNames,
                 _rosterIcons);
 
+            _view.BuildFormationRows(_formationCatalog.Entries);
+
             Refresh();
         }
 
@@ -78,6 +86,7 @@ namespace Code.Gameplay
             _view.UpgradeRequested -= OnUpgradeRequested;
             _view.ItemActionRequested -= OnItemActionRequested;
             _view.RosterUnlockRequested -= OnRosterUnlockRequested;
+            _view.FormationUnlockRequested -= OnFormationUnlockRequested;
             _view.StartRunRequested -= OnStartRunRequested;
 
             _state.Changed -= Refresh;
@@ -98,6 +107,11 @@ namespace Code.Gameplay
         private void OnRosterUnlockRequested(RosterEntry entry)
         {
             _controller.TryUnlockUnit(entry);
+        }
+
+        private void OnFormationUnlockRequested(FormationEntry entry)
+        {
+            _controller.TryUnlockFormation(entry);
         }
 
         private void BuildRosterLabels()
@@ -154,6 +168,33 @@ namespace Code.Gameplay
             RefreshBuildings();
             RefreshItems();
             RefreshRoster();
+            RefreshFormations();
+        }
+
+        private void RefreshFormations()
+        {
+            IReadOnlyList<FormationEntry> entries = _formationCatalog.Entries;
+
+            var rowIndex = 0;
+
+            for (var i = 0; i < entries.Count; i++)
+            {
+                FormationEntry entry = entries[i];
+
+                if (entry == null || entry.Formation == null)
+                    continue;
+
+                _view.RefreshFormationRow(
+                    rowIndex,
+                    new FormationRowData(
+                        _state.IsFormationUnlocked(entry),
+                        _state.MeetsRoundRequirement(entry),
+                        _state.Denarii >= entry.Price,
+                        entry.Price,
+                        entry.RequiredBestRound));
+
+                rowIndex++;
+            }
         }
 
         private void RefreshBuildings()

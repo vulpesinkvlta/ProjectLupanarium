@@ -43,6 +43,10 @@ namespace Code.Gameplay
             [SerializeField]
             private string _displayName;
 
+            [Tooltip("Короткое описание класса для карточки выбора.")]
+            [SerializeField, TextArea]
+            private string _description;
+
             [SerializeField]
             private Sprite _icon;
 
@@ -55,6 +59,9 @@ namespace Code.Gameplay
                 string.IsNullOrWhiteSpace(_displayName)
                     ? _classId.ToString()
                     : _displayName;
+
+            public string Description =>
+                _description ?? string.Empty;
 
             public Sprite Icon => _icon;
             public Color AccentColor => _accentColor;

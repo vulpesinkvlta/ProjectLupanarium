@@ -26,12 +26,17 @@ namespace Code.Gameplay
         [SerializeField] private Transform _rosterRowsRoot;
         [SerializeField] private RosterRowView _rosterRowPrefab;
 
+        [Header("Formations (необязательно)")]
+        [SerializeField] private Transform _formationRowsRoot;
+        [SerializeField] private FormationRowView _formationRowPrefab;
+
         [Header("Actions")]
         [SerializeField] private Button _startRunButton;
 
         private readonly List<SchoolBuildingRowView> _rows = new(16);
         private readonly List<ItemRowView> _itemRows = new(16);
         private readonly List<RosterRowView> _rosterRows = new(16);
+        private readonly List<FormationRowView> _formationRows = new(16);
 
         public event Action<SchoolBuildingConfig> UpgradeRequested;
         public event Action StartRunRequested;
@@ -41,6 +46,9 @@ namespace Code.Gameplay
 
         /// <summary>Нажата кнопка открытия нового типа гладиаторов.</summary>
         public event Action<RosterEntry> RosterUnlockRequested;
+
+        /// <summary>Нажата кнопка открытия нового строя.</summary>
+        public event Action<FormationEntry> FormationUnlockRequested;
 
         public int RowCount => _rows.Count;
 
@@ -146,6 +154,45 @@ namespace Code.Gameplay
             }
         }
 
+        /// <summary>
+        /// Создаёт строки строёв. Секция необязательна, как арсенал
+        /// и ростер: не назначили корень — школа работает без неё.
+        /// </summary>
+        public void BuildFormationRows(IReadOnlyList<FormationEntry> entries)
+        {
+            if (entries == null)
+                throw new ArgumentNullException(nameof(entries));
+
+            ClearFormationRows();
+
+            if (_formationRowPrefab == null || _formationRowsRoot == null)
+                return;
+
+            for (var i = 0; i < entries.Count; i++)
+            {
+                FormationEntry entry = entries[i];
+
+                if (entry == null || entry.Formation == null)
+                    continue;
+
+                FormationRowView row =
+                    Instantiate(_formationRowPrefab, _formationRowsRoot);
+
+                row.Bind(entry);
+                row.UnlockRequested += OnFormationUnlockRequested;
+
+                _formationRows.Add(row);
+            }
+        }
+
+        public void RefreshFormationRow(int index, FormationRowData data)
+        {
+            if (index < 0 || index >= _formationRows.Count)
+                return;
+
+            _formationRows[index].Refresh(data);
+        }
+
         public void RefreshRosterRow(int index, RosterRowData data)
         {
             if (index < 0 || index >= _rosterRows.Count)
@@ -190,6 +237,28 @@ namespace Code.Gameplay
             ClearRows();
             ClearItemRows();
             ClearRosterRows();
+            ClearFormationRows();
+        }
+
+        private void ClearFormationRows()
+        {
+            for (var i = 0; i < _formationRows.Count; i++)
+            {
+                FormationRowView row = _formationRows[i];
+
+                if (row == null)
+                    continue;
+
+                row.UnlockRequested -= OnFormationUnlockRequested;
+                Destroy(row.gameObject);
+            }
+
+            _formationRows.Clear();
+        }
+
+        private void OnFormationUnlockRequested(FormationEntry entry)
+        {
+            FormationUnlockRequested?.Invoke(entry);
         }
 
         private void ClearRosterRows()

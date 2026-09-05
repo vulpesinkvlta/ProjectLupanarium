@@ -54,3 +54,5 @@ MonoBehaviour:
   _formationCatalog: {fileID: 11400000, guid: 2427d0a3b2c4899449380f990e1094c1, type: 2}
   _schoolCatalog: {fileID: 11400000, guid: 2838a5adcbf7adf4a864eb6ce1595311, type: 2}
   _itemCatalog: {fileID: 11400000, guid: 5789dca083bc6ef408c961c6b77590df, type: 2}
+  _rosterCatalog: {fileID: 11400000, guid: 99aa218d22640494998e54698bb44eb9, type: 2}
+  _classCatalog: {fileID: 11400000, guid: e32f419c4e6ff154aa67425257b61c35, type: 2}

@@ -5,12 +5,6 @@ using Object = UnityEngine.Object;
 
 namespace Code.Gameplay
 {
-    /// <summary>
-    /// Сценическая часть эффектов боя: цифры урона, звук, тряска камеры.
-    ///
-    /// Все ссылки на префабы и клипы живут здесь; презентер знает только
-    /// эти четыре метода и ничего не знает про AudioSource и пулы.
-    /// </summary>
     public sealed class BattleFeedbackView : MonoBehaviour
     {
         private const int InitialNumberCapacity = 64;
@@ -76,7 +70,6 @@ namespace Code.Gameplay
             if (_damageNumberPrefab == null)
                 return;
 
-            // Криты показываем всегда — это редкое и важное событие.
             if (!isCrit)
             {
                 _hitCounter++;
@@ -119,10 +112,6 @@ namespace Code.Gameplay
             PlayClip(_abilityClips);
         }
 
-        /// <summary>
-        /// Исход боя звучит в обход лимита на звуки за кадр: это одно
-        /// событие на всю волну, и заглушать его нельзя.
-        /// </summary>
         public void PlayOutcome(bool isVictory)
         {
             AudioClip clip = isVictory ? _victoryClip : _defeatClip;
@@ -133,10 +122,6 @@ namespace Code.Gameplay
             _audioSource.PlayOneShot(clip, _outcomeVolume);
         }
 
-        /// <summary>
-        /// Переводит мировую позицию бойца в пространство, в котором
-        /// живут цифры урона.
-        /// </summary>
         private Vector3 ToNumberSpace(Vector2 worldPosition)
         {
             if (!_numbersInScreenSpace)

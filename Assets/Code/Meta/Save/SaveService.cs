@@ -119,15 +119,14 @@ namespace Code.Gameplay
         /// <summary>
         /// Приводит сейв к текущей версии схемы.
         ///
-        /// Пока версия одна, и метод только отсекает будущие сейвы:
-        /// если игрок откатит билд, читать данные новее нашей схемы
-        /// нельзя — поля могли изменить смысл.
+        /// Миграции идут по цепочке, шаг за шагом: игрок мог пропустить
+        /// несколько обновлений, и сейв версии 1 должен доехать до
+        /// текущей через все промежуточные шаги, а не только с предыдущей.
         /// </summary>
-        private static bool TryMigrate(GameSaveData data)
+        // internal, а не private: headless-тесты компилируют исходники
+        // в свою сборку и проверяют цепочку миграций напрямую.
+        internal static bool TryMigrate(GameSaveData data)
         {
-            if (data.Version == GameSaveData.CurrentVersion)
-                return true;
-
             if (data.Version > GameSaveData.CurrentVersion)
             {
                 Debug.LogWarning(
@@ -138,6 +137,17 @@ namespace Code.Gameplay
                 return false;
             }
 
+            if (data.Version < 1)
+            {
+                Debug.LogWarning(
+                    $"[Save] Сейв версии {data.Version} не поддерживается, " +
+                    $"прогресс начнётся заново.");
+
+                return false;
+            }
+
+            int from = data.Version;
+
             if (data.Version == 1)
             {
                 // 1 -> 2: добавились ростер и лучший раунд. Оба поля
@@ -146,19 +156,35 @@ namespace Code.Gameplay
                 // и снаряжение из него читаются как есть.
                 data.UnlockedUnitIds ??= Array.Empty<string>();
                 data.Version = 2;
-
-                Debug.Log(
-                    "[Save] Сейв версии 1 обновлён до версии 2, " +
-                    "прогресс школы сохранён.");
-
-                return true;
             }
 
-            Debug.LogWarning(
-                $"[Save] Сейв версии {data.Version} не поддерживается, " +
-                $"прогресс начнётся заново.");
+            if (data.Version == 2)
+            {
+                // 2 -> 3: добавились открытые строи. Старый игрок
+                // не открывал ни одного — пустой список ровно это
+                // и означает, а первые забеги он и так проходил толпой.
+                data.UnlockedFormationIds ??= Array.Empty<string>();
+                data.Version = 3;
+            }
 
-            return false;
+            if (data.Version != GameSaveData.CurrentVersion)
+            {
+                Debug.LogWarning(
+                    $"[Save] Для сейва версии {from} нет миграции " +
+                    $"до версии {GameSaveData.CurrentVersion}, " +
+                    $"прогресс начнётся заново.");
+
+                return false;
+            }
+
+            if (from != GameSaveData.CurrentVersion)
+            {
+                Debug.Log(
+                    $"[Save] Сейв версии {from} обновлён до версии " +
+                    $"{GameSaveData.CurrentVersion}, прогресс школы сохранён.");
+            }
+
+            return true;
         }
     }
 }

@@ -6,12 +6,12 @@ using VContainer.Unity;
 namespace Code.Gameplay
 {
     /// <summary>
-    /// Цикл забега: выбор контракта — подготовка — бой — итоги —
-    /// улучшение — снова выбор контракта.
+    /// Цикл забега: контракт — строй — подготовка — бой — итоги —
+    /// улучшение — снова контракт.
     ///
-    /// Состояний шесть, переходов около десяти, и всё ещё влезает
+    /// Состояний восемь, переходов около десятка, и всё ещё влезает
     /// в один enum со switch. Паттерн State с классами тут дал бы
-    /// шесть файлов и ни одной новой возможности.
+    /// восемь файлов и ни одной новой возможности.
     /// </summary>
     public sealed class BattleFlowController : IStartable, IDisposable
     {
@@ -31,6 +31,10 @@ namespace Code.Gameplay
         private readonly List<ContractOffer> _contractOffers = new(4);
         private readonly List<RosterEntry> _squadOptions = new(8);
 
+        // null в списке означает «без строя»: это всегда доступный
+        // вариант, и хранить под него отдельный флаг незачем.
+        private readonly List<FormationConfig> _formationOptions = new(8);
+
         public BattleFlowState State { get; private set; } =
             BattleFlowState.None;
 
@@ -46,9 +50,13 @@ namespace Code.Gameplay
         /// <summary>Выданы варианты стартового отряда.</summary>
         public event Action<IReadOnlyList<RosterEntry>> SquadOptionsOffered;
 
+        /// <summary>Выданы строи на выбор. null в списке — бой без строя.</summary>
+        public event Action<IReadOnlyList<FormationConfig>> FormationsOffered;
+
         public IReadOnlyList<UpgradeConfig> CurrentChoices => _currentChoices;
         public IReadOnlyList<ContractOffer> ContractOffers => _contractOffers;
         public IReadOnlyList<RosterEntry> SquadOptions => _squadOptions;
+        public IReadOnlyList<FormationConfig> FormationOptions => _formationOptions;
 
         public BattleFlowController(
             VictorySystem victorySystem,
@@ -229,6 +237,89 @@ namespace Code.Gameplay
 
             _runState.AcceptContract(offer);
 
+            OfferFormations();
+        }
+
+        /// <summary>
+        /// Предлагает строй на этот бой.
+        ///
+        /// Строй выбирается каждый раунд, а не один раз за забег:
+        /// контракт уже известен, и решение «встать в черепаху против
+        /// лучников или разбежаться» — это и есть тактика, ради которой
+        /// строи вообще существуют.
+        /// </summary>
+        private void OfferFormations()
+        {
+            BuildFormationOptions();
+
+            // Один вариант — это только «без строя»: выбирать не из чего,
+            // экран показывать не за чем.
+            if (_formationOptions.Count <= 1)
+            {
+                _runState.SelectFormation(
+                    _formationOptions.Count == 1
+                        ? _formationOptions[0]
+                        : null);
+
+                SetState(BattleFlowState.Preparation);
+                return;
+            }
+
+            SetState(BattleFlowState.FormationSelection);
+            FormationsOffered?.Invoke(_formationOptions);
+        }
+
+        private void BuildFormationOptions()
+        {
+            _formationOptions.Clear();
+
+            // Бой без строя доступен всегда и идёт первым вариантом.
+            // Это не заглушка: свободный отряд сходится с врагом сразу,
+            // а строй наступает медленно — иногда это выгоднее.
+            _formationOptions.Add(null);
+
+            IReadOnlyList<FormationEntry> entries = _formationCatalog.Entries;
+
+            if (entries.Count == 0)
+            {
+                // Каталог не настроен — оставляем старое поведение
+                // на строе из RunConfig, чтобы проект запускался.
+                if (_runConfig.DefaultFormation != null)
+                    _formationOptions.Add(_runConfig.DefaultFormation);
+
+                return;
+            }
+
+            for (var i = 0; i < entries.Count; i++)
+            {
+                FormationEntry entry = entries[i];
+
+                if (entry == null || entry.Formation == null)
+                    continue;
+
+                if (!_lupanarium.IsFormationUnlocked(entry))
+                    continue;
+
+                _formationOptions.Add(entry.Formation);
+            }
+        }
+
+        /// <summary>Игрок выбрал строй на этот бой.</summary>
+        public void SelectFormationOption(int optionIndex)
+        {
+            if (State != BattleFlowState.FormationSelection)
+                return;
+
+            if (optionIndex < 0 || optionIndex >= _formationOptions.Count)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(optionIndex),
+                    optionIndex,
+                    "Нет строя с таким индексом.");
+            }
+
+            _runState.SelectFormation(_formationOptions[optionIndex]);
+
             SetState(BattleFlowState.Preparation);
         }
 
@@ -252,22 +343,35 @@ namespace Code.Gameplay
         }
 
         /// <summary>
-        /// Листает строй. Разрешено только в подготовке: менять строй
-        /// посреди боя нельзя — статы юнитов уже посчитаны и запечены.
+        /// Листает строй стрелками HUD. Разрешено только в подготовке:
+        /// менять строй посреди боя нельзя — статы юнитов уже посчитаны
+        /// и запечены.
+        ///
+        /// Листает по тому же списку, что и экран выбора, а не по всему
+        /// каталогу: иначе стрелки давали бы бесплатный доступ к строям,
+        /// за которые игрок ещё не заплатил.
         /// </summary>
         public void CycleFormation(int direction)
         {
             if (State != BattleFlowState.Preparation)
                 return;
 
-            FormationConfig next = _formationCatalog.GetNext(
-                _runState.SelectedFormation,
-                direction);
-
-            if (next == _runState.SelectedFormation)
+            if (_formationOptions.Count <= 1)
                 return;
 
-            _runState.SelectFormation(next);
+            int currentIndex =
+                _formationOptions.IndexOf(_runState.SelectedFormation);
+
+            if (currentIndex < 0)
+                currentIndex = 0;
+
+            int step = direction >= 0 ? 1 : -1;
+
+            int nextIndex =
+                (currentIndex + step + _formationOptions.Count) %
+                _formationOptions.Count;
+
+            _runState.SelectFormation(_formationOptions[nextIndex]);
 
             // Состояние не поменялось, но UI должен перерисоваться.
             StateChanged?.Invoke(State);

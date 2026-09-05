@@ -4,15 +4,6 @@ using VContainer.Unity;
 
 namespace Code.Gameplay
 {
-    /// <summary>
-    /// Превращает события боя в эффекты: цифры урона, вспышки, звук,
-    /// тряску камеры.
-    ///
-    /// Единственное место, где симуляция встречается с ощущением боя.
-    /// Очередь наполняется боевыми системами, а вычитывается раз в кадр
-    /// здесь — за счёт этого ни AttackSystem, ни DamageSystem не знают
-    /// о существовании звука и партиклов.
-    /// </summary>
     public sealed class BattleFeedbackPresenter : ITickable
     {
         private readonly BattleFeedbackQueue _queue;
@@ -86,8 +77,6 @@ namespace Code.Gameplay
 
             _view.PlayHit(isCrit);
 
-            // Вью может уже не быть: юнит умер от этого же удара и его
-            // вью ушло доигрывать гибель. Вспышка тогда не нужна.
             if (_viewRegistry.TryGet(battleEvent.UnitId, out UnitView view))
                 view.Flash();
         }

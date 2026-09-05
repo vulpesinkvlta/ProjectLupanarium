@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4d2e4f8dcb45139b7a7b32993f9b2d, type: 3}
+  m_Name: RosterCatalog
+  m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.RosterCatalog
+  _entries:
+  - _unit: {fileID: 11400000, guid: 8304b1c964533a746be39ee62545e5e6, type: 2}
+    _unlockedFromStart: 1
+    _price: 0
+    _requiredBestRound: 0
+    _startingCount: 1
+  - _unit: {fileID: 11400000, guid: b471ec3eb8d036e4fa6dd8ba212bd71c, type: 2}
+    _unlockedFromStart: 0
+    _price: 450
+    _requiredBestRound: 3
+    _startingCount: 5
+  - _unit: {fileID: 11400000, guid: 72045671e5129714992692a1721e30b2, type: 2}
+    _unlockedFromStart: 0
+    _price: 1200
+    _requiredBestRound: 6
+    _startingCount: 5
+  - _unit: {fileID: 11400000, guid: 9d541a06d37a5db488c54ac5310d662c, type: 2}
+    _unlockedFromStart: 0
+    _price: 1800
+    _requiredBestRound: 10
+    _startingCount: 4
+  - _unit: {fileID: 11400000, guid: e42092104e6c5a34fb6f2b7b9de5909d, type: 2}
+    _unlockedFromStart: 0
+    _price: 2000
+    _requiredBestRound: 15
+    _startingCount: 1

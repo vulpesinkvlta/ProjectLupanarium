@@ -127,6 +127,9 @@ namespace Code.Gameplay
 
             builder
                 .RegisterComponentInHierarchy<SquadSelectionView>();
+
+            builder
+                .RegisterComponentInHierarchy<FormationSelectionView>();
         }
 
         private static void RegisterArenaData(

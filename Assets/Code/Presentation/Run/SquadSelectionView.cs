@@ -61,11 +61,7 @@ namespace Code.Gameplay
                 SquadOptionCardView card =
                     Instantiate(_cardPrefab, _cardsRoot);
 
-                card.Bind(
-                    i,
-                    options[i].ClassName,
-                    options[i].Icon,
-                    options[i].Count);
+                card.Bind(i, options[i]);
 
                 card.Clicked += OnCardClicked;
                 _cards.Add(card);
@@ -108,18 +104,40 @@ namespace Code.Gameplay
         }
     }
 
-    /// <summary>Готовые данные одной карточки отряда.</summary>
+    /// <summary>
+    /// Готовые данные одной карточки отряда.
+    ///
+    /// Статы приходят уже посчитанными, с бонусами школы и снаряжения:
+    /// карточка не должна знать ни про модификаторы, ни про то, откуда
+    /// они берутся, — её дело нарисовать числа.
+    /// </summary>
     public readonly struct SquadOptionData
     {
         public string ClassName { get; }
+        public string Description { get; }
         public Sprite Icon { get; }
         public int Count { get; }
 
-        public SquadOptionData(string className, Sprite icon, int count)
+        public float Health { get; }
+        public float Damage { get; }
+        public float Speed { get; }
+
+        public SquadOptionData(
+            string className,
+            string description,
+            Sprite icon,
+            int count,
+            float health,
+            float damage,
+            float speed)
         {
             ClassName = className;
+            Description = description;
             Icon = icon;
             Count = count;
+            Health = health;
+            Damage = damage;
+            Speed = speed;
         }
     }
 }

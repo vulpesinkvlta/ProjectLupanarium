@@ -53,6 +53,14 @@ namespace Code.Gameplay
             return _lupanarium.TryUnlockUnit(entry);
         }
 
+        public bool TryUnlockFormation(FormationEntry entry)
+        {
+            if (entry == null)
+                throw new ArgumentNullException(nameof(entry));
+
+            return _lupanarium.TryUnlockFormation(entry);
+        }
+
         /// <summary>
         /// Начинает новый забег и уходит на арену.
         ///

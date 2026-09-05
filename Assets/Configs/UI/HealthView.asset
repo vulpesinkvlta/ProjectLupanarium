@@ -15,9 +15,22 @@ MonoBehaviour:
   _entries:
   - _classId: 1
     _displayName: Murmillo
+    _description: "Slow but well-armoured \u2014 a classic \u2018tank\u2019. "
     _icon: {fileID: 0}
     _accentColor: {r: 0.1483176, g: 0.4716981, b: 0, a: 0}
   - _classId: 2
     _displayName: Retiatius
+    _description: Fast, agile, cunning. Fights from a distance using a net and a
+      trident.
+    _icon: {fileID: 0}
+    _accentColor: {r: 0.1483176, g: 0.4716981, b: 0, a: 0}
+  - _classId: 3
+    _displayName: Secutor
+    _description: Secure, yet mobile.
+    _icon: {fileID: 0}
+    _accentColor: {r: 0.1483176, g: 0.4716981, b: 0, a: 0}
+  - _classId: 3
+    _displayName: Retiatius
+    _description: 
     _icon: {fileID: 0}
     _accentColor: {r: 0.1483176, g: 0.4716981, b: 0, a: 0}
