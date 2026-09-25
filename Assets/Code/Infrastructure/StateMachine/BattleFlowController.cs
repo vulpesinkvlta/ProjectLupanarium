@@ -297,22 +297,40 @@ namespace Code.Gameplay
         private void OfferFormations()
         {
             BuildFormationOptions();
-
-            // Один вариант — это только «без строя»: выбирать не из чего,
-            // экран показывать не за чем.
-            if (_formationOptions.Count <= 1)
-            {
-                _runState.SelectFormation(
-                    _formationOptions.Count == 1
-                        ? _formationOptions[0]
-                        : null);
-
-                SetState(BattleFlowState.Preparation);
-                return;
-            }
-
             SetState(BattleFlowState.FormationSelection);
+            // Условие открытия должно срабатывать прямо в забеге,
+            // а не только после следующего визита на базу.
+            _lupanarium.RegisterRoundReached(_runState.WaveNumber);
             FormationsOffered?.Invoke(_formationOptions);
+        }
+
+        public void ReopenFormationSelection()
+        {
+            if (State == BattleFlowState.Preparation && _runState.HasActiveContract)
+                OfferFormations();
+        }
+
+        public void PurchaseFormationOption(int optionIndex)
+        {
+            if (State != BattleFlowState.FormationSelection ||
+                optionIndex <= 0 || optionIndex >= _formationOptions.Count)
+                return;
+
+            FormationEntry entry = _formationCatalog.FindByFormation(_formationOptions[optionIndex]);
+            if (entry == null || !_lupanarium.TryUnlockFormation(entry))
+                return;
+
+            // Покупка постоянная, выбор на этот бой — отдельное действие.
+            // Changed школы уже сохраняет покупку и остаток денариев вместе.
+            FormationsOffered?.Invoke(_formationOptions);
+        }
+
+        private bool CanUseFormation(FormationConfig formation)
+        {
+            if (formation == null)
+                return true;
+            FormationEntry entry = _formationCatalog.FindByFormation(formation);
+            return entry != null && _lupanarium.IsFormationUnlocked(entry);
         }
 
         private void BuildFormationOptions()
@@ -326,16 +344,6 @@ namespace Code.Gameplay
 
             IReadOnlyList<FormationEntry> entries = _formationCatalog.Entries;
 
-            if (entries.Count == 0)
-            {
-                // Каталог не настроен — оставляем старое поведение
-                // на строе из RunConfig, чтобы проект запускался.
-                if (_runConfig.DefaultFormation != null)
-                    _formationOptions.Add(_runConfig.DefaultFormation);
-
-                return;
-            }
-
             for (var i = 0; i < entries.Count; i++)
             {
                 FormationEntry entry = entries[i];
@@ -343,11 +351,11 @@ namespace Code.Gameplay
                 if (entry == null || entry.Formation == null)
                     continue;
 
-                if (!_lupanarium.IsFormationUnlocked(entry))
-                    continue;
-
                 _formationOptions.Add(entry.Formation);
             }
+
+            if (!CanUseFormation(_runState.SelectedFormation))
+                _runState.SelectFormation(null);
         }
 
         /// <summary>Игрок выбрал строй на этот бой.</summary>
@@ -364,7 +372,11 @@ namespace Code.Gameplay
                     "Нет строя с таким индексом.");
             }
 
-            _runState.SelectFormation(_formationOptions[optionIndex]);
+            FormationConfig formation = _formationOptions[optionIndex];
+            if (!CanUseFormation(formation))
+                return;
+
+            _runState.SelectFormation(formation);
 
             SetState(BattleFlowState.Preparation);
         }
@@ -380,6 +392,13 @@ namespace Code.Gameplay
                 Debug.LogWarning(
                     "[BattleFlow] Контракт не выбран, драться не с кем.");
 
+                return;
+            }
+
+            if (!CanUseFormation(_runState.SelectedFormation))
+            {
+                _runState.SelectFormation(null);
+                OfferFormations();
                 return;
             }
 
@@ -413,9 +432,15 @@ namespace Code.Gameplay
 
             int step = direction >= 0 ? 1 : -1;
 
-            int nextIndex =
-                (currentIndex + step + _formationOptions.Count) %
-                _formationOptions.Count;
+            int nextIndex = currentIndex;
+            // Карточки магазина содержат и закрытые строи. Стрелки HUD
+            // перебирают только купленные, не обходя проверку покупки.
+            for (var i = 0; i < _formationOptions.Count; i++)
+            {
+                nextIndex = (nextIndex + step + _formationOptions.Count) % _formationOptions.Count;
+                if (CanUseFormation(_formationOptions[nextIndex]))
+                    break;
+            }
 
             _runState.SelectFormation(_formationOptions[nextIndex]);
             SaveProgress();

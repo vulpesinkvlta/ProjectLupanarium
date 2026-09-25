@@ -19,6 +19,9 @@ namespace Code.Gameplay
 
             builder
                 .RegisterEntryPoint<LupanariumPresenter>();
+
+            builder.RegisterComponentInHierarchy<BaseSquadView>();
+            builder.RegisterEntryPoint<BaseSquadPresenter>();
         }
     }
 }

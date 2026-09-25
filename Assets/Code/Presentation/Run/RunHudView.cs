@@ -24,6 +24,7 @@ namespace Code.Gameplay
         [SerializeField] private TMP_Text _formationLabel;
         [SerializeField] private Button _nextFormationButton;
         [SerializeField] private Button _prevFormationButton;
+        [SerializeField] private Button _chooseFormationButton;
 
         [Header("Defeat")]
         [SerializeField] private GameObject _defeatRoot;
@@ -34,6 +35,7 @@ namespace Code.Gameplay
         public event Action FightRequested;
         public event Action RestartRequested;
         public event Action ReturnToLupanariumRequested;
+        public event Action FormationSelectionRequested;
 
         /// <summary>Игрок листает строй. Аргумент — направление, +1 или -1.</summary>
         public event Action<int> FormationCycleRequested;
@@ -81,6 +83,8 @@ namespace Code.Gameplay
 
         private void Awake()
         {
+            if (_chooseFormationButton != null)
+                _chooseFormationButton.onClick.AddListener(OnChooseFormationClicked);
             if (_fightButton != null)
                 _fightButton.onClick.AddListener(OnFightClicked);
 
@@ -107,6 +111,8 @@ namespace Code.Gameplay
 
         private void OnDestroy()
         {
+            if (_chooseFormationButton != null)
+                _chooseFormationButton.onClick.RemoveListener(OnChooseFormationClicked);
             if (_fightButton != null)
                 _fightButton.onClick.RemoveListener(OnFightClicked);
 
@@ -127,6 +133,8 @@ namespace Code.Gameplay
         {
             FightRequested?.Invoke();
         }
+
+        private void OnChooseFormationClicked() => FormationSelectionRequested?.Invoke();
 
         private void OnRestartClicked()
         {

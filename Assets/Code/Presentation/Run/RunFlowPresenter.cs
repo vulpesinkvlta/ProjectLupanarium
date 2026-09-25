@@ -26,6 +26,8 @@ namespace Code.Gameplay
 
         private readonly BattleFlowController _flowController;
         private readonly RunState _runState;
+        private readonly LupanariumState _lupanarium;
+        private readonly FormationCatalog _formationCatalog;
         private readonly BattleStatistics _statistics;
         private readonly UnitClassHudCatalog _classCatalog;
         private readonly UnitDefinitionResolver _definitionResolver;
@@ -56,7 +58,9 @@ namespace Code.Gameplay
             BattleSummaryView summaryView,
             SquadSelectionView squadView,
             FormationSelectionView formationView,
-            BattleFeedbackView feedbackView)
+            BattleFeedbackView feedbackView,
+            LupanariumState lupanarium,
+            FormationCatalog formationCatalog)
         {
             _flowController = flowController ??
                 throw new ArgumentNullException(nameof(flowController));
@@ -92,6 +96,8 @@ namespace Code.Gameplay
                 throw new ArgumentNullException(nameof(feedbackView));
 
             _classCatalog = classCatalog;
+            _lupanarium = lupanarium ?? throw new ArgumentNullException(nameof(lupanarium));
+            _formationCatalog = formationCatalog ?? throw new ArgumentNullException(nameof(formationCatalog));
         }
 
         public void Start()
@@ -106,6 +112,9 @@ namespace Code.Gameplay
             _summaryView.ClaimRequested += OnClaimRequested;
             _squadView.OptionSelected += OnSquadOptionSelected;
             _formationView.OptionSelected += OnFormationOptionSelected;
+            _formationView.PurchaseRequested += _flowController.PurchaseFormationOption;
+            _formationView.ReturnToBaseRequested += OnReturnRequested;
+            _hudView.FormationSelectionRequested += _flowController.ReopenFormationSelection;
 
             _flowController.StateChanged += OnStateChanged;
             _flowController.RewardOffered += OnRewardOffered;
@@ -139,6 +148,9 @@ namespace Code.Gameplay
             _summaryView.ClaimRequested -= OnClaimRequested;
             _squadView.OptionSelected -= OnSquadOptionSelected;
             _formationView.OptionSelected -= OnFormationOptionSelected;
+            _formationView.PurchaseRequested -= _flowController.PurchaseFormationOption;
+            _formationView.ReturnToBaseRequested -= OnReturnRequested;
+            _hudView.FormationSelectionRequested -= _flowController.ReopenFormationSelection;
 
             _flowController.StateChanged -= OnStateChanged;
             _flowController.RewardOffered -= OnRewardOffered;
@@ -210,15 +222,27 @@ namespace Code.Gameplay
             for (var i = 0; i < options.Count; i++)
             {
                 FormationConfig formation = options[i];
+                FormationEntry entry = _formationCatalog.FindByFormation(formation);
+                bool owned = formation == null || (entry != null && _lupanarium.IsFormationUnlocked(entry));
+                bool meetsRound = entry == null || _lupanarium.MeetsRoundRequirement(entry);
+                bool canBuy = entry != null && _lupanarium.CanUnlockFormation(entry);
+                string status = formation == null ? "Всегда доступно · бесплатно"
+                    : owned ? "Куплено навсегда"
+                    : !meetsRound ? $"Достигните раунда {entry.RequiredBestRound} · {entry.Price} ден."
+                    : canBuy ? $"Доступно для покупки · {entry.Price} ден."
+                    : $"Нужно {entry.Price} ден. · не хватает {entry.Price - _lupanarium.Denarii}";
+                string action = owned ? "Выбрать" : !meetsRound ? "Закрыто" : $"Купить · {entry.Price} ден.";
 
                 _formationOptions.Add(
                     new FormationOptionData(
                         GetFormationName(formation),
                         GetFormationDescription(formation),
                         formation != null ? formation.Icon : null,
-                        formation == _runState.SelectedFormation));
+                        formation == _runState.SelectedFormation,
+                        owned, canBuy, status, action));
             }
 
+            _formationView.SetBalance(_lupanarium.Denarii, _lupanarium.BestRoundReached);
             _formationView.Show(_formationOptions);
         }
 

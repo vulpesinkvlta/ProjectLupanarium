@@ -284,6 +284,139 @@ namespace Code.Tests
             Assert.That(_run.Gold, Is.EqualTo(25));
         }
 
+        [Test]
+        public void FirstRoundShowsLockedFormationsAndFreeNoFormation()
+        {
+            ConfigureFormation(300, 2);
+            _school.AddDenarii(1000);
+            var flow = Flow();
+            flow.Start();
+            flow.SelectStartingSquad(0);
+            flow.SelectContract(0);
+            Assert.That(flow.State, Is.EqualTo(BattleFlowState.FormationSelection));
+            Assert.That(flow.FormationOptions.Count, Is.EqualTo(2));
+            flow.PurchaseFormationOption(1);
+            flow.SelectFormationOption(1);
+            Assert.That(_school.Denarii, Is.EqualTo(1000));
+            Assert.That(flow.State, Is.EqualTo(BattleFlowState.FormationSelection));
+            flow.SelectFormationOption(0);
+            Assert.That(flow.State, Is.EqualTo(BattleFlowState.Preparation));
+            Assert.That(_run.SelectedFormation, Is.Null);
+        }
+
+        [Test]
+        public void ReachedRoundMakesFormationPurchasableWithoutBaseVisit()
+        {
+            FormationEntry entry = ConfigureFormation(300, 2);
+            _school.AddDenarii(400);
+            _run.AdvanceWave();
+            _run.SetStartingSquad(_unit, 5);
+            _run.AcceptContract(_offer);
+            _run.SetProgress(BattleFlowState.FormationSelection, Array.Empty<UpgradeConfig>(), new[] { _offer });
+            var flow = Flow();
+            flow.Start();
+            Assert.That(_school.BestRoundReached, Is.EqualTo(2));
+            flow.PurchaseFormationOption(1);
+            Assert.That(_school.IsFormationUnlocked(entry), Is.True);
+            Assert.That(_school.Denarii, Is.EqualTo(100));
+            Assert.That(flow.State, Is.EqualTo(BattleFlowState.FormationSelection));
+            flow.PurchaseFormationOption(1);
+            Assert.That(_school.Denarii, Is.EqualTo(100), "Повторное нажатие не списывает деньги.");
+            flow.SelectFormationOption(1);
+            Assert.That(flow.State, Is.EqualTo(BattleFlowState.Preparation));
+            Assert.That(_run.SelectedFormation, Is.SameAs(_formation));
+        }
+
+        [Test]
+        public void FormationCannotBePurchasedWithInsufficientDenarii()
+        {
+            var entry = ConfigureFormation(300, 2);
+            PrepareRoundTen(BattleFlowState.FormationSelection);
+            _school.AddDenarii(299);
+            var flow = Flow(); flow.Start();
+            flow.PurchaseFormationOption(1);
+            Assert.That(_school.IsFormationUnlocked(entry), Is.False);
+            Assert.That(_school.Denarii, Is.EqualTo(299));
+            Assert.That(_run.Gold, Is.EqualTo(225), "Золото забега не подменяет денарии.");
+        }
+
+        [Test]
+        public void FormationPurchasePersistsAndSurvivesDefeat()
+        {
+            var entry = ConfigureFormation(300, 2);
+            using var runner = new SaveRunner(Service(), _school, _run);
+            runner.Start();
+            PrepareRoundTen(BattleFlowState.FormationSelection);
+            _school.AddDenarii(400);
+            var flow = Flow(); flow.Start();
+            flow.PurchaseFormationOption(1);
+            var saved = JsonUtility.FromJson<GameSaveData>(_storage.Payload);
+            Assert.That(saved.UnlockedFormationIds, Does.Contain(_formation.Id));
+            Assert.That(saved.Denarii, Is.EqualTo(100));
+            flow.SelectFormationOption(1);
+            Invoke(flow, "SetState", BattleFlowState.Fighting);
+            Invoke(flow, "OnBattleCompleted", BattleResult.EnemyVictory);
+            flow.LateTick();
+            var restoredSchool = new LupanariumState();
+            var restoredRun = new RunState(_config);
+            Assert.That(new SaveService(_storage, restoredSchool, restoredRun, _codec).TryLoad(), Is.True);
+            Assert.That(restoredSchool.IsFormationUnlocked(entry), Is.True);
+            Assert.That(restoredRun.IsActive, Is.False);
+        }
+
+        [Test]
+        public void FormationCyclingCannotSelectLockedFormation()
+        {
+            var entry = ConfigureFormation(300, 2);
+            PrepareRoundTen(BattleFlowState.FormationSelection);
+            var flow = Flow(); flow.Start(); flow.SelectFormationOption(0);
+            flow.CycleFormation(1);
+            flow.CycleFormation(-1);
+            Assert.That(_run.SelectedFormation, Is.Null);
+            _school.AddDenarii(300);
+            flow.ReopenFormationSelection();
+            flow.PurchaseFormationOption(1);
+            flow.SelectFormationOption(0);
+            flow.CycleFormation(1);
+            Assert.That(_run.SelectedFormation, Is.SameAs(_formation));
+            flow.CycleFormation(-1);
+            Assert.That(_run.SelectedFormation, Is.Null);
+        }
+
+        [Test]
+        public void FormationShopCannotBeOpenedOrPurchasedDuringBattle()
+        {
+            var entry = ConfigureFormation(300, 2);
+            PrepareRoundTen(BattleFlowState.FormationSelection);
+            _school.AddDenarii(400);
+            var flow = Flow(); flow.Start(); flow.SelectFormationOption(0);
+            Invoke(flow, "SetState", BattleFlowState.Fighting);
+            flow.ReopenFormationSelection(); flow.PurchaseFormationOption(1); flow.SelectFormationOption(1);
+            Assert.That(flow.State, Is.EqualTo(BattleFlowState.Fighting));
+            Assert.That(_school.Denarii, Is.EqualTo(400));
+            Assert.That(_school.IsFormationUnlocked(entry), Is.False);
+        }
+
+        [Test]
+        public void DefaultFormationDoesNotBypassEmptyCatalog()
+        {
+            PrepareRoundTen(BattleFlowState.FormationSelection);
+            var flow = Flow(); flow.Start();
+            Assert.That(flow.FormationOptions.Count, Is.EqualTo(1));
+            Assert.That(flow.FormationOptions[0], Is.Null);
+            Assert.That(_run.SelectedFormation, Is.Null);
+        }
+
+        private FormationEntry ConfigureFormation(int price, int round)
+        {
+            var entry = new FormationEntry();
+            Set(entry, "_formation", _formation);
+            Set(entry, "_price", price);
+            Set(entry, "_requiredBestRound", round);
+            Set(_formations, "_entries", new[] { entry });
+            return entry;
+        }
+
         private void PrepareRoundTen(BattleFlowState phase)
         {
             _run.SetStartingSquad(_unit, 5);
