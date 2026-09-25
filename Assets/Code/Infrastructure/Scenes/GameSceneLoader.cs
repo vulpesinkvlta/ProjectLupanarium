@@ -18,7 +18,12 @@ namespace Code.Gameplay
     /// уже работающую арену. Вместо исключения — понятная ошибка в лог
     /// и false, чтобы вызывающий мог выбрать запасной путь.
     /// </summary>
-    public sealed class GameSceneLoader
+    public interface IGameSceneLoader
+    {
+        bool TryLoad(GameScene scene);
+    }
+
+    public sealed class GameSceneLoader : IGameSceneLoader
     {
         public bool TryLoad(GameScene scene)
         {

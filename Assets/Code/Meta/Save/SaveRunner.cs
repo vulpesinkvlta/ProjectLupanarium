@@ -6,27 +6,30 @@ namespace Code.Gameplay
 {
     /// <summary>
     /// Загружает прогресс на старте приложения и пишет его при каждом
-    /// изменении школы.
+    /// изменении школы и завершённом переходе между этапами забега.
     ///
     /// Автосейв по событию, а не по таймеру: состояние школы меняется
     /// редко — покупка постройки, покупка предмета, начисление денариев
-    /// после забега. Писать чаще незачем, а терять прогресс при вылете
-    /// не хочется.
+    /// после боя. Забег сохраняется на границах этапов, а не на каждом
+    /// убийстве или тике симуляции.
     /// </summary>
     public sealed class SaveRunner : IStartable, IDisposable
     {
         private readonly SaveService _saveService;
         private readonly LupanariumState _lupanarium;
+        private readonly RunState _run;
 
         public SaveRunner(
             SaveService saveService,
-            LupanariumState lupanarium)
+            LupanariumState lupanarium,
+            RunState run)
         {
             _saveService = saveService ??
                 throw new ArgumentNullException(nameof(saveService));
 
             _lupanarium = lupanarium ??
                 throw new ArgumentNullException(nameof(lupanarium));
+            _run = run ?? throw new ArgumentNullException(nameof(run));
         }
 
         public void Start()
@@ -43,6 +46,7 @@ namespace Code.Gameplay
             // и без этого порядка мы бы тут же перезаписали только что
             // прочитанный сейв самим собой.
             _lupanarium.Changed += OnLupanariumChanged;
+            _run.ProgressChanged += _saveService.Save;
 
             // Событие Changed бывает не всегда: приложение могут закрыть
             // или свернуть между покупками. На мобилках свёрнутую игру
@@ -55,6 +59,7 @@ namespace Code.Gameplay
         public void Dispose()
         {
             _lupanarium.Changed -= OnLupanariumChanged;
+            _run.ProgressChanged -= _saveService.Save;
 
             Application.quitting -= OnQuitting;
             Application.focusChanged -= OnFocusChanged;

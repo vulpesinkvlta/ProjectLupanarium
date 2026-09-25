@@ -123,6 +123,8 @@ namespace Code.Gameplay
                 OnSquadOptionsOffered(_flowController.SquadOptions);
             else if (_flowController.State == BattleFlowState.FormationSelection)
                 OnFormationsOffered(_flowController.FormationOptions);
+            else if (_flowController.State == BattleFlowState.Reward)
+                OnRewardOffered(_flowController.CurrentChoices);
         }
 
         public void Dispose()

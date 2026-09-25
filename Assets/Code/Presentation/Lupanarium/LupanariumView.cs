@@ -52,6 +52,16 @@ namespace Code.Gameplay
 
         public int RowCount => _rows.Count;
 
+        public void SetRunAction(bool hasActiveRun)
+        {
+            if (_startRunButton == null)
+                return;
+
+            TMP_Text label = _startRunButton.GetComponentInChildren<TMP_Text>(true);
+            if (label != null)
+                label.text = hasActiveRun ? "Продолжить забег" : "Начать забег";
+        }
+
         /// <summary>
         /// Создаёт строки под список построек. Вызывается один раз:
         /// набор построек за игру не меняется, меняются только уровни.

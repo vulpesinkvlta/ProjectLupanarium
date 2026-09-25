@@ -69,7 +69,7 @@ namespace Code.Gameplay
             IContainerBuilder builder)
         {
             builder.Register<GameSceneLoader>(
-                Lifetime.Singleton);
+                Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
 
             builder.Register<LupanariumController>(
                 Lifetime.Singleton);
@@ -79,6 +79,8 @@ namespace Code.Gameplay
 
             builder.Register<SaveService>(
                 Lifetime.Singleton);
+
+            builder.Register<RunSaveCodec>(Lifetime.Singleton);
 
             // Загружает прогресс на старте и пишет его при изменениях.
             builder.RegisterEntryPoint<SaveRunner>();

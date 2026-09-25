@@ -9,12 +9,12 @@ namespace Code.Gameplay
     {
         private readonly LupanariumState _lupanarium;
         private readonly RunState _runState;
-        private readonly GameSceneLoader _sceneLoader;
+        private readonly IGameSceneLoader _sceneLoader;
 
         public LupanariumController(
             LupanariumState lupanarium,
             RunState runState,
-            GameSceneLoader sceneLoader)
+            IGameSceneLoader sceneLoader)
         {
             _lupanarium = lupanarium ??
                 throw new ArgumentNullException(nameof(lupanarium));
@@ -62,15 +62,12 @@ namespace Code.Gameplay
         }
 
         /// <summary>
-        /// Начинает новый забег и уходит на арену.
-        ///
-        /// Сброс забега происходит здесь, а не в BattleFlowController:
-        /// RunState живёт в корневом скоупе и переживает смену сцены,
-        /// поэтому обнулять его должен тот, кто забег начинает.
+        /// Продолжает незавершённый забег или начинает новый после поражения.
         /// </summary>
         public void StartRun()
         {
-            _runState.Reset();
+            if (!_runState.IsActive)
+                _runState.Reset();
             _sceneLoader.TryLoad(GameScene.Arena);
         }
     }

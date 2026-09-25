@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Code.Gameplay
 {
     /// <summary>
-    /// Плоский снимок постоянного прогресса.
+    /// Снимок постоянного прогресса и незавершённого забега.
     ///
     /// Только массивы и примитивы: JsonUtility не умеет ни словари,
     /// ни интерфейсы, ни ссылки на ScriptableObject. Поэтому пары
@@ -19,11 +19,17 @@ namespace Code.Gameplay
         /// чтобы старый сейв можно было опознать и мигрировать,
         /// а не читать как мусор.
         /// </summary>
-        public const int CurrentVersion = 3;
+        public const int CurrentVersion = 4;
 
         public int Version = CurrentVersion;
 
         public int Denarii;
+
+        // Версия 4: незавершённый забег сохраняется вместе со школой.
+        // JsonUtility может развернуть null вложенного класса в пустой
+        // объект, поэтому наличие забега хранится явно.
+        public bool HasActiveRun;
+        public RunSaveData ActiveRun;
 
         public string[] BuildingIds = Array.Empty<string>();
         public int[] BuildingLevels = Array.Empty<int>();

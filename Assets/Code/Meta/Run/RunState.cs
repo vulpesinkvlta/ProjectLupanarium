@@ -7,9 +7,8 @@ namespace Code.Gameplay
     /// Состояние текущего забега: номер волны, золото, состав отряда
     /// и набранные улучшения.
     ///
-    /// Обычный C#-класс, а не ScriptableObject: SO сохранял бы изменения
-    /// между запусками Play Mode, и забег продолжался бы после выхода.
-    /// В Фазе 5 этот же класс уйдёт в JSON-сохранение.
+    /// Живёт в корневом скоупе и сохраняется в JSON вместе со школой.
+    /// Возврат на базу приостанавливает забег; поражение завершает его.
     /// </summary>
     public sealed class RunState
     {
@@ -25,6 +24,19 @@ namespace Code.Gameplay
 
         public int WaveIndex { get; private set; }
         public int Gold { get; private set; }
+        public int GoldBeforeBattle { get; private set; }
+        public BattleFlowState Phase { get; private set; }
+        public bool IsActive => Phase != BattleFlowState.None &&
+                                Phase != BattleFlowState.Defeat;
+
+        private readonly List<UpgradeConfig> _rewardChoices = new(8);
+        private readonly List<ContractOffer> _contractOffers = new(4);
+        public IReadOnlyList<UpgradeConfig> RewardChoices => _rewardChoices;
+        public IReadOnlyList<ContractOffer> ContractOffers => _contractOffers;
+
+        // Только завершённые переходы: несколько изменений одного шага
+        // (награда + следующий раунд) должны попасть в сейв вместе.
+        public event Action ProgressChanged;
 
         /// <summary>
         /// Строй, которым игрок выйдет в следующий бой.
@@ -71,8 +83,12 @@ namespace Code.Gameplay
 
         public void Reset()
         {
+            Phase = BattleFlowState.None;
+            _rewardChoices.Clear();
+            _contractOffers.Clear();
             WaveIndex = 0;
             Gold = _config.StartingGold;
+            GoldBeforeBattle = Gold;
 
             // Ни отряда, ни строя: и то, и другое игрок выбирает сам
             // в начале забега. Состав из RunConfig и строй из него же
@@ -84,6 +100,66 @@ namespace Code.Gameplay
             _squad.Clear();
 
             ActiveContract.Clear();
+        }
+
+        public void SetProgress(
+            BattleFlowState phase,
+            IReadOnlyList<UpgradeConfig> rewards,
+            IReadOnlyList<ContractOffer> contracts)
+        {
+            if (phase == BattleFlowState.Fighting && Phase != phase)
+                GoldBeforeBattle = Gold;
+
+            Phase = phase;
+            _rewardChoices.Clear();
+            _contractOffers.Clear();
+
+            for (var i = 0; i < rewards.Count; i++)
+                _rewardChoices.Add(rewards[i]);
+
+            for (var i = 0; i < contracts.Count; i++)
+            {
+                var copy = new ContractOffer();
+                copy.CopyFrom(contracts[i]);
+                _contractOffers.Add(copy);
+            }
+
+            ProgressChanged?.Invoke();
+        }
+
+        // До начисления денариев: автосейв школы не должен записать
+        // проигранный забег как ещё активный.
+        public void EndRun()
+        {
+            Phase = BattleFlowState.Defeat;
+        }
+
+        internal void RestoreProgress(
+            RunSaveData data,
+            IReadOnlyList<SquadEntry> squad,
+            IReadOnlyList<UpgradeConfig> upgrades,
+            FormationConfig formation,
+            ContractOffer contract,
+            IReadOnlyList<UpgradeConfig> rewards,
+            IReadOnlyList<ContractOffer> offers)
+        {
+            Reset();
+            WaveIndex = Math.Max(0, data.WaveIndex);
+            Gold = Math.Max(0, data.Gold);
+            GoldBeforeBattle = Gold;
+            SelectedFormation = formation;
+
+            for (var i = 0; i < squad.Count; i++)
+                AddUnits(squad[i].Config, squad[i].Count);
+
+            // Пополнение уже учтено в Squad: AddUpgrade удвоил бы бойцов.
+            for (var i = 0; i < upgrades.Count; i++)
+                _acquiredUpgrades.Add(upgrades[i]);
+
+            if (contract != null)
+                AcceptContract(contract);
+
+            SetProgress(data.Phase, rewards, offers);
         }
 
         public void SelectFormation(FormationConfig formation)

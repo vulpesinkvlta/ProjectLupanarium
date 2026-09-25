@@ -18,7 +18,7 @@ MonoBehaviour:
   _icon: {fileID: 0}
   _enemies:
   - _config: {fileID: 11400000, guid: 8304b1c964533a746be39ee62545e5e6, type: 2}
-    _count: 8
+    _count: 1
   _enemyFormation: {fileID: 0}
   _goldReward: 60
   _minimumRound: 1

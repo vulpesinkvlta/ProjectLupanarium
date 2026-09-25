@@ -13,7 +13,7 @@ namespace Code.Gameplay
     /// в один enum со switch. Паттерн State с классами тут дал бы
     /// восемь файлов и ни одной новой возможности.
     /// </summary>
-    public sealed class BattleFlowController : IStartable, IDisposable
+    public sealed class BattleFlowController : IStartable, ILateTickable, IDisposable
     {
         private readonly VictorySystem _victorySystem;
         private readonly BattleController _battleController;
@@ -23,9 +23,10 @@ namespace Code.Gameplay
         private readonly RunConfig _runConfig;
         private readonly FormationCatalog _formationCatalog;
         private readonly LupanariumState _lupanarium;
-        private readonly GameSceneLoader _sceneLoader;
+        private readonly IGameSceneLoader _sceneLoader;
         private readonly BattleStatistics _statistics;
         private readonly RosterCatalog _rosterCatalog;
+        private BattleResult _pendingResult;
 
         private readonly List<UpgradeConfig> _currentChoices = new(8);
         private readonly List<ContractOffer> _contractOffers = new(4);
@@ -67,7 +68,7 @@ namespace Code.Gameplay
             RunConfig runConfig,
             FormationCatalog formationCatalog,
             LupanariumState lupanarium,
-            GameSceneLoader sceneLoader,
+            IGameSceneLoader sceneLoader,
             BattleStatistics statistics,
             RosterCatalog rosterCatalog)
         {
@@ -109,12 +110,9 @@ namespace Code.Gameplay
         {
             _victorySystem.BattleCompleted += OnBattleCompleted;
 
-            // Забег обнуляет LupanariumController перед уходом на арену.
-            // Здесь сбрасывать нечего: RunState живёт в корневом скоупе
-            // и уже содержит отряд, с которым игрок вышел из школы.
             _battleController.ClearArena();
 
-            BeginRun();
+            ResumeOrBeginRun();
         }
 
         public void Dispose()
@@ -137,17 +135,65 @@ namespace Code.Gameplay
 
             BankRunGold();
 
-            if (!_sceneLoader.TryLoad(GameScene.Base))
-                StartRun();
+            _sceneLoader.TryLoad(GameScene.Base);
         }
 
         /// <summary>Новый забег с нуля, не покидая арену.</summary>
         public void StartRun()
         {
+            // Кнопка перезапуска не может стереть незавершённый забег.
+            if (_runState.IsActive)
+                return;
+
             _runState.Reset();
             _battleController.ClearArena();
+            _currentChoices.Clear();
+            _contractOffers.Clear();
+            _pendingResult = BattleResult.None;
 
             BeginRun();
+        }
+
+        private void ResumeOrBeginRun()
+        {
+            if (!_runState.IsActive)
+            {
+                StartRun();
+                return;
+            }
+
+            _currentChoices.AddRange(_runState.RewardChoices);
+            _contractOffers.AddRange(_runState.ContractOffers);
+
+            switch (_runState.Phase)
+            {
+                case BattleFlowState.SquadSelection:
+                    BeginRun();
+                    break;
+                case BattleFlowState.ContractSelection:
+                    if (CountAvailableOffers() == 0)
+                        OfferContracts();
+                    else
+                    {
+                        SetState(BattleFlowState.ContractSelection);
+                        ContractsOffered?.Invoke(_contractOffers);
+                    }
+                    break;
+                case BattleFlowState.FormationSelection:
+                    OfferFormations();
+                    break;
+                case BattleFlowState.Preparation:
+                case BattleFlowState.Fighting:
+                    BuildFormationOptions();
+                    SetState(BattleFlowState.Preparation);
+                    break;
+                case BattleFlowState.BattleSummary:
+                case BattleFlowState.Reward:
+                    // Бой уже оплачен. Статистика принадлежала старой
+                    // сцене, поэтому продолжаем с его невыбранной награды.
+                    OfferUpgrades();
+                    break;
+            }
         }
 
         /// <summary>
@@ -372,6 +418,7 @@ namespace Code.Gameplay
                 _formationOptions.Count;
 
             _runState.SelectFormation(_formationOptions[nextIndex]);
+            SaveProgress();
 
             // Состояние не поменялось, но UI должен перерисоваться.
             StateChanged?.Invoke(State);
@@ -471,6 +518,19 @@ namespace Code.Gameplay
             if (State != BattleFlowState.Fighting)
                 return;
 
+            _pendingResult = result;
+        }
+
+        public void LateTick()
+        {
+            if (_pendingResult == BattleResult.None)
+                return;
+
+            // VictorySystem вызывается до UnitCleanupSystem. Ждём конца
+            // тика, чтобы в награду и сейв вошли последние убийства.
+            BattleResult result = _pendingResult;
+            _pendingResult = BattleResult.None;
+
             switch (result)
             {
                 case BattleResult.PlayerVictory:
@@ -499,6 +559,7 @@ namespace Code.Gameplay
         /// </summary>
         private void HandleDefeat()
         {
+            _runState.EndRun();
             BankRunGold();
 
             SetState(BattleFlowState.Defeat);
@@ -512,6 +573,7 @@ namespace Code.Gameplay
 
             _runState.AddGold(reward);
             _statistics.AddGold(reward);
+            _upgradeDrafter.Draw(_runConfig.RewardChoiceCount, _currentChoices);
 
             SetState(BattleFlowState.BattleSummary);
         }
@@ -519,8 +581,6 @@ namespace Code.Gameplay
         private void OfferUpgrades()
         {
             int desired = _runConfig.RewardChoiceCount;
-
-            _upgradeDrafter.Draw(desired, _currentChoices);
 
             if (_currentChoices.Count == 0)
             {
@@ -546,16 +606,10 @@ namespace Code.Gameplay
 
         private void BankRunGold()
         {
-            // Рекорд по раундам открывает новых бойцов в школе,
-            // поэтому фиксируем его на каждом выходе из забега.
-            _lupanarium.RegisterRoundReached(_runState.WaveNumber);
-
             int earned = _runState.TakeAllGold();
-
-            if (earned <= 0)
-                return;
-
             _lupanarium.AddDenarii(earned);
+            _lupanarium.RegisterRoundReached(_runState.WaveNumber);
+            SaveProgress();
 
             Debug.Log(
                 $"[BattleFlow] Забег принёс {earned} денариев, " +
@@ -568,7 +622,17 @@ namespace Code.Gameplay
                 return;
 
             State = state;
+            SaveProgress();
             StateChanged?.Invoke(state);
+        }
+
+        private void SaveProgress()
+        {
+            // EndRun выставляет Defeat до банковского перевода, пока UI
+            // ещё в Fighting. Не возвращаем проигранному забегу активность.
+            BattleFlowState phase = _runState.Phase == BattleFlowState.Defeat
+                ? BattleFlowState.Defeat : State;
+            _runState.SetProgress(phase, _currentChoices, _contractOffers);
         }
     }
 }

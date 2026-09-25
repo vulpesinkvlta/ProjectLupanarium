@@ -20,7 +20,7 @@ namespace Code.Gameplay
     /// Выбран вместо файла в persistentDataPath потому, что одинаково
     /// работает на всех целевых платформах, включая WebGL, где файловая
     /// система живёт в IndexedDB и требует ручной синхронизации.
-    /// Сейв здесь маленький — несколько сотен байт JSON.
+    /// Прогресс школы и забега записывается одним JSON-снимком.
     /// </summary>
     public sealed class PlayerPrefsSaveStorage : ISaveStorage
     {
@@ -47,7 +47,7 @@ namespace Code.Gameplay
     }
 
     /// <summary>
-    /// Сохранение и загрузка постоянного прогресса.
+    /// Сохранение и загрузка школы и незавершённого забега.
     /// </summary>
     public sealed class SaveService
     {
@@ -55,22 +55,30 @@ namespace Code.Gameplay
 
         private readonly ISaveStorage _storage;
         private readonly LupanariumState _lupanarium;
+        private readonly RunState _run;
+        private readonly RunSaveCodec _runCodec;
         private readonly GameSaveData _buffer = new();
 
         public SaveService(
             ISaveStorage storage,
-            LupanariumState lupanarium)
+            LupanariumState lupanarium,
+            RunState run,
+            RunSaveCodec runCodec)
         {
             _storage = storage ??
                 throw new ArgumentNullException(nameof(storage));
 
             _lupanarium = lupanarium ??
                 throw new ArgumentNullException(nameof(lupanarium));
+            _run = run ?? throw new ArgumentNullException(nameof(run));
+            _runCodec = runCodec ?? throw new ArgumentNullException(nameof(runCodec));
         }
 
         public void Save()
         {
             _lupanarium.CaptureTo(_buffer);
+            _buffer.HasActiveRun = _run.IsActive;
+            _buffer.ActiveRun = _runCodec.Capture(_run);
 
             _storage.Write(
                 SaveKey,
@@ -107,6 +115,7 @@ namespace Code.Gameplay
             if (!TryMigrate(data))
                 return false;
 
+            _runCodec.Restore(_run, data.HasActiveRun ? data.ActiveRun : null);
             _lupanarium.RestoreFrom(data);
             return true;
         }
@@ -165,6 +174,15 @@ namespace Code.Gameplay
                 // и означает, а первые забеги он и так проходил толпой.
                 data.UnlockedFormationIds ??= Array.Empty<string>();
                 data.Version = 3;
+            }
+
+            if (data.Version == 3)
+            {
+                // Раньше сохранялась только школа. Восстановить старый
+                // забег невозможно, но весь постоянный прогресс остаётся.
+                data.ActiveRun = null;
+                data.HasActiveRun = false;
+                data.Version = 4;
             }
 
             if (data.Version != GameSaveData.CurrentVersion)

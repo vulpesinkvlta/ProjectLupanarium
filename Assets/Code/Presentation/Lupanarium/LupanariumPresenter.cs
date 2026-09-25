@@ -11,6 +11,7 @@ namespace Code.Gameplay
     public sealed class LupanariumPresenter : IStartable, IDisposable
     {
         private readonly LupanariumState _state;
+        private readonly RunState _run;
         private readonly SchoolCatalog _schoolCatalog;
         private readonly ItemCatalog _itemCatalog;
         private readonly RosterCatalog _rosterCatalog;
@@ -30,10 +31,12 @@ namespace Code.Gameplay
             FormationCatalog formationCatalog,
             UnitClassHudCatalog classCatalog,
             LupanariumController controller,
-            LupanariumView view)
+            LupanariumView view,
+            RunState run)
         {
             _state = state ??
                 throw new ArgumentNullException(nameof(state));
+            _run = run ?? throw new ArgumentNullException(nameof(run));
 
             _schoolCatalog = schoolCatalog ??
                 throw new ArgumentNullException(nameof(schoolCatalog));
@@ -164,6 +167,7 @@ namespace Code.Gameplay
         private void Refresh()
         {
             _view.SetDenarii(_state.Denarii);
+            _view.SetRunAction(_run.IsActive);
 
             RefreshBuildings();
             RefreshItems();
