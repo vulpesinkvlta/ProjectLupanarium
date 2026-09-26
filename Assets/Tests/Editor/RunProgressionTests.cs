@@ -407,6 +407,53 @@ namespace Code.Tests
             Assert.That(_run.SelectedFormation, Is.Null);
         }
 
+        [Test]
+        public void MenuDeletionRemovesRunButKeepsPermanentProgressAfterReload()
+        {
+            var entry = ConfigureFormation(300, 2);
+            PrepareRoundTen(BattleFlowState.Preparation);
+            _school.RegisterRoundReached(10);
+            _school.AddDenarii(700);
+            _school.TryUnlockFormation(entry);
+            var menu = new MainMenuController(_run, Service(), _loader);
+            menu.DeleteRun();
+            Assert.That(menu.HasActiveRun, Is.False);
+            Assert.That(_run.TotalUnitCount, Is.Zero);
+            var restoredRun = new RunState(_config);
+            var restoredSchool = new LupanariumState();
+            Assert.That(new SaveService(_storage, restoredSchool, restoredRun, _codec).TryLoad(), Is.True);
+            Assert.That(restoredRun.IsActive, Is.False);
+            Assert.That(restoredSchool.Denarii, Is.EqualTo(400));
+            Assert.That(restoredSchool.BestRoundReached, Is.EqualTo(10));
+            Assert.That(restoredSchool.IsFormationUnlocked(entry), Is.True);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void MenuContinuePreservesSavedPhaseEvenWhenSceneLoadFails(bool succeeds)
+        {
+            PrepareRoundTen(BattleFlowState.Reward);
+            _loader.Succeeds = succeeds;
+            var menu = new MainMenuController(_run, Service(), _loader);
+            Assert.That(menu.Play(), Is.EqualTo(succeeds));
+            Assert.That(_loader.LastScene, Is.EqualTo(GameScene.Arena));
+            Assert.That(_run.Phase, Is.EqualTo(BattleFlowState.Reward));
+            Assert.That(menu.Round, Is.EqualTo(10));
+            Assert.That(_run.TotalUnitCount, Is.EqualTo(8));
+        }
+
+        [Test]
+        public void MenuNewGameEntersArenaForStartingSquadSelection()
+        {
+            var menu = new MainMenuController(_run, Service(), _loader);
+            Assert.That(menu.HasActiveRun, Is.False);
+            Assert.That(menu.Play(), Is.True);
+            Assert.That(_loader.LastScene, Is.EqualTo(GameScene.Arena));
+            var flow = Flow();
+            flow.Start();
+            Assert.That(flow.State, Is.EqualTo(BattleFlowState.SquadSelection));
+        }
+
         private FormationEntry ConfigureFormation(int price, int round)
         {
             var entry = new FormationEntry();

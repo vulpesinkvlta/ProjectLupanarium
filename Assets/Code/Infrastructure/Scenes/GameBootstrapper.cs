@@ -13,7 +13,7 @@ namespace Code.Gameplay
     /// </summary>
     public sealed class GameBootstrapper : MonoBehaviour
     {
-        [SerializeField] private GameScene _firstScene = GameScene.Base;
+        [SerializeField] private GameScene _firstScene = GameScene.MainMenu;
 
         private void Start()
         {
