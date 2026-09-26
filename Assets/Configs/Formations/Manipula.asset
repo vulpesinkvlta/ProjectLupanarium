@@ -14,13 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.FormationConfig
   _id: formations.maniple
   _displayName: Maniple
-  _description: 
+  _description: "\u0420\u0438\u043C\u0441\u043A\u0438\u0439 \u0431\u043E\u0435\u0432\u043E\u0439 \u0441\u0442\u0440\u043E\u0439\nMove Speed +5\nArmor +5\nAttack Range -3"
   _icon: {fileID: 0}
   _layout: 5
   _rows: 3
   _columns: 4
   _rankSpacing: 0.8
   _fileSpacing: 0.8
-  _marchSpeed: 1.5
-  _breakRange: 2.5
-  _modifiers: []
+  _marchSpeed: 3
+  _breakRange: 0.5
+  _modifiers:
+  - _statId: 2
+    _modType: 1
+    _value: 5
+  - _statId: 8
+    _modType: 1
+    _value: 5
+  - _statId: 4
+    _modType: 1
+    _value: -3

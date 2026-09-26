@@ -20,6 +20,6 @@ MonoBehaviour:
   - _config: {fileID: 11400000, guid: 72045671e5129714992692a1721e30b2, type: 2}
     _count: 12
   _enemyFormation: {fileID: 0}
-  _goldReward: 250
+  _goldReward: 25
   _minimumRound: 4
   _weight: 2

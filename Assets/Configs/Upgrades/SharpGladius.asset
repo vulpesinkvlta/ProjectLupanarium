@@ -14,16 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.UpgradeConfig
   _id: upgrade.sharpgladius
   _displayName: Sharp Gladius
-  _description: 
+  _description: '+5 Damage
+
+    +1.2% Crit'
   _icon: {fileID: 0}
   _modifiers:
   - _statId: 3
     _modType: 1
-    _value: 10
+    _value: 3
   - _statId: 9
     _modType: 2
-    _value: 2.5
+    _value: 1.2
   _targetClass: 1
   _unitToAdd: {fileID: 0}
   _unitAddCount: 0
-  _weight: 1
+  _weight: 8

@@ -14,14 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.SchoolBuildingConfig
   _id: building.gymansium
   _displayName: Ludus
-  _description: 'Hey buddy I think you got the wrong door, leatherman''s club two
-    blocks down
+  _description: 'Hey buddy I think you got the wrong door, leatherman''s club two blocks down
 
     Increase Attack Damage'
   _icon: {fileID: 0}
   _targetClass: 0
   _levels:
-  - _cost: 100
+  - _cost: 160
     _modifiers:
     - _statId: 3
       _modType: 2

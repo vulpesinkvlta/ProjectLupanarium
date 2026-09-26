@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bceb14939304dae82ec2fbf69bf670f, type: 3}
-  m_Name: Initial
+  m_Name: Murmillo
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.ContractConfig
-  _id: Contract.initial
-  _displayName: Murmillo
+  _id: 
+  _displayName: 
   _description: 
   _icon: {fileID: 0}
   _enemies:
   - _config: {fileID: 11400000, guid: 8304b1c964533a746be39ee62545e5e6, type: 2}
-    _count: 1
+    _count: 2
   _enemyFormation: {fileID: 0}
-  _goldReward: 5
-  _minimumRound: 1
-  _weight: 3
+  _goldReward: 25
+  _minimumRound: 2
+  _weight: 1

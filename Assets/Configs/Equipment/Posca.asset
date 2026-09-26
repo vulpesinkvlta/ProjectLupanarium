@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.ItemConfig
   _id: item.posca
   _displayName: Posca
-  _description: "A drink of the poor, slaves, and legionnaires on campaign. It is
-    a mixture of sour wine or wine vinegar and water, sometimes with the addition
-    of herbs. \n+4 health"
+  _description: 'A drink of the poor, slaves, and legionnaires on campaign.
+
+    +4 health'
   _icon: {fileID: 0}
   _slot: 2
   _targetClass: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.FormationConfig
   _id: formations.circle
   _displayName: Cirlce
-  _description: 
+  _description: "\u041A\u0440\u0443\u0433\u043E\u0432\u0430\u044F \u043E\u0431\u043E\u0440\u043E\u043D\u0430\nAttack Range +1.5%\nMove Speed-5\nAtmor +2%"
   _icon: {fileID: 0}
   _layout: 4
   _rows: 2
@@ -22,8 +22,14 @@ MonoBehaviour:
   _rankSpacing: 0.8
   _fileSpacing: 0.8
   _marchSpeed: 1.5
-  _breakRange: 2.5
+  _breakRange: 1
   _modifiers:
   - _statId: 4
     _modType: 2
     _value: 1.5
+  - _statId: 2
+    _modType: 1
+    _value: -5
+  - _statId: 8
+    _modType: 2
+    _value: 2

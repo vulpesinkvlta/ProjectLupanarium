@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.SchoolBuildingConfig
   _id: building.forge
   _displayName: Forge
-  _description: 'Increase '
+  _description: "\u041F\u043E\u0432\u044B\u0448\u0430\u0435\u0442 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u0431\u0440\u043E\u043D\u0438, \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u0438 \u0430\u0442\u0430\u043A\u0438 \u0438 \u0448\u0430\u043D\u0441\u0430 \u043A\u0440\u0438\u0442\u0430."
   _icon: {fileID: 0}
   _targetClass: 0
   _levels:
@@ -22,24 +22,13 @@ MonoBehaviour:
     _modifiers:
     - _statId: 8
       _modType: 1
-      _value: 3
+      _value: 1.5
     - _statId: 5
       _modType: 3
-      _value: -1.1
+      _value: -0.2
     - _statId: 9
       _modType: 3
-      _value: 1.2
-  - _cost: 400
-    _modifiers:
-    - _statId: 8
-      _modType: 1
-      _value: 3
-    - _statId: 5
-      _modType: 2
-      _value: -1.1
-    - _statId: 9
-      _modType: 3
-      _value: 1.2
+      _value: -0.3
   - _cost: 600
     _modifiers:
     - _statId: 8
@@ -47,7 +36,18 @@ MonoBehaviour:
       _value: 3
     - _statId: 5
       _modType: 3
+      _value: -0.4
+    - _statId: 9
+      _modType: 3
+      _value: -0.6
+  - _cost: 1200
+    _modifiers:
+    - _statId: 8
+      _modType: 1
+      _value: 5
+    - _statId: 5
+      _modType: 3
       _value: -1.1
     - _statId: 9
       _modType: 3
-      _value: 1.2
+      _value: -1.2

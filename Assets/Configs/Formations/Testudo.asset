@@ -16,16 +16,21 @@ MonoBehaviour:
   _displayName: Testudo
   _description: 'Form testudo
 
-'
+    Armor 25
+
+    Move Speed -10'
   _icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   _layout: 2
   _rows: 2
   _columns: 4
   _rankSpacing: 0.8
   _fileSpacing: 0.8
-  _marchSpeed: 1.5
-  _breakRange: 2.5
+  _marchSpeed: 0.1
+  _breakRange: 0.5
   _modifiers:
   - _statId: 8
     _modType: 1
     _value: 25
+  - _statId: 2
+    _modType: 1
+    _value: -10

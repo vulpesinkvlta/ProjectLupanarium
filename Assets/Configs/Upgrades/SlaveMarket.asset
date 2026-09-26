@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.UpgradeConfig
   _id: upgrade.slavemarket
   _displayName: Slave Market
-  _description: 
+  _description: 'Buy new Gladiator
+
+    +1 Murmillo'
   _icon: {fileID: 0}
   _modifiers: []
-  _targetClass: 0
+  _targetClass: 1
   _unitToAdd: {fileID: 11400000, guid: 8304b1c964533a746be39ee62545e5e6, type: 2}
-  _unitAddCount: 5
+  _unitAddCount: 1
   _weight: 1
