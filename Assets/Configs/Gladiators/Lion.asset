@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.UnitConfig
   _id: unit.lion
   _classId: 6
-  _maxHealth: 100
-  _moveSpeed: 3
-  _attackDamage: 10
-  _attackRange: 0.8
-  _attackCooldown: 1
-  _attackWindup: 0.25
-  _critMultiplier: 2
-  _radius: 0.35
-  _engagementCapacity: 4
-  _armor: 0
-  _critChance: 0
+  _maxHealth: 875
+  _moveSpeed: 2.6
+  _attackDamage: 30
+  _attackRange: 1
+  _attackCooldown: 1.4
+  _attackWindup: 0.45
+  _critMultiplier: 1.6
+  _radius: 0.45
+  _engagementCapacity: 5
+  _armor: 1
+  _critChance: 0.05
   _ability: {fileID: 0}
-  _goldReward: 1
+  _goldReward: 6

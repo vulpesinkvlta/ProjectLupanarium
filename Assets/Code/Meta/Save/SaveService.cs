@@ -125,6 +125,14 @@ namespace Code.Gameplay
             _storage.Delete(SaveKey);
         }
 
+        public void ResetAllProgress()
+        {
+            // Reset live state too, otherwise autosave would resurrect the old school.
+            _run.Reset();
+            _lupanarium.Reset();
+            Save();
+        }
+
         /// <summary>
         /// Приводит сейв к текущей версии схемы.
         ///
@@ -183,6 +191,13 @@ namespace Code.Gameplay
                 data.ActiveRun = null;
                 data.HasActiveRun = false;
                 data.Version = 4;
+            }
+
+            if (data.Version == 4)
+            {
+                data.BlessingIds ??= Array.Empty<string>();
+                data.BlessingCharges ??= Array.Empty<int>();
+                data.Version = 5;
             }
 
             if (data.Version != GameSaveData.CurrentVersion)

@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bceb14939304dae82ec2fbf69bf670f, type: 3}
   m_Name: Murmillo
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.ContractConfig
-  _id: 
-  _displayName: 
-  _description: 
+  _id: contract.murmillo
+  _displayName: "\u0429\u0438\u0442\u044B \u0430\u0440\u0435\u043D\u044B"
+  _description: "\u041D\u0435\u0431\u043E\u043B\u044C\u0448\u043E\u0439 \u043E\u0442\u0440\u044F\u0434 \u0441\u0431\u0430\u043B\u0430\u043D\u0441\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0445 \u0431\u043E\u0439\u0446\u043E\u0432."
   _icon: {fileID: 0}
   _enemies:
   - _config: {fileID: 11400000, guid: 8304b1c964533a746be39ee62545e5e6, type: 2}
     _count: 2
   _enemyFormation: {fileID: 0}
-  _goldReward: 25
-  _minimumRound: 2
-  _weight: 1
+  _goldReward: 30
+  _minimumRound: 4
+  _maximumRound: 0
+  _weight: 3

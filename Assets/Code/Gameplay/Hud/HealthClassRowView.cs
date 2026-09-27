@@ -16,6 +16,15 @@ namespace Code.Gameplay
         [SerializeField]
         private TMP_Text _countLabel;
 
+        [SerializeField] private TMP_Text _statsLabel;
+
+        public void SetCombatStats(float minDamage, float maxDamage, float minArmor, float maxArmor)
+        {
+            if (_statsLabel == null) return;
+            string Range(float min, float max) => Mathf.Approximately(min, max) ? $"{min:0.#}" : $"{min:0.#}–{max:0.#}";
+            _statsLabel.text = $"Урон {Range(minDamage, maxDamage)}  ·  Броня {Range(minArmor, maxArmor)}";
+        }
+
         [Header("Segments")]
         [SerializeField]
         private Transform _segmentsRoot;

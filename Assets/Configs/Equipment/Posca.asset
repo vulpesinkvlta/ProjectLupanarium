@@ -13,15 +13,13 @@ MonoBehaviour:
   m_Name: Posca
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.ItemConfig
   _id: item.posca
-  _displayName: Posca
-  _description: 'A drink of the poor, slaves, and legionnaires on campaign.
-
-    +4 health'
+  _displayName: "\u041F\u043E\u0441\u043A\u0430"
+  _description: "\u0412\u0441\u0435\u043C \u0433\u043B\u0430\u0434\u0438\u0430\u0442\u043E\u0440\u0430\u043C +8% \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u044F."
   _icon: {fileID: 0}
   _slot: 2
   _targetClass: 0
-  _price: 50
+  _price: 160
   _modifiers:
   - _statId: 1
-    _modType: 1
-    _value: 4
+    _modType: 2
+    _value: 0.08

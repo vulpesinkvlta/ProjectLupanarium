@@ -19,11 +19,14 @@ namespace Code.Gameplay
         /// чтобы старый сейв можно было опознать и мигрировать,
         /// а не читать как мусор.
         /// </summary>
-        public const int CurrentVersion = 4;
+        public const int CurrentVersion = 5;
 
         public int Version = CurrentVersion;
 
         public int Denarii;
+
+        public string[] BlessingIds = Array.Empty<string>();
+        public int[] BlessingCharges = Array.Empty<int>();
 
         // Версия 4: незавершённый забег сохраняется вместе со школой.
         // JsonUtility может развернуть null вложенного класса в пустой

@@ -19,6 +19,8 @@ namespace Code.Gameplay
         // Arena resumes the saved phase or offers a starting squad for a new run.
         public bool Play() => _loader.TryLoad(GameScene.Arena);
 
+        public void ResetAllProgress() => _save.ResetAllProgress();
+
         public void DeleteRun()
         {
             if (!_run.IsActive)

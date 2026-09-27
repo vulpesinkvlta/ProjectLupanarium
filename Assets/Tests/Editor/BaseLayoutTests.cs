@@ -33,7 +33,7 @@ namespace Code.Tests
         {
             var scrolls = _scene.GetRootGameObjects()
                 .SelectMany(g => g.GetComponentsInChildren<UnityEngine.UI.ScrollRect>(true)).ToArray();
-            Assert.That(scrolls.Length, Is.EqualTo(3));
+            Assert.That(scrolls.Length, Is.EqualTo(4));
             foreach (var scroll in scrolls)
             {
                 Assert.That(scroll.movementType, Is.EqualTo(UnityEngine.UI.ScrollRect.MovementType.Clamped));
@@ -52,27 +52,42 @@ namespace Code.Tests
         }
 
         [Test]
-        public void BaseStartsWithAllPanelsHiddenAndThreeTabs()
+        public void BaseStartsWithAllPanelsHiddenAndFourTabs()
         {
             var nav = Find<BasePanelNavigation>();
             var data = new SerializedObject(nav);
             Assert.That(((GameObject)Reference(nav, "_panelLayer")).activeSelf, Is.False);
-            Assert.That(data.FindProperty("_tabs").arraySize, Is.EqualTo(3));
+            Assert.That(data.FindProperty("_tabs").arraySize, Is.EqualTo(4));
             var panels = data.FindProperty("_panels");
-            Assert.That(panels.arraySize, Is.EqualTo(3));
+            Assert.That(panels.arraySize, Is.EqualTo(4));
             for (var i = 0; i < panels.arraySize; i++)
                 Assert.That(((GameObject)panels.GetArrayElementAtIndex(i).objectReferenceValue).activeSelf, Is.False);
             Assert.That(Find<UnityEngine.UI.CanvasScaler>().uiScaleMode,
                 Is.EqualTo(UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize));
         }
 
+        [Test]
+        public void BlessingShopReferencesImportedCardPrefabAndFourthPanelContent()
+        {
+            var shop = Find<BlessingShopView>();
+            var card = (BlessingCardView)Reference(shop, "_cardPrefab");
+            Assert.That(card, Is.Not.Null);
+            Assert.That(AssetDatabase.Contains(card), Is.True);
+            var nav = new SerializedObject(Find<BasePanelNavigation>());
+            var panel = (GameObject)nav.FindProperty("_panels").GetArrayElementAtIndex(3).objectReferenceValue;
+            Assert.That(Reference(shop, "_cardsRoot"), Is.SameAs(panel.GetComponentInChildren<UnityEngine.UI.ScrollRect>(true).content));
+            foreach (string field in new[] { "_name", "_description", "_actionLabel", "_button", "_icon" })
+                Assert.That(Reference(card, field), Is.Not.Null, field);
+        }
+
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
+        [TestCase(3)]
         public void PanelSwitchesExclusivelyAndRepeatedClickCloses(int index)
         {
             var nav = Find<BasePanelNavigation>();
-            nav.TogglePanel((index + 1) % 3);
+            nav.TogglePanel((index + 1) % 4);
             nav.TogglePanel(index);
             Assert.That(nav.OpenPanelIndex, Is.EqualTo(index));
             var panels = new SerializedObject(nav).FindProperty("_panels");

@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.UnitConfig
   _id: unit.murmillo
   _classId: 1
-  _maxHealth: 100
+  _maxHealth: 600
   _moveSpeed: 2.4
-  _attackDamage: 26
-  _attackRange: 0.85
-  _attackCooldown: 0.95
-  _attackWindup: 0.5
-  _critMultiplier: 2
+  _attackDamage: 22
+  _attackRange: 0.9
+  _attackCooldown: 1.1
+  _attackWindup: 0.35
+  _critMultiplier: 1.6
   _radius: 0.4
   _engagementCapacity: 5
   _armor: 2
-  _critChance: 0.1
+  _critChance: 0.05
   _ability: {fileID: 0}
-  _goldReward: 12
+  _goldReward: 4

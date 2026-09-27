@@ -15,25 +15,25 @@ MonoBehaviour:
   _entries:
   - _formation: {fileID: 11400000, guid: 6556a807022d1e74f9555979ecef728f, type: 2}
     _unlockedFromStart: 0
-    _price: 300
-    _requiredBestRound: 2
+    _price: 180
+    _requiredBestRound: 4
   - _formation: {fileID: 11400000, guid: 0105b7955aae3934f991a9bb272e82be, type: 2}
     _unlockedFromStart: 0
-    _price: 600
-    _requiredBestRound: 4
+    _price: 240
+    _requiredBestRound: 6
   - _formation: {fileID: 11400000, guid: e6a7c3a4cdecff54fa7cc141dea65145, type: 2}
     _unlockedFromStart: 0
-    _price: 1000
-    _requiredBestRound: 6
+    _price: 400
+    _requiredBestRound: 10
   - _formation: {fileID: 11400000, guid: 953a1199f4461284f8f91e6c0beb56e8, type: 2}
     _unlockedFromStart: 0
-    _price: 1400
+    _price: 320
     _requiredBestRound: 8
   - _formation: {fileID: 11400000, guid: f1c7e652e47041243af2f4471512162d, type: 2}
     _unlockedFromStart: 0
-    _price: 2000
-    _requiredBestRound: 11
+    _price: 500
+    _requiredBestRound: 12
   - _formation: {fileID: 11400000, guid: 2bd5beee60bfc1442bcdec8a2e030619, type: 2}
     _unlockedFromStart: 0
-    _price: 2800
-    _requiredBestRound: 15
+    _price: 650
+    _requiredBestRound: 16

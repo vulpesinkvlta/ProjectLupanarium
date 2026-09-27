@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Code.Gameplay
 {
-    /// <summary>Три раздела базы; одновременно открыт только один.</summary>
+        /// <summary>Разделы базы; одновременно открыт только один.</summary>
     public sealed class BasePanelNavigation : MonoBehaviour
     {
         [SerializeField] private GameObject _panelLayer;
@@ -17,12 +17,13 @@ namespace Code.Gameplay
         [SerializeField] private Color _normalColor = new(0.19f, 0.17f, 0.15f);
         [SerializeField] private Color _selectedColor = new(0.48f, 0.20f, 0.17f);
 
-        private static readonly string[] Titles = { "Гладиаторы", "Постройки", "Арсенал" };
+        private static readonly string[] Titles = { "Гладиаторы", "Постройки", "Арсенал", "Благословление Императора" };
         private static readonly string[] Descriptions =
         {
             "Открывайте бойцов для следующих забегов",
             "Улучшения школы действуют во всех забегах",
-            "Покупайте и надевайте снаряжение для своих бойцов"
+            "Покупайте и надевайте снаряжение для своих бойцов",
+            "Одна покупка — один заряд. Все эффекты в кругу действуют на обе стороны"
         };
 
         public int OpenPanelIndex { get; private set; } = -1;
@@ -32,6 +33,7 @@ namespace Code.Gameplay
             _tabs[0].onClick.AddListener(ToggleRoster);
             _tabs[1].onClick.AddListener(ToggleBuildings);
             _tabs[2].onClick.AddListener(ToggleItems);
+            if (_tabs.Length > 3) _tabs[3].onClick.AddListener(ToggleBlessings);
             _closeButton.onClick.AddListener(ClosePanels);
             _backdropButton.onClick.AddListener(ClosePanels);
             ClosePanels();
@@ -97,12 +99,14 @@ namespace Code.Gameplay
         private void ToggleRoster() => TogglePanel(0);
         private void ToggleBuildings() => TogglePanel(1);
         private void ToggleItems() => TogglePanel(2);
+        private void ToggleBlessings() => TogglePanel(3);
 
         private void OnDestroy()
         {
             _tabs[0].onClick.RemoveListener(ToggleRoster);
             _tabs[1].onClick.RemoveListener(ToggleBuildings);
             _tabs[2].onClick.RemoveListener(ToggleItems);
+            if (_tabs.Length > 3) _tabs[3].onClick.RemoveListener(ToggleBlessings);
             _closeButton.onClick.RemoveListener(ClosePanels);
             _backdropButton.onClick.RemoveListener(ClosePanels);
         }

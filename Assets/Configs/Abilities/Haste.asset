@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Haste
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.AbilityConfig
   _id: abilities.haste
-  _displayName: Haste
-  _description: Hastle yourself
+  _displayName: "\u0420\u044B\u0432\u043E\u043A"
+  _description: "\u0423\u0441\u043A\u043E\u0440\u044F\u0435\u0442 \u043F\u0435\u0440\u0435\u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435 \u043D\u0430 35% \u043D\u0430 2 \u0441\u0435\u043A\u0443\u043D\u0434\u044B."
   _effect: 3
-  _cooldown: 10
+  _cooldown: 9
   _range: 0
-  _duration: 1.5
-  _magnitude: 2
+  _duration: 2
+  _magnitude: 1.35

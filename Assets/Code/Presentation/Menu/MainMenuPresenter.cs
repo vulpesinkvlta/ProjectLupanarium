@@ -18,6 +18,7 @@ namespace Code.Gameplay
         {
             _view.PlayRequested += Play;
             _view.DeleteRequested += Delete;
+            _view.ResetAllRequested += ResetAll;
             Refresh();
         }
 
@@ -25,6 +26,7 @@ namespace Code.Gameplay
         {
             _view.PlayRequested -= Play;
             _view.DeleteRequested -= Delete;
+            _view.ResetAllRequested -= ResetAll;
         }
 
         private void Refresh() => _view.Refresh(_controller.HasActiveRun, _controller.Round);
@@ -42,6 +44,12 @@ namespace Code.Gameplay
         private void Delete()
         {
             _controller.DeleteRun();
+            Refresh();
+        }
+
+        private void ResetAll()
+        {
+            _controller.ResetAllProgress();
             Refresh();
         }
     }

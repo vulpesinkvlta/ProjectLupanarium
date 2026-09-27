@@ -96,7 +96,8 @@ namespace Code.Gameplay
             DamageAppliedLastTick += appliedDamage;
             RequestsProcessedLastTick++;
 
-            target.RecordDamageSource(request.Source);
+            if (appliedDamage > 0f)
+                target.RecordDamageSource(request.Source);
 
             _statistics.RegisterDamage(
                 request.Source,

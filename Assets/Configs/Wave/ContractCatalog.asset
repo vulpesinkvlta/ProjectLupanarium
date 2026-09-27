@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.ContractCatalog
   _contracts:
   - {fileID: 11400000, guid: d781a98ab2699d74ebe859d6ca04f789, type: 2}
-  - {fileID: 11400000, guid: f15f5617ee8d8414ca621c5603ae281e, type: 2}
-  - {fileID: 11400000, guid: 419aac731f88a57479f7f74a671e805a, type: 2}
   - {fileID: 11400000, guid: 5c3b3d2be7c8cb341ba1e2434c941405, type: 2}
-  _enemyGrowthPerRound: 0.15
-  _goldGrowthPerRound: 0.12
+  - {fileID: 11400000, guid: c77a0cc649e90484ba34b832e1c23850, type: 2}
+  - {fileID: 11400000, guid: 419aac731f88a57479f7f74a671e805a, type: 2}
+  - {fileID: 11400000, guid: f15f5617ee8d8414ca621c5603ae281e, type: 2}
+  _enemyGrowthPerRound: 0.12
+  _goldGrowthPerRound: 0.06
+  _compoundEnemyGrowth: 1
+  _maximumEnemiesPerSquad: 256

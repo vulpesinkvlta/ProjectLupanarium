@@ -6,8 +6,8 @@ namespace Code.Gameplay
     /// <summary>
     /// Постоянное состояние школы: денарии, уровни построек и снаряжение.
     ///
-    /// Переживает забеги — в отличие от RunState, который сбрасывается
-    /// на каждый выход на арену. Всё хранится строковыми id, а не ссылками
+    /// Переживает забеги, включая запас благословлений. RunState хранит
+    /// только текущий незавершённый забег. Всё хранится строковыми id, а не ссылками
     /// на ScriptableObject: именно в таком виде состояние уходит в сейв.
     /// </summary>
     public sealed class LupanariumState
@@ -32,6 +32,33 @@ namespace Code.Gameplay
             new(InitialItemCapacity);
 
         public int Denarii { get; private set; }
+
+        private readonly Dictionary<string, int> _blessingCharges = new();
+
+        public int GetBlessingCharges(string id) =>
+            id != null && _blessingCharges.TryGetValue(id, out int count) ? count : 0;
+
+        public bool CanBuyBlessing(BlessingConfig blessing) =>
+            blessing != null && !string.IsNullOrWhiteSpace(blessing.Id) &&
+            Denarii >= blessing.Price && GetBlessingCharges(blessing.Id) < int.MaxValue;
+
+        public bool TryBuyBlessing(BlessingConfig blessing)
+        {
+            if (!CanBuyBlessing(blessing)) return false;
+            Denarii -= blessing.Price;
+            _blessingCharges[blessing.Id] = GetBlessingCharges(blessing.Id) + 1;
+            Changed?.Invoke();
+            return true;
+        }
+
+        public bool TryConsumeBlessing(string id)
+        {
+            int count = GetBlessingCharges(id);
+            if (count <= 0) return false;
+            _blessingCharges[id] = count - 1;
+            Changed?.Invoke();
+            return true;
+        }
 
         /// <summary>
         /// Самый дальний раунд, до которого игрок доходил за все забеги.
@@ -261,6 +288,7 @@ namespace Code.Gameplay
 
         public void Reset()
         {
+            _blessingCharges.Clear();
             _buildingLevels.Clear();
             _ownedItems.Clear();
             _equippedBySlot.Clear();
@@ -283,6 +311,14 @@ namespace Code.Gameplay
             data.Version = GameSaveData.CurrentVersion;
             data.Denarii = Denarii;
             data.BestRoundReached = BestRoundReached;
+            data.BlessingIds = new string[_blessingCharges.Count];
+            data.BlessingCharges = new int[_blessingCharges.Count];
+            int chargeIndex = 0;
+            foreach (var charge in _blessingCharges)
+            {
+                data.BlessingIds[chargeIndex] = charge.Key;
+                data.BlessingCharges[chargeIndex++] = charge.Value;
+            }
 
             var unlocked = new string[_unlockedUnits.Count];
             _unlockedUnits.CopyTo(unlocked);
@@ -311,6 +347,11 @@ namespace Code.Gameplay
 
             Denarii = Math.Max(0, data.Denarii);
             BestRoundReached = Math.Max(0, data.BestRoundReached);
+            _blessingCharges.Clear();
+            int chargeCount = Math.Min(data.BlessingIds?.Length ?? 0, data.BlessingCharges?.Length ?? 0);
+            for (int i = 0; i < chargeCount; i++)
+                if (!string.IsNullOrWhiteSpace(data.BlessingIds[i]))
+                    _blessingCharges[data.BlessingIds[i]] = Math.Max(0, data.BlessingCharges[i]);
 
             _unlockedUnits.Clear();
 

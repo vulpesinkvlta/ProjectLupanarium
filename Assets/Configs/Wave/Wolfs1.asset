@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Wolfs1
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.ContractConfig
   _id: contract.wolfs1
-  _displayName: Wolfs
-  _description: 
+  _displayName: "\u0412\u043E\u043B\u0447\u044C\u044F \u0441\u0442\u0430\u044F"
+  _description: "\u041C\u043D\u043E\u0433\u043E \u0431\u044B\u0441\u0442\u0440\u044B\u0445 \u043F\u0440\u043E\u0442\u0438\u0432\u043D\u0438\u043A\u043E\u0432 \u0431\u0435\u0437 \u0431\u0440\u043E\u043D\u0438."
   _icon: {fileID: 0}
   _enemies:
   - _config: {fileID: 11400000, guid: 6e9ab4c0e565ddd4cbb59d4fc0c0409f, type: 2}
-    _count: 10
+    _count: 4
   _enemyFormation: {fileID: 0}
-  _goldReward: 100
-  _minimumRound: 2
-  _weight: 2
+  _goldReward: 28
+  _minimumRound: 1
+  _maximumRound: 0
+  _weight: 3

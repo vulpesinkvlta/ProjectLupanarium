@@ -23,6 +23,7 @@ namespace Code.Gameplay
         [SerializeField] private UpgradeCatalog _upgradeCatalog;
 
         [Header("Formations")]
+        [SerializeField] private BlessingCatalog _blessingCatalog;
         [SerializeField] private FormationCatalog _formationCatalog;
 
         [Header("Lupanarium")]
@@ -45,6 +46,7 @@ namespace Code.Gameplay
 
         private void RegisterCatalogs(IContainerBuilder builder)
         {
+            builder.RegisterInstance(_blessingCatalog);
             builder.RegisterInstance(_runConfig);
             builder.RegisterInstance(_contractCatalog);
             builder.RegisterInstance(_upgradeCatalog);

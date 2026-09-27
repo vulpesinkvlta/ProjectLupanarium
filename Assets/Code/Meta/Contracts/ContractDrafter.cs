@@ -85,6 +85,8 @@ namespace Code.Gameplay
 
                 if (contract.MinimumRound > roundNumber)
                     continue;
+                if (contract.MaximumRound > 0 && roundNumber > contract.MaximumRound)
+                    continue;
 
                 _candidates.Add(contract);
             }
@@ -96,9 +98,6 @@ namespace Code.Gameplay
             ContractOffer destination)
         {
             int extraRounds = Mathf.Max(0, roundNumber - 1);
-
-            float enemyMultiplier =
-                1f + _catalog.EnemyGrowthPerRound * extraRounds;
 
             float goldMultiplier =
                 1f + _catalog.GoldGrowthPerRound * extraRounds;
@@ -114,9 +113,7 @@ namespace Code.Gameplay
                 if (entry == null || entry.Config == null)
                     continue;
 
-                int scaledCount = Mathf.Max(
-                    1,
-                    Mathf.RoundToInt(entry.Count * enemyMultiplier));
+                int scaledCount = _catalog.ScaleCount(entry.Count, roundNumber);
 
                 _scaledEnemies.Add(
                     new SquadEntry(entry.Config, scaledCount));

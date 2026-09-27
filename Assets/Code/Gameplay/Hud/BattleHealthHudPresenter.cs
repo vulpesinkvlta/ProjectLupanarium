@@ -128,6 +128,17 @@ namespace Code.Gameplay
                         total,
                         row));
 
+                float minDamage = float.MaxValue, maxDamage = 0, minArmor = float.MaxValue, maxArmor = 0;
+                foreach (var member in teamUnits)
+                {
+                    if (member.ClassId != presentation.ClassId) continue;
+                    minDamage = Mathf.Min(minDamage, member.Stats.AttackDamage);
+                    maxDamage = Mathf.Max(maxDamage, member.Stats.AttackDamage);
+                    minArmor = Mathf.Min(minArmor, member.Stats.Armor);
+                    maxArmor = Mathf.Max(maxArmor, member.Stats.Armor);
+                }
+                row.SetCombatStats(minDamage, maxDamage, minArmor, maxArmor);
+
                 for (var unitIndex = 0;
                      unitIndex < teamUnits.Count;
                      unitIndex++)

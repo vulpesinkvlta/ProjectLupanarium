@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: Scutum
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.ItemConfig
   _id: item.scutum
-  _displayName: Scutum
-  _description: "A roman legionary shield\n\u041C\u0443\u0440\u043C\u0438\u043B\u043B\u043E\u043D \u043F\u043E\u043B\u0443\u0447\u0430\u0435\u0442 +15 armor"
+  _displayName: "\u0421\u043A\u0443\u0442\u0443\u043C"
+  _description: "\u041C\u0443\u0440\u043C\u0438\u043B\u043B\u043E\u043D\u0430\u043C +1 \u0431\u0440\u043E\u043D\u0438 \u0438 +5% \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u044F."
   _icon: {fileID: 0}
   _slot: 1
   _targetClass: 1
-  _price: 125
+  _price: 200
   _modifiers:
   - _statId: 8
     _modType: 1
-    _value: 5
+    _value: 1
+  - _statId: 1
+    _modType: 2
+    _value: 0.05

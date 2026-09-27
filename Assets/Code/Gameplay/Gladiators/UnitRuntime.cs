@@ -23,6 +23,8 @@ namespace Code.Gameplay
 
         public UnitRuntime Target { get; private set; }
         public UnitState State { get; private set; }
+        public int WindupVersion { get; private set; }
+        public int AttackVersion { get; private set; }
 
         public float RemainingTargetRefreshTime { get; private set; }
 
@@ -231,6 +233,7 @@ namespace Code.Gameplay
             // Нулевой замах означает мгновенный удар: систему это
             // избавляет от ветвления, у неё всегда один и тот же путь.
             RemainingWindup = Mathf.Max(0f, duration);
+            WindupVersion++;
             SetState(UnitState.WindingUp);
         }
 
@@ -338,6 +341,7 @@ namespace Code.Gameplay
                 return;
 
             RemainingAttackCooldown = Stats.AttackCooldown;
+            AttackVersion++;
         }
 
         public void StartTargetRefreshCooldown(
@@ -356,7 +360,10 @@ namespace Code.Gameplay
         public void RecordDamageSource(UnitRuntime source)
         {
             if (source == null)
+            {
+                HasDamageSource = false;
                 return;
+            }
 
             LastDamageSourceClass = source.ClassId;
             LastDamageSourceTeam = source.Team;
@@ -371,6 +378,12 @@ namespace Code.Gameplay
             CurrentHealth = Mathf.Max(
                 0f,
                 CurrentHealth - amount);
+        }
+
+        public void Heal(float amount)
+        {
+            if (!IsAlive || amount <= 0f) return;
+            CurrentHealth = Mathf.Min(Stats.MaxHealth, CurrentHealth + amount);
         }
 
         public void MarkDead()

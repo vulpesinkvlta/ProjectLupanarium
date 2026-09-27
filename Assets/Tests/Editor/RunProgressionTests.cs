@@ -233,6 +233,7 @@ namespace Code.Tests
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(3)]
+        [TestCase(4)]
         public void OldSavesPreservePermanentProgress(int version)
         {
             _storage.Payload = "{\"Version\":" + version + ",\"Denarii\":1234," +
@@ -242,7 +243,7 @@ namespace Code.Tests
             Assert.That(Service().TryLoad(), Is.True);
             Service().Save();
             GameSaveData saved = JsonUtility.FromJson<GameSaveData>(_storage.Payload);
-            Assert.That(saved.Version, Is.EqualTo(4));
+            Assert.That(saved.Version, Is.EqualTo(GameSaveData.CurrentVersion));
             Assert.That(saved.Denarii, Is.EqualTo(1234));
             Assert.That(saved.BuildingLevels, Is.EqualTo(new[] { 3 }));
             Assert.That(saved.OwnedItemIds, Is.EqualTo(new[] { "sword" }));
@@ -440,6 +441,43 @@ namespace Code.Tests
             Assert.That(_run.Phase, Is.EqualTo(BattleFlowState.Reward));
             Assert.That(menu.Round, Is.EqualTo(10));
             Assert.That(_run.TotalUnitCount, Is.EqualTo(8));
+        }
+
+        [Test]
+        public void FullResetClearsAllPermanentProgressAndSurvivesAutosaveAndReload()
+        {
+            PrepareRoundTen(BattleFlowState.Preparation);
+            _school.RestoreFrom(new GameSaveData
+            {
+                Denarii = 700, BestRoundReached = 19,
+                BuildingIds = new[] { "forge" }, BuildingLevels = new[] { 3 },
+                OwnedItemIds = new[] { "sword" }, EquippedSlotKeys = new[] { "Weapon" }, EquippedItemIds = new[] { "sword" },
+                UnlockedUnitIds = new[] { "advanced" }, UnlockedFormationIds = new[] { "line" },
+                BlessingIds = new[] { "ointment" }, BlessingCharges = new[] { 5 }
+            });
+            var save = Service();
+            save.Save();
+            var menu = new MainMenuController(_run, save, _loader);
+            menu.ResetAllProgress();
+            save.Save(); // A later autosave must never resurrect old data.
+            var restoredRun = new RunState(_config);
+            var restoredSchool = new LupanariumState();
+            Assert.That(new SaveService(_storage, restoredSchool, restoredRun, _codec).TryLoad(), Is.True);
+            var data = new GameSaveData();
+            restoredSchool.CaptureTo(data);
+            Assert.That(data.Denarii, Is.Zero);
+            Assert.That(data.BestRoundReached, Is.Zero);
+            Assert.That(data.BuildingIds, Is.Empty);
+            Assert.That(data.OwnedItemIds, Is.Empty);
+            Assert.That(data.EquippedItemIds, Is.Empty);
+            Assert.That(data.UnlockedUnitIds, Is.Empty);
+            Assert.That(data.UnlockedFormationIds, Is.Empty);
+            Assert.That(data.BlessingIds, Is.Empty);
+            Assert.That(restoredRun.IsActive, Is.False);
+            Assert.That(restoredRun.TotalUnitCount, Is.Zero);
+            var flow = Flow();
+            flow.Start();
+            Assert.That(flow.State, Is.EqualTo(BattleFlowState.SquadSelection));
         }
 
         [Test]

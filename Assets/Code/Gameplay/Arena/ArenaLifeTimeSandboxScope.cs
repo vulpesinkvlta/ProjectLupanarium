@@ -9,6 +9,9 @@ namespace Code.Gameplay
         protected override void Configure(
             IContainerBuilder builder)
         {
+            builder.RegisterComponentInHierarchy<BlessingBattleView>();
+            builder.Register<BlessingBattleController>(Lifetime.Scoped);
+            builder.RegisterEntryPoint<BlessingBattlePresenter>();
             RegisterSceneComponents(builder);
             RegisterArenaData(builder);
             RegisterSpatialServices(builder);

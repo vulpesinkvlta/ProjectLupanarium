@@ -32,6 +32,8 @@ namespace Code.Gameplay
         [Tooltip("С какого раунда контракт может выпасть. " +
                  "Считается с единицы.")]
         [SerializeField, Min(1)] private int _minimumRound = 1;
+        [Tooltip("Последний доступный раунд; 0 — без ограничения.")]
+        [SerializeField, Min(0)] private int _maximumRound;
 
         [Tooltip("Вес при жеребьёвке среди доступных контрактов.")]
         [SerializeField, Min(1)] private int _weight = 1;
@@ -42,6 +44,7 @@ namespace Code.Gameplay
         public FormationConfig EnemyFormation => _enemyFormation;
         public int GoldReward => _goldReward;
         public int MinimumRound => _minimumRound;
+        public int MaximumRound => _maximumRound;
         public int Weight => _weight;
 
         public IReadOnlyList<SquadEntry> Enemies =>

@@ -23,6 +23,18 @@ namespace Code.Gameplay
         public float EnemyGrowthPerRound => _enemyGrowthPerRound;
         public float GoldGrowthPerRound => _goldGrowthPerRound;
 
+        [Tooltip("Составной рост числа врагов. Выключен для совместимости старых каталогов.")]
+        [SerializeField] private bool _compoundEnemyGrowth;
+        [SerializeField, Min(1)] private int _maximumEnemiesPerSquad = 256;
+        public int ScaleCount(int count, int round)
+        {
+            float steps = Mathf.Max(0, round - 1);
+            float multiplier = _compoundEnemyGrowth
+                ? Mathf.Pow(1 + _enemyGrowthPerRound, Mathf.Min(steps, 1000))
+                : 1 + _enemyGrowthPerRound * steps;
+            return Mathf.RoundToInt(Mathf.Clamp(count * multiplier, 1, _maximumEnemiesPerSquad));
+        }
+
 #if UNITY_EDITOR
         private void OnValidate()
         {

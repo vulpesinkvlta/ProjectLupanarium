@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Code.Gameplay
 {
-    public class UnitView : MonoBehaviour
+    public partial class UnitView : MonoBehaviour
     {
         private const int SortingPrecision = 100;
 
@@ -66,14 +66,19 @@ namespace Code.Gameplay
 
             transform.localScale = Vector3.one;
 
+            ResetPose(runtime.ClassId, runtime.Id, runtime.Team == TeamId.Player);
+            if (_nameLabel != null) _nameLabel.gameObject.SetActive(false);
+
             _lastSortingOrder = int.MinValue;
 
             SetVisualPosition(runtime.Position, updateSorting: true);
+            _lastGroundPosition = transform.position;
         }
 
         public void Unbind()
         {
             Runtime = null;
+            ResetPose(UnitClassId.None, 0, true);
 
             _isDying = false;
             _remainingFlash = 0f;
@@ -110,6 +115,9 @@ namespace Code.Gameplay
 
             _lastSortingOrder = order;
             _spriteRenderer.sortingOrder = order;
+            if (_shadow != null) _shadow.sortingOrder = order - 1;
+            if (_nameLabel != null && _nameLabel.TryGetComponent<Renderer>(out var labelRenderer))
+                labelRenderer.sortingOrder = order + 1;
         }
 
         /// <summary>Короткая вспышка при получении удара.</summary>
@@ -143,14 +151,12 @@ namespace Code.Gameplay
         /// </summary>
         public void TickVisuals(float deltaTime)
         {
+            TickPose(Mathf.Max(0f, deltaTime));
             if (_isDying)
             {
                 TickDeath(deltaTime);
                 return;
             }
-
-            if (_remainingFlash <= 0f)
-                return;
 
             _remainingFlash = Mathf.Max(0f, _remainingFlash - deltaTime);
 
@@ -159,7 +165,7 @@ namespace Code.Gameplay
                 : _remainingFlash / _hitFlashDuration;
 
             _spriteRenderer.color = Color.Lerp(
-                _baseColor,
+                BodyColor,
                 _hitFlashColor,
                 t);
         }
@@ -172,17 +178,17 @@ namespace Code.Gameplay
                 ? 0f
                 : _remainingDeath / _deathDuration;
 
-            Color color = _baseColor;
+            Color color = BodyColor;
             color.a = t;
 
             _spriteRenderer.color = color;
 
             // Оседает и слегка расплющивается — читается как падение
             // даже без покадровой анимации.
-            transform.localScale = new Vector3(
+            _visual.localScale = Vector3.Scale(_visualRestScale, new Vector3(
                 1f + (1f - t) * 0.2f,
                 Mathf.Lerp(0.4f, 1f, t),
-                1f);
+                1f));
         }
 
 #if UNITY_EDITOR

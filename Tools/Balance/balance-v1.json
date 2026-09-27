@@ -1,0 +1,611 @@
+{
+  "version": "1.0",
+  "targetMinutes": [
+    20,
+    30
+  ],
+  "units": [
+    {
+      "name": "Murmillo",
+      "props": {
+        "_maxHealth": 600,
+        "_moveSpeed": 2.4,
+        "_attackDamage": 22,
+        "_attackRange": 0.9,
+        "_attackCooldown": 1.1,
+        "_attackWindup": 0.35,
+        "_armor": 2,
+        "_critChance": 0.05,
+        "_critMultiplier": 1.6,
+        "_radius": 0.4,
+        "_engagementCapacity": 5,
+        "_goldReward": 4
+      }
+    },
+    {
+      "name": "Retiatius",
+      "props": {
+        "_maxHealth": 475,
+        "_moveSpeed": 2.8,
+        "_attackDamage": 20,
+        "_attackRange": 1.25,
+        "_attackCooldown": 1,
+        "_attackWindup": 0.3,
+        "_armor": 0,
+        "_critChance": 0.08,
+        "_critMultiplier": 1.6,
+        "_radius": 0.35,
+        "_engagementCapacity": 4,
+        "_goldReward": 4
+      }
+    },
+    {
+      "name": "Secutor",
+      "props": {
+        "_maxHealth": 650,
+        "_moveSpeed": 2.5,
+        "_attackDamage": 21,
+        "_attackRange": 0.9,
+        "_attackCooldown": 1.15,
+        "_attackWindup": 0.35,
+        "_armor": 3,
+        "_critChance": 0.04,
+        "_critMultiplier": 1.6,
+        "_radius": 0.4,
+        "_engagementCapacity": 5,
+        "_goldReward": 5
+      }
+    },
+    {
+      "name": "Thraex",
+      "props": {
+        "_maxHealth": 450,
+        "_moveSpeed": 3.2,
+        "_attackDamage": 19,
+        "_attackRange": 0.85,
+        "_attackCooldown": 0.85,
+        "_attackWindup": 0.25,
+        "_armor": 1,
+        "_critChance": 0.15,
+        "_critMultiplier": 1.8,
+        "_radius": 0.35,
+        "_engagementCapacity": 4,
+        "_goldReward": 4
+      }
+    },
+    {
+      "name": "Hoplomach",
+      "props": {
+        "_maxHealth": 675,
+        "_moveSpeed": 2,
+        "_attackDamage": 24,
+        "_attackRange": 1.2,
+        "_attackCooldown": 1.35,
+        "_attackWindup": 0.4,
+        "_armor": 4,
+        "_critChance": 0.05,
+        "_critMultiplier": 1.6,
+        "_radius": 0.42,
+        "_engagementCapacity": 5,
+        "_goldReward": 6
+      }
+    },
+    {
+      "name": "Wolf",
+      "props": {
+        "_maxHealth": 375,
+        "_moveSpeed": 3,
+        "_attackDamage": 10,
+        "_attackRange": 0.85,
+        "_attackCooldown": 1,
+        "_attackWindup": 0.3,
+        "_armor": 0,
+        "_critChance": 0,
+        "_critMultiplier": 1.5,
+        "_radius": 0.35,
+        "_engagementCapacity": 4,
+        "_goldReward": 2
+      }
+    },
+    {
+      "name": "Lion",
+      "props": {
+        "_maxHealth": 875,
+        "_moveSpeed": 2.6,
+        "_attackDamage": 30,
+        "_attackRange": 1,
+        "_attackCooldown": 1.4,
+        "_attackWindup": 0.45,
+        "_armor": 1,
+        "_critChance": 0.05,
+        "_critMultiplier": 1.6,
+        "_radius": 0.45,
+        "_engagementCapacity": 5,
+        "_goldReward": 6
+      }
+    }
+  ],
+  "buildings": [
+    {
+      "name": "Gymnasium",
+      "title": "Гимназия",
+      "desc": "Каждый уровень: +8% урона всем гладиаторам.",
+      "costs": [
+        180,
+        360,
+        720
+      ],
+      "mods": [
+        {
+          "_statId": 3,
+          "_modType": 2,
+          "_value": 0.08
+        }
+      ]
+    },
+    {
+      "name": "Hospital",
+      "title": "Лазарет",
+      "desc": "Каждый уровень: +10% максимального здоровья всем гладиаторам.",
+      "costs": [
+        160,
+        320,
+        640
+      ],
+      "mods": [
+        {
+          "_statId": 1,
+          "_modType": 2,
+          "_value": 0.1
+        }
+      ]
+    },
+    {
+      "name": "Forge",
+      "title": "Кузница",
+      "desc": "Каждый уровень: +0,5 брони и +2 процентных пункта шанса крита всем гладиаторам.",
+      "costs": [
+        220,
+        440,
+        880
+      ],
+      "mods": [
+        {
+          "_statId": 8,
+          "_modType": 1,
+          "_value": 0.5
+        },
+        {
+          "_statId": 9,
+          "_modType": 1,
+          "_value": 0.02
+        }
+      ]
+    },
+    {
+      "name": "Nets",
+      "title": "Школа сетей",
+      "desc": "Каждый уровень: ретиариям +0,1 дальности и −3% перезарядки атаки.",
+      "costs": [
+        140,
+        280,
+        560
+      ],
+      "mods": [
+        {
+          "_statId": 4,
+          "_modType": 1,
+          "_value": 0.1
+        },
+        {
+          "_statId": 5,
+          "_modType": 2,
+          "_value": -0.03
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "name": "Gladius",
+      "title": "Гладиус",
+      "desc": "Мурмиллонам +10% урона.",
+      "price": 180,
+      "mods": [
+        {
+          "_statId": 3,
+          "_modType": 2,
+          "_value": 0.1
+        }
+      ]
+    },
+    {
+      "name": "Scutum",
+      "title": "Скутум",
+      "desc": "Мурмиллонам +1 брони и +5% здоровья.",
+      "price": 200,
+      "mods": [
+        {
+          "_statId": 8,
+          "_modType": 1,
+          "_value": 1
+        },
+        {
+          "_statId": 1,
+          "_modType": 2,
+          "_value": 0.05
+        }
+      ]
+    },
+    {
+      "name": "LorikaHlamata",
+      "title": "Лорика",
+      "desc": "Всем гладиаторам +1 брони; складывается с классовым снаряжением.",
+      "price": 300,
+      "mods": [
+        {
+          "_statId": 8,
+          "_modType": 1,
+          "_value": 1
+        }
+      ]
+    },
+    {
+      "name": "Posca",
+      "title": "Поска",
+      "desc": "Всем гладиаторам +8% здоровья.",
+      "price": 160,
+      "mods": [
+        {
+          "_statId": 1,
+          "_modType": 2,
+          "_value": 0.08
+        }
+      ]
+    },
+    {
+      "name": "Pilum",
+      "id": "item.pilum",
+      "title": "Пилум",
+      "desc": "Ретиариям +10% урона и +0,1 дальности.",
+      "price": 200,
+      "mods": [
+        {
+          "_statId": 3,
+          "_modType": 2,
+          "_value": 0.1
+        },
+        {
+          "_statId": 4,
+          "_modType": 1,
+          "_value": 0.1
+        }
+      ]
+    }
+  ],
+  "formations": [
+    {
+      "name": "Column",
+      "title": "Колонна",
+      "desc": "+15% скорости, −5% здоровья.",
+      "price": 180,
+      "round": 4,
+      "march": 2.2,
+      "mods": [
+        {
+          "_statId": 2,
+          "_modType": 2,
+          "_value": 0.15
+        },
+        {
+          "_statId": 1,
+          "_modType": 2,
+          "_value": -0.05
+        }
+      ]
+    },
+    {
+      "name": "Circle",
+      "title": "Круг",
+      "desc": "+10% здоровья, −5% урона.",
+      "price": 240,
+      "round": 6,
+      "march": 1.8,
+      "mods": [
+        {
+          "_statId": 1,
+          "_modType": 2,
+          "_value": 0.1
+        },
+        {
+          "_statId": 3,
+          "_modType": 2,
+          "_value": -0.05
+        }
+      ]
+    },
+    {
+      "name": "Testudo",
+      "title": "Черепаха",
+      "desc": "+1,5 брони; −15% скорости, +8% времени перезарядки.",
+      "price": 400,
+      "round": 10,
+      "march": 1.6,
+      "mods": [
+        {
+          "_statId": 8,
+          "_modType": 1,
+          "_value": 1.5
+        },
+        {
+          "_statId": 2,
+          "_modType": 2,
+          "_value": -0.15
+        },
+        {
+          "_statId": 5,
+          "_modType": 2,
+          "_value": 0.08
+        }
+      ]
+    },
+    {
+      "name": "Swine",
+      "title": "Клин",
+      "desc": "+12% урона, −8% здоровья.",
+      "price": 320,
+      "round": 8,
+      "march": 2.2,
+      "mods": [
+        {
+          "_statId": 3,
+          "_modType": 2,
+          "_value": 0.12
+        },
+        {
+          "_statId": 1,
+          "_modType": 2,
+          "_value": -0.08
+        }
+      ]
+    },
+    {
+      "name": "Falang",
+      "title": "Фаланга",
+      "desc": "+15% дальности, +5% урона, −15% скорости.",
+      "price": 500,
+      "round": 12,
+      "march": 1.7,
+      "mods": [
+        {
+          "_statId": 4,
+          "_modType": 2,
+          "_value": 0.15
+        },
+        {
+          "_statId": 3,
+          "_modType": 2,
+          "_value": 0.05
+        },
+        {
+          "_statId": 2,
+          "_modType": 2,
+          "_value": -0.15
+        }
+      ]
+    },
+    {
+      "name": "Manipula",
+      "title": "Манипула",
+      "desc": "−8% перезарядки, +8% скорости, −0,5 брони.",
+      "price": 650,
+      "round": 16,
+      "march": 2.1,
+      "mods": [
+        {
+          "_statId": 5,
+          "_modType": 2,
+          "_value": -0.08
+        },
+        {
+          "_statId": 2,
+          "_modType": 2,
+          "_value": 0.08
+        },
+        {
+          "_statId": 8,
+          "_modType": 1,
+          "_value": -0.5
+        }
+      ]
+    }
+  ],
+  "roster": [
+    {
+      "name": "Murmillo",
+      "price": 0,
+      "round": 0,
+      "count": 3
+    },
+    {
+      "name": "Retiatius",
+      "price": 350,
+      "round": 5,
+      "count": 3
+    },
+    {
+      "name": "Secutor",
+      "price": 550,
+      "round": 9,
+      "count": 3
+    },
+    {
+      "name": "Thraex",
+      "price": 750,
+      "round": 13,
+      "count": 3
+    },
+    {
+      "name": "Hoplomach",
+      "price": 1000,
+      "round": 17,
+      "count": 3
+    }
+  ],
+  "upgrades": [
+    {
+      "name": "SharpGladius",
+      "title": "Заточка оружия",
+      "desc": "+8% урона всему отряду до конца забега.",
+      "weight": 4,
+      "mods": [
+        {
+          "_statId": 3,
+          "_modType": 2,
+          "_value": 0.08
+        }
+      ]
+    },
+    {
+      "name": "Soup",
+      "title": "Сытная похлёбка",
+      "desc": "+10% здоровья всему отряду до конца забега.",
+      "weight": 4,
+      "mods": [
+        {
+          "_statId": 1,
+          "_modType": 2,
+          "_value": 0.1
+        }
+      ]
+    },
+    {
+      "name": "SlaveMarket",
+      "title": "Пополнение",
+      "desc": "+1 мурмиллон в отряд до конца забега.",
+      "weight": 2,
+      "mods": []
+    }
+  ],
+  "contracts": [
+    {
+      "name": "Initial",
+      "title": "Первые соперники",
+      "desc": "Учебная схватка. Доступна только в раундах 1–3.",
+      "unit": "Wolf",
+      "count": 3,
+      "reward": 20,
+      "min": 1,
+      "max": 3,
+      "weight": 2
+    },
+    {
+      "name": "Wolfs1",
+      "title": "Волчья стая",
+      "desc": "Много быстрых противников без брони.",
+      "unit": "Wolf",
+      "count": 4,
+      "reward": 28,
+      "min": 1,
+      "max": 0,
+      "weight": 3
+    },
+    {
+      "name": "Murmillo",
+      "id": "contract.murmillo",
+      "title": "Щиты арены",
+      "desc": "Небольшой отряд сбалансированных бойцов.",
+      "unit": "Murmillo",
+      "count": 2,
+      "reward": 30,
+      "min": 4,
+      "max": 0,
+      "weight": 3
+    },
+    {
+      "name": "Secutors1",
+      "title": "Преследователи",
+      "desc": "Бронированные секуторы с оглушением.",
+      "unit": "Secutor",
+      "count": 2,
+      "reward": 34,
+      "min": 8,
+      "max": 0,
+      "weight": 2
+    },
+    {
+      "name": "Lions1",
+      "title": "Львы арены",
+      "desc": "Выносливые звери с сильным ударом.",
+      "unit": "Lion",
+      "count": 2,
+      "reward": 38,
+      "min": 12,
+      "max": 0,
+      "weight": 2
+    }
+  ],
+  "blessings": [
+    {
+      "name": "ointment",
+      "price": 35,
+      "power": 150,
+      "radius": 1.6,
+      "duration": 0,
+      "factor": 1,
+      "desc": "Восстанавливает 150 здоровья живым бойцам в радиусе 1,6, включая врагов. Один заряд."
+    },
+    {
+      "name": "tar",
+      "price": 50,
+      "power": 100,
+      "radius": 1.6,
+      "duration": 4,
+      "factor": 0.65,
+      "desc": "100 урона с учётом брони всем в радиусе 1,6; скорость −35% на 4 секунды. Задевает своих. Один заряд."
+    },
+    {
+      "name": "fervor",
+      "price": 20,
+      "power": 0,
+      "radius": 1.8,
+      "duration": 5,
+      "factor": 1.35,
+      "desc": "Скорость передвижения +35% на 5 секунд в радиусе 1,8, включая врагов. Не ускоряет атаки. Один заряд."
+    }
+  ],
+  "abilities": [
+    {
+      "name": "Net",
+      "title": "Сеть",
+      "desc": "Замедляет цель на 35% на 2 секунды.",
+      "cooldown": 8,
+      "range": 1.8,
+      "duration": 2,
+      "magnitude": 0.65
+    },
+    {
+      "name": "ShieldDash",
+      "title": "Удар щитом",
+      "desc": "Оглушает цель на 0,45 секунды.",
+      "cooldown": 10,
+      "range": 1.3,
+      "duration": 0.45,
+      "magnitude": 0
+    },
+    {
+      "name": "Haste",
+      "title": "Рывок",
+      "desc": "Ускоряет передвижение на 35% на 2 секунды.",
+      "cooldown": 9,
+      "range": 0,
+      "duration": 2,
+      "magnitude": 1.35
+    }
+  ],
+  "scaling": {
+    "enemyGrowth": 0.12,
+    "goldGrowth": 0.06,
+    "maxEnemies": 256
+  }
+}

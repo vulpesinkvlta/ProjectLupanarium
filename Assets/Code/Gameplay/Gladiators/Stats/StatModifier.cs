@@ -16,6 +16,7 @@ namespace Code.Gameplay
     {
         [SerializeField] private StatId _statId;
         [SerializeField] private ModType _modType;
+        [Tooltip("Flat: абсолютное значение. PercentAdd/PercentMul: доля, например 0.05 = +5%, -0.1 = -10%.")]
         [SerializeField] private float _value;
 
         public StatId StatId => _statId;

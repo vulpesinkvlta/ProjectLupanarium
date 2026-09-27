@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.UnitConfig
   _id: unit.secutor
   _classId: 3
-  _maxHealth: 115
+  _maxHealth: 650
   _moveSpeed: 2.5
-  _attackDamage: 12
-  _attackRange: 0.8
-  _attackCooldown: 0.9
-  _attackWindup: 0.3
-  _critMultiplier: 2
-  _radius: 0.35
-  _engagementCapacity: 4
-  _armor: 5
-  _critChance: 0.1
+  _attackDamage: 21
+  _attackRange: 0.9
+  _attackCooldown: 1.15
+  _attackWindup: 0.35
+  _critMultiplier: 1.6
+  _radius: 0.4
+  _engagementCapacity: 5
+  _armor: 3
+  _critChance: 0.04
   _ability: {fileID: 11400000, guid: 33d19fea34371d644aabc27b34e985b6, type: 2}
-  _goldReward: 15
+  _goldReward: 5

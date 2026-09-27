@@ -13,24 +13,23 @@ MonoBehaviour:
   m_Name: Testudo
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.FormationConfig
   _id: formation_box
-  _displayName: Testudo
-  _description: 'Form testudo
-
-    Armor 25
-
-    Move Speed -10'
+  _displayName: "\u0427\u0435\u0440\u0435\u043F\u0430\u0445\u0430"
+  _description: "+1,5 \u0431\u0440\u043E\u043D\u0438; \u221215% \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u0438, +8% \u0432\u0440\u0435\u043C\u0435\u043D\u0438 \u043F\u0435\u0440\u0435\u0437\u0430\u0440\u044F\u0434\u043A\u0438."
   _icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   _layout: 2
   _rows: 2
   _columns: 4
-  _rankSpacing: 0.8
-  _fileSpacing: 0.8
-  _marchSpeed: 0.1
-  _breakRange: 0.5
+  _rankSpacing: 0.9
+  _fileSpacing: 0.9
+  _marchSpeed: 1.6
+  _breakRange: 1.5
   _modifiers:
   - _statId: 8
     _modType: 1
-    _value: 25
+    _value: 1.5
   - _statId: 2
-    _modType: 1
-    _value: -10
+    _modType: 2
+    _value: -0.15
+  - _statId: 5
+    _modType: 2
+    _value: 0.08

@@ -6,12 +6,18 @@ namespace Code.Gameplay
 {
     public sealed class BaseSquadView : MonoBehaviour
     {
-        [SerializeField] private BaseSquadUnitView _unitPrefab;
+        [SerializeField] private UnitView _unitPrefab;
         [SerializeField] private Transform _unitsRoot;
         [SerializeField] private TMP_Text _countLabel;
         [SerializeField] private GameObject _emptyState;
         [SerializeField] private Vector2 _areaSize = new(10f, 4f);
-        private readonly List<BaseSquadUnitView> _units = new();
+        private readonly List<UnitView> _units = new();
+
+        private void Update()
+        {
+            for (int i = 0; i < DisplayedUnitCount; i++)
+                _units[i].TickVisuals(Time.deltaTime);
+        }
 
         public int DisplayedUnitCount { get; private set; }
 
@@ -44,13 +50,13 @@ namespace Code.Gameplay
                     name = hud.DisplayName;
                     // В каталоге допускается белый акцент; на песке вместо
                     // него используем цвет союзников из текущего прототипа.
-                    if (hud.AccentColor != Color.white)
+                    if (hud.AccentColor != Color.white && hud.AccentColor.a > 0)
                         color = hud.AccentColor;
                 }
 
                 for (var j = 0; j < entry.Count; j++, index++)
                 {
-                    BaseSquadUnitView unit = _units[index];
+                    UnitView unit = _units[index];
                     float radius = total <= 1 ? 0f : Mathf.Sqrt((index + 0.5f) / total);
                     float angle = index * 2.399963f;
                     unit.transform.localPosition = new Vector3(
@@ -58,7 +64,7 @@ namespace Code.Gameplay
                         Mathf.Sin(angle) * radius * _areaSize.y * 0.5f, 0);
                     unit.transform.localScale = Vector3.one * scale;
                     unit.gameObject.SetActive(true);
-                    unit.Bind(entry.Config.Id, name, color, index, total <= 12);
+                    unit.BindDisplay(entry.Config.ClassId, name, color, index, total <= 12);
                 }
             }
         }

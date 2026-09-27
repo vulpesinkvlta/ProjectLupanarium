@@ -13,11 +13,16 @@ namespace Code.Gameplay
         [SerializeField] private UnityEngine.UI.Button _closeSettingsButton;
         [SerializeField] private GameObject _settingsPanel;
         [SerializeField] private TMP_Text _statusLabel;
+        [SerializeField] private UnityEngine.UI.Button _resetAllButton;
+        [SerializeField] private UnityEngine.UI.Button _confirmResetButton;
+        [SerializeField] private UnityEngine.UI.Button _cancelResetButton;
+        [SerializeField] private GameObject _resetPanel;
 
         private bool _hasRun;
         private bool _busy;
         public event Action PlayRequested;
         public event Action DeleteRequested;
+        public event Action ResetAllRequested;
 
         private void Awake()
         {
@@ -26,6 +31,10 @@ namespace Code.Gameplay
             _settingsButton.onClick.AddListener(OpenSettings);
             _closeSettingsButton.onClick.AddListener(CloseSettings);
             CloseSettings();
+            _resetAllButton.onClick.AddListener(OpenReset);
+            _confirmResetButton.onClick.AddListener(ConfirmReset);
+            _cancelResetButton.onClick.AddListener(CloseReset);
+            CloseReset();
         }
 
         private void OnDestroy()
@@ -34,6 +43,9 @@ namespace Code.Gameplay
             _deleteButton.onClick.RemoveListener(Delete);
             _settingsButton.onClick.RemoveListener(OpenSettings);
             _closeSettingsButton.onClick.RemoveListener(CloseSettings);
+            _resetAllButton.onClick.RemoveListener(OpenReset);
+            _confirmResetButton.onClick.RemoveListener(ConfirmReset);
+            _cancelResetButton.onClick.RemoveListener(CloseReset);
         }
 
         public void Refresh(bool hasRun, int round)
@@ -50,6 +62,7 @@ namespace Code.Gameplay
             _playButton.interactable = !busy;
             _deleteButton.interactable = !busy && _hasRun;
             _settingsButton.interactable = !busy;
+            _resetAllButton.interactable = !busy;
         }
 
         public void ShowError(string message) => _statusLabel.text = message;
@@ -57,5 +70,13 @@ namespace Code.Gameplay
         private void Delete() { if (!_busy && _hasRun) DeleteRequested?.Invoke(); }
         private void OpenSettings() => _settingsPanel.SetActive(true);
         private void CloseSettings() => _settingsPanel.SetActive(false);
+        private void OpenReset() { if (!_busy) _resetPanel.SetActive(true); }
+        private void CloseReset() => _resetPanel.SetActive(false);
+        private void ConfirmReset()
+        {
+            if (_busy || !_resetPanel.activeSelf) return;
+            CloseReset();
+            ResetAllRequested?.Invoke();
+        }
     }
 }

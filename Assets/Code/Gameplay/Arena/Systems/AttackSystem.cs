@@ -186,8 +186,9 @@ namespace Code.Gameplay
                 target.Position -
                 attacker.Position;
 
-            float attackRange =
-                attacker.Stats.AttackRange;
+            // Movement and separation place units on the range boundary.
+            // Float rounding there must not cancel every attack windup.
+            float attackRange = attacker.Stats.AttackRange + 0.001f;
 
             return offset.sqrMagnitude <=
                    attackRange * attackRange;

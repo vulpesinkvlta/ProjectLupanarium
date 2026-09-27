@@ -65,6 +65,8 @@ namespace Code.Gameplay
 
         public void SetState(BattleFlowState state)
         {
+            if (_returnToLupanariumButton != null)
+                _returnToLupanariumButton.interactable = state != BattleFlowState.Fighting;
             if (_preparationRoot != null)
             {
                 _preparationRoot.SetActive(

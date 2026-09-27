@@ -182,6 +182,12 @@ namespace Code.Gameplay
             UnitRuntime target,
             TeamFormationState formation)
         {
+            // The formation only marches along X. Once its front passes
+            // the target, release the soldiers to chase in both axes;
+            // otherwise an enemy on the flank leaves them marching forever.
+            if ((target.Position.x - formation.Anchor.x) * formation.FacingSign <= 0f)
+                return true;
+
             float sqrDistance =
                 (target.Position - unit.Position).sqrMagnitude;
 
@@ -238,7 +244,7 @@ namespace Code.Gameplay
             }
 
             float distanceUntilAttackRange =
-                distance - attackRange;
+                distance - Mathf.Max(0f, attackRange - 0.01f);
 
             float maximumMovement =
                 unit.EffectiveMoveSpeed * deltaTime;

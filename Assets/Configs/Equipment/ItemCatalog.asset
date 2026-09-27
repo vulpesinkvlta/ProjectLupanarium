@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.ItemCatalog
   _items:
   - {fileID: 11400000, guid: 029cb0cff8186a843a27daafe3c3da8c, type: 2}
+  - {fileID: 11400000, guid: 0c4f84d7f480319419a77ae67285f1c1, type: 2}
   - {fileID: 11400000, guid: 196a2523749df2a4c9b2a707321f1533, type: 2}
   - {fileID: 11400000, guid: 623e46daf592b23478e6ceb68eb27336, type: 2}
-  - {fileID: 11400000, guid: 0c4f84d7f480319419a77ae67285f1c1, type: 2}
+  - {fileID: 11400000, guid: d795424a2b0a0e14a8d45ea794eb401d, type: 2}

@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Secutors1
   m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.ContractConfig
   _id: contract.secutors1
-  _displayName: Secutors
-  _description: 
+  _displayName: "\u041F\u0440\u0435\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u0442\u0435\u043B\u0438"
+  _description: "\u0411\u0440\u043E\u043D\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0435 \u0441\u0435\u043A\u0443\u0442\u043E\u0440\u044B \u0441 \u043E\u0433\u043B\u0443\u0448\u0435\u043D\u0438\u0435\u043C."
   _icon: {fileID: 0}
   _enemies:
   - _config: {fileID: 11400000, guid: 72045671e5129714992692a1721e30b2, type: 2}
-    _count: 12
+    _count: 2
   _enemyFormation: {fileID: 0}
-  _goldReward: 25
-  _minimumRound: 4
+  _goldReward: 34
+  _minimumRound: 8
+  _maximumRound: 0
   _weight: 2
