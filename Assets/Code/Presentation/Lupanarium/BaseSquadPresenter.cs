@@ -25,6 +25,6 @@ namespace Code.Gameplay
         public void Dispose() => _run.ProgressChanged -= Refresh;
 
         private void Refresh() =>
-            _view.Refresh(_run.IsActive ? _run.Squad : Array.Empty<SquadEntry>(), _catalog);
+            _view.Refresh(_run.IsActive ? _run.Squad : Array.Empty<SquadEntry>(), _catalog, _run);
     }
 }

@@ -10,6 +10,7 @@ namespace Code.Gameplay
             IContainerBuilder builder)
         {
             builder.RegisterComponentInHierarchy<BlessingBattleView>();
+            builder.RegisterComponentInHierarchy<PlatformRewardsView>();
             builder.Register<BlessingBattleController>(Lifetime.Scoped);
             builder.RegisterEntryPoint<BlessingBattlePresenter>();
             RegisterSceneComponents(builder);

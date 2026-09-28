@@ -89,6 +89,7 @@ namespace Code.Gameplay
 
             // Частота кадров и поведение экрана под конкретной платформой.
             builder.RegisterEntryPoint<PlatformBootstrap>();
+            builder.RegisterEntryPoint<PlatformRewardsService>().AsSelf();
         }
 
 #if UNITY_EDITOR

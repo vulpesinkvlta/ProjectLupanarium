@@ -19,6 +19,8 @@ namespace Code.Gameplay
         private readonly BattleStatistics _statistics;
         private readonly ArenaContext _context;
         private readonly FormationRegistry _formationRegistry;
+        private readonly System.Collections.Generic.List<UnitRuntime> _deployed = new();
+        public void CaptureSurvivorHealth() => _runState.CaptureHealth(_deployed);
 
 
         /// <summary>Награда за волну, которая идёт прямо сейчас.</summary>
@@ -80,6 +82,11 @@ namespace Code.Gameplay
 
             // Состав фиксируем после спавна: в итогах боя нужно знать,
             // сколько бойцов вышло на песок, чтобы посчитать потери.
+            _deployed.Clear();
+            _deployed.AddRange(_context.PlayerUnits);
+            _runState.ApplyHealth(_deployed);
+            foreach (var unit in _deployed)
+                if (!unit.IsAlive) _unitSpawner.RemoveFromBattle(unit);
             _statistics.CaptureDeployed(_context.PlayerUnits);
 
             _simulation.Start();

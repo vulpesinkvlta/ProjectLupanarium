@@ -10,7 +10,7 @@ namespace Code.Gameplay
     /// Живёт в корневом скоупе и сохраняется в JSON вместе со школой.
     /// Возврат на базу приостанавливает забег; поражение завершает его.
     /// </summary>
-    public sealed class RunState
+    public sealed partial class RunState
     {
         private const int InitialSquadCapacity = 8;
         private const int InitialUpgradeCapacity = 32;
@@ -83,6 +83,7 @@ namespace Code.Gameplay
 
         public void Reset()
         {
+            ResetHealth();
             Phase = BattleFlowState.None;
             _rewardChoices.Clear();
             _contractOffers.Clear();
@@ -151,6 +152,7 @@ namespace Code.Gameplay
 
             for (var i = 0; i < squad.Count; i++)
                 AddUnits(squad[i].Config, squad[i].Count);
+            RestoreHealth(data.Health, data.RestReadyAt);
 
             // Пополнение уже учтено в Squad: AddUpgrade удвоил бы бойцов.
             for (var i = 0; i < upgrades.Count; i++)
@@ -239,6 +241,7 @@ namespace Code.Gameplay
 
             _squad.Clear();
             AddUnits(config, count);
+            ResetHealth();
         }
 
         /// <summary>Запасной путь: состав целиком из RunConfig.</summary>

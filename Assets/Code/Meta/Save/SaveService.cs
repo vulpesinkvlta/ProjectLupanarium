@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace Code.Gameplay
@@ -51,7 +51,11 @@ namespace Code.Gameplay
     /// </summary>
     public sealed class SaveService
     {
+        #if UNITY_WEBGL && YANDEX_GAMES && !UNITY_EDITOR
+        private const string SaveKey = "lupanarium.yandex.save";
+#else
         private const string SaveKey = "lupanarium.save";
+#endif
 
         private readonly ISaveStorage _storage;
         private readonly LupanariumState _lupanarium;
@@ -199,6 +203,8 @@ namespace Code.Gameplay
                 data.BlessingCharges ??= Array.Empty<int>();
                 data.Version = 5;
             }
+
+            if (data.Version == 5) data.Version = 6; // Missing health means full HP; ads have no cooldown yet.
 
             if (data.Version != GameSaveData.CurrentVersion)
             {

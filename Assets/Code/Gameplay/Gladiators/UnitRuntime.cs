@@ -108,6 +108,12 @@ namespace Code.Gameplay
                 ? 0f
                 : CurrentHealth / Stats.MaxHealth;
 
+        public void RestoreHealthFraction(float fraction)
+        {
+            CurrentHealth = Stats.MaxHealth * Mathf.Clamp01(fraction);
+            if (CurrentHealth <= 0) State = UnitState.Dead;
+        }
+
         public UnitRuntime(
       int id,
       TeamId team,

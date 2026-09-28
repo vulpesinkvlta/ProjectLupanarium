@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <title>{{{ PRODUCT_NAME }}}</title>
+  <style>
+    html,body { margin:0;width:100%;height:100%;overflow:hidden;background:#201d19; }
+    * { box-sizing:border-box;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none; }
+    #game { position:fixed;inset:0; padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+    #unity-canvas { width:100%;height:100%;display:block;touch-action:none;outline:none; }
+    .with-banner #game { right:240px; }
+    @media(max-width:900px) { .with-banner #game {right:0;bottom:90px;} }
+    #loading {position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;color:#f5ead6;font:18px Arial;pointer-events:none;}
+    progress {width:260px;accent-color:#b69252;}
+  </style>
+  <script src="yandex.js"></script>
+  <script async src="/sdk.js" onload="LupaYandex.init()" onerror="LupaYandex.failed()"></script>
+</head>
+<body>
+  <div id="game"><canvas id="unity-canvas" tabindex="0"></canvas></div>
+  <div id="loading"><span id="status">Загрузка игры</span><progress id="progress" max="1" value="0"></progress></div>
+  <script>
+    document.addEventListener('contextmenu',function(e){e.preventDefault();});
+    document.addEventListener('dragstart',function(e){e.preventDefault();});
+    const canvas=document.getElementById('unity-canvas');
+    canvas.addEventListener('pointerdown',function(){canvas.focus();});
+    const buildUrl='Build';
+    const config={
+      dataUrl:buildUrl+'/{{{ DATA_FILENAME }}}',
+      frameworkUrl:buildUrl+'/{{{ FRAMEWORK_FILENAME }}}',
+      codeUrl:buildUrl+'/{{{ CODE_FILENAME }}}',
+      streamingAssetsUrl:'StreamingAssets',
+      companyName:{{{ JSON.stringify(COMPANY_NAME) }}}, productName:{{{ JSON.stringify(PRODUCT_NAME) }}}, productVersion:{{{ JSON.stringify(PRODUCT_VERSION) }}},
+      devicePixelRatio:Math.min(window.devicePixelRatio||1,1.5)
+    };
+    const loader=document.createElement('script');loader.src=buildUrl+'/{{{ LOADER_FILENAME }}}';
+    loader.onload=function(){createUnityInstance(canvas,config,function(p){document.getElementById('progress').value=p;}).then(function(instance){window.unityInstance=instance;document.getElementById('loading').style.display='none';}).catch(function(){document.getElementById('status').textContent='Не удалось загрузить игру. Обновите страницу.';});};
+    loader.onerror=function(){document.getElementById('status').textContent='Ошибка загрузки. Проверьте соединение и обновите страницу.';};
+    document.body.appendChild(loader);
+  </script>
+</body>
+</html>

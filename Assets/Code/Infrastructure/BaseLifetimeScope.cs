@@ -14,6 +14,7 @@ namespace Code.Gameplay
     {
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.RegisterComponentInHierarchy<PlatformRewardsView>();
             builder.RegisterComponentInHierarchy<BlessingShopView>();
             builder.RegisterEntryPoint<BlessingShopPresenter>();
             builder

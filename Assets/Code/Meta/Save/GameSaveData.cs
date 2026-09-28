@@ -19,7 +19,10 @@ namespace Code.Gameplay
         /// чтобы старый сейв можно было опознать и мигрировать,
         /// а не читать как мусор.
         /// </summary>
-        public const int CurrentVersion = 5;
+        public const int CurrentVersion = 6;
+        public long[] AdReadyAt = new long[3];
+        public int PendingBattleBonus;
+        public string BattleBonusId;
 
         public int Version = CurrentVersion;
 

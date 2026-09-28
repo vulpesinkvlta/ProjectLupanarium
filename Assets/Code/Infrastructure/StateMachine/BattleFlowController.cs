@@ -403,6 +403,7 @@ namespace Code.Gameplay
             }
 
             _battleController.StartWave();
+            _lupanarium.SetBattleBonus(0);
 
             SetState(BattleFlowState.Fighting);
         }
@@ -584,6 +585,7 @@ namespace Code.Gameplay
         /// </summary>
         private void HandleDefeat()
         {
+            _lupanarium.SetBattleBonus(_statistics.GoldEarned);
             _runState.EndRun();
             BankRunGold();
 
@@ -592,12 +594,14 @@ namespace Code.Gameplay
 
         private void HandleVictory()
         {
+            _battleController.CaptureSurvivorHealth();
             // Награда за контракт начисляется до показа итогов,
             // чтобы на экране была финальная сумма.
             int reward = _runState.ActiveContract.GoldReward;
 
             _runState.AddGold(reward);
             _statistics.AddGold(reward);
+            _lupanarium.SetBattleBonus(_statistics.GoldEarned);
             _upgradeDrafter.Draw(_runConfig.RewardChoiceCount, _currentChoices);
 
             SetState(BattleFlowState.BattleSummary);

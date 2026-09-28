@@ -39,6 +39,7 @@ namespace Code.Gameplay
         private readonly SquadSelectionView _squadView;
         private readonly FormationSelectionView _formationView;
         private readonly BattleFeedbackView _feedbackView;
+        private readonly PlatformRewardsService _platform;
 
         private readonly List<string> _enemyTexts = new(4);
         private readonly List<BattleSummaryRowData> _summaryRows = new(8);
@@ -60,8 +61,10 @@ namespace Code.Gameplay
             FormationSelectionView formationView,
             BattleFeedbackView feedbackView,
             LupanariumState lupanarium,
-            FormationCatalog formationCatalog)
+            FormationCatalog formationCatalog,
+            PlatformRewardsService platform = null)
         {
+            _platform = platform;
             _flowController = flowController ??
                 throw new ArgumentNullException(nameof(flowController));
 
@@ -160,9 +163,11 @@ namespace Code.Gameplay
         }
 
         private void OnFightRequested() => _flowController.StartWave();
-        private void OnRestartRequested() => _flowController.StartRun();
+        private void OnRestartRequested()
+        { if (_platform != null) _platform.AtBreak(_flowController.StartRun); else _flowController.StartRun(); }
         private void OnReturnRequested() => _flowController.ReturnToLupanarium();
-        private void OnClaimRequested() => _flowController.ClaimReward();
+        private void OnClaimRequested()
+        { if (_platform != null) _platform.AtBreak(_flowController.ClaimReward); else _flowController.ClaimReward(); }
 
         private void OnUpgradeSelected(int index) =>
             _flowController.SelectUpgrade(index);

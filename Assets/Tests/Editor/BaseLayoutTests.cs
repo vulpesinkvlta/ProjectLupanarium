@@ -62,7 +62,7 @@ namespace Code.Tests
             Assert.That(panels.arraySize, Is.EqualTo(4));
             for (var i = 0; i < panels.arraySize; i++)
                 Assert.That(((GameObject)panels.GetArrayElementAtIndex(i).objectReferenceValue).activeSelf, Is.False);
-            Assert.That(Find<UnityEngine.UI.CanvasScaler>().uiScaleMode,
+            Assert.That(nav.GetComponentInParent<UnityEngine.Canvas>().GetComponent<UnityEngine.UI.CanvasScaler>().uiScaleMode,
                 Is.EqualTo(UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize));
         }
 

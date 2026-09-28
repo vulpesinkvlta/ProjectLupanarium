@@ -10,7 +10,7 @@ namespace Code.Gameplay
     /// только текущий незавершённый забег. Всё хранится строковыми id, а не ссылками
     /// на ScriptableObject: именно в таком виде состояние уходит в сейв.
     /// </summary>
-    public sealed class LupanariumState
+    public sealed partial class LupanariumState
     {
         private const int InitialBuildingCapacity = 16;
         private const int InitialItemCapacity = 32;
@@ -288,6 +288,7 @@ namespace Code.Gameplay
 
         public void Reset()
         {
+            ResetAdRewards();
             _blessingCharges.Clear();
             _buildingLevels.Clear();
             _ownedItems.Clear();
@@ -310,6 +311,7 @@ namespace Code.Gameplay
 
             data.Version = GameSaveData.CurrentVersion;
             data.Denarii = Denarii;
+            CaptureAdRewards(data);
             data.BestRoundReached = BestRoundReached;
             data.BlessingIds = new string[_blessingCharges.Count];
             data.BlessingCharges = new int[_blessingCharges.Count];
@@ -346,6 +348,7 @@ namespace Code.Gameplay
                 throw new ArgumentNullException(nameof(data));
 
             Denarii = Math.Max(0, data.Denarii);
+            RestoreAdRewards(data);
             BestRoundReached = Math.Max(0, data.BestRoundReached);
             _blessingCharges.Clear();
             int chargeCount = Math.Min(data.BlessingIds?.Length ?? 0, data.BlessingCharges?.Length ?? 0);

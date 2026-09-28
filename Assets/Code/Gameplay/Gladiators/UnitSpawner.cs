@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -130,6 +130,13 @@ namespace Code.Gameplay
             _context.Clear();
 
             _nextUnitId = 0;
+            _hudDirtyTracker.MarkRosterChanged();
+        }
+
+        public void RemoveFromBattle(UnitRuntime unit)
+        {
+            _context.RemoveUnit(unit);
+            if (_viewRegistry.Remove(unit.Id, out var view)) _viewPool.Release(view);
             _hudDirtyTracker.MarkRosterChanged();
         }
 

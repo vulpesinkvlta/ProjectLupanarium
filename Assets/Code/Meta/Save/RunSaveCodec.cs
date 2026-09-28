@@ -59,6 +59,8 @@ namespace Code.Gameplay
                 Phase = run.Phase == BattleFlowState.Fighting
                     ? BattleFlowState.Preparation : run.Phase,
                 WaveIndex = run.WaveIndex,
+                Health = run.ExportHealth(),
+                RestReadyAt = run.RestReadyAt,
                 Gold = run.Phase == BattleFlowState.Fighting
                     ? run.GoldBeforeBattle : run.Gold,
                 FormationId = run.SelectedFormation?.Id,

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -51,14 +51,14 @@ namespace Code.Gameplay
 
         public void Tick()
         {
-            if (_isPaused)
+            if (_isPaused || Time.timeScale <= 0f)
             {
                 InterpolationAlpha = 0f;
                 return;
             }
 
             float frameDelta =
-                Mathf.Min(Time.unscaledDeltaTime, MaxFrameDelta) *
+                Mathf.Min(Time.deltaTime, MaxFrameDelta) *
                 _simulationSpeed;
 
             _accumulator += frameDelta;

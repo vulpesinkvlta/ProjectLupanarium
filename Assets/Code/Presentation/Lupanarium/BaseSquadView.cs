@@ -21,7 +21,7 @@ namespace Code.Gameplay
 
         public int DisplayedUnitCount { get; private set; }
 
-        public void Refresh(IReadOnlyList<SquadEntry> squad, UnitClassHudCatalog catalog)
+        public void Refresh(IReadOnlyList<SquadEntry> squad, UnitClassHudCatalog catalog, RunState run = null)
         {
             var total = 0;
             for (var i = 0; i < squad.Count; i++)
@@ -64,7 +64,8 @@ namespace Code.Gameplay
                         Mathf.Sin(angle) * radius * _areaSize.y * 0.5f, 0);
                     unit.transform.localScale = Vector3.one * scale;
                     unit.gameObject.SetActive(true);
-                    unit.BindDisplay(entry.Config.ClassId, name, color, index, total <= 12);
+                    float hp = run?.GetHealthFraction(entry.Config.Id, j) ?? 1;
+                    unit.BindDisplay(entry.Config.ClassId, name + $" {hp * 100:0}%", hp <= 0 ? Color.gray : color, index, total <= 12);
                 }
             }
         }

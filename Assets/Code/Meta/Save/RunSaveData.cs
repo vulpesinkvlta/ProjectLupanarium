@@ -8,6 +8,8 @@ namespace Code.Gameplay
         public BattleFlowState Phase;
         public int WaveIndex;
         public int Gold;
+        public SavedUnitHealth[] Health = Array.Empty<SavedUnitHealth>();
+        public long RestReadyAt;
         public string FormationId;
         public SavedSquadEntry[] Squad = Array.Empty<SavedSquadEntry>();
         public string[] UpgradeIds = Array.Empty<string>();
