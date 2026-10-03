@@ -15,8 +15,9 @@ namespace Code.Gameplay
     {
         [SerializeField] private GameScene _firstScene = GameScene.MainMenu;
 
-        private void Start()
+        private System.Collections.IEnumerator Start()
         {
+            yield return L10n.Initialize();
             new GameSceneLoader().TryLoad(_firstScene);
         }
     }

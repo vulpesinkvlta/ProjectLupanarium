@@ -11,6 +11,7 @@ namespace Code.Gameplay
         {
             builder.RegisterComponentInHierarchy<BlessingBattleView>();
             builder.RegisterComponentInHierarchy<PlatformRewardsView>();
+            builder.RegisterComponentInHierarchy<BattleSpeedView>();
             builder.Register<BlessingBattleController>(Lifetime.Scoped);
             builder.RegisterEntryPoint<BlessingBattlePresenter>();
             RegisterSceneComponents(builder);

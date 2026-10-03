@@ -1,0 +1,1523 @@
+{
+  "entries": [
+    {
+      "key": "+1 мурмиллон в отряд до конца забега.",
+      "ru": "+1 мурмиллон в отряд до конца забега.",
+      "en": "+1 murmillo in your squad for this run.",
+      "tr": "Bu koşu boyunca ekibe +1 murmillo.",
+      "context": "Assets/Configs/Upgrades/SlaveMarket.asset :: _description"
+    },
+    {
+      "key": "+1,5 брони; −15% скорости, +8% времени перезарядки.",
+      "ru": "+1,5 брони; −15% скорости, +8% времени перезарядки.",
+      "en": "+1.5 armor; −15% speed, +8% attack cooldown.",
+      "tr": "+1,5 zırh; −%15 hız, +%8 saldırı bekleme süresi.",
+      "context": "Assets/Configs/Formations/Testudo.asset :: _description"
+    },
+    {
+      "key": "+10% здоровья всему отряду до конца забега.",
+      "ru": "+10% здоровья всему отряду до конца забега.",
+      "en": "+10% health to the whole squad for this run.",
+      "tr": "Bu koşu boyunca tüm ekibe +%10 can.",
+      "context": "Assets/Configs/Upgrades/Soup.asset :: _description"
+    },
+    {
+      "key": "+10% здоровья, −5% урона.",
+      "ru": "+10% здоровья, −5% урона.",
+      "en": "+10% health, −5% damage.",
+      "tr": "+%10 can, −%5 hasar.",
+      "context": "Assets/Configs/Formations/Circle.asset :: _description"
+    },
+    {
+      "key": "+12% урона, −8% здоровья.",
+      "ru": "+12% урона, −8% здоровья.",
+      "en": "+12% damage, −8% health.",
+      "tr": "+%12 hasar, −%8 can.",
+      "context": "Assets/Configs/Formations/Swine.asset :: _description"
+    },
+    {
+      "key": "+15% дальности, +5% урона, −15% скорости.",
+      "ru": "+15% дальности, +5% урона, −15% скорости.",
+      "en": "+15% range, +5% damage, −15% speed.",
+      "tr": "+%15 menzil, +%5 hasar, −%15 hız.",
+      "context": "Assets/Configs/Formations/Falang.asset :: _description"
+    },
+    {
+      "key": "+15% скорости, −5% здоровья.",
+      "ru": "+15% скорости, −5% здоровья.",
+      "en": "+15% speed, −5% health.",
+      "tr": "+%15 hız, −%5 can.",
+      "context": "Assets/Configs/Formations/Column.asset :: _description"
+    },
+    {
+      "key": "+8% урона всему отряду до конца забега.",
+      "ru": "+8% урона всему отряду до конца забега.",
+      "en": "+8% damage to the whole squad for this run.",
+      "tr": "Bu koşu boyunca tüm ekibe +%8 hasar.",
+      "context": "Assets/Configs/Upgrades/SharpGladius.asset :: _description"
+    },
+    {
+      "key": "−8% перезарядки, +8% скорости, −0,5 брони.",
+      "ru": "−8% перезарядки, +8% скорости, −0,5 брони.",
+      "en": "−8% attack cooldown, +8% speed, −0.5 armor.",
+      "tr": "−%8 saldırı bekleme süresi, +%8 hız, −0,5 zırh.",
+      "context": "Assets/Configs/Formations/Manipula.asset :: _description"
+    },
+    {
+      "key": "01   ГЛАДИАТОРЫ",
+      "ru": "01   ГЛАДИАТОРЫ",
+      "en": "01   GLADIATORS",
+      "tr": "01   GLADYATÖRLER",
+      "context": "Assets/Scenes/2.Base.unity :: Text (TMP)"
+    },
+    {
+      "key": "02   ПОСТРОЙКИ",
+      "ru": "02   ПОСТРОЙКИ",
+      "en": "02   BUILDINGS",
+      "tr": "02   BİNALAR",
+      "context": "Assets/Scenes/2.Base.unity :: Text (TMP)"
+    },
+    {
+      "key": "03   АРСЕНАЛ",
+      "ru": "03   АРСЕНАЛ",
+      "en": "03   ARMORY",
+      "tr": "03   CEPHANELİK",
+      "context": "Assets/Scenes/2.Base.unity :: Text (TMP)"
+    },
+    {
+      "key": "100 урона с учётом брони всем в радиусе 1,6; скорость −35% на 4 секунды. Задевает своих. Один заряд.",
+      "ru": "100 урона с учётом брони всем в радиусе 1,6; скорость −35% на 4 секунды. Задевает своих. Один заряд.",
+      "en": "Deals 100 damage, reduced by armor, to everyone within 1.6 units; −35% speed for 4 seconds. Also hits allies. One charge.",
+      "tr": "1,6 birim içindeki herkese zırha göre azalan 100 hasar verir; 4 saniyeliğine −%35 hız. Müttefikleri de etkiler. Tek yük.",
+      "context": "Assets/Configs/Blessings/tar.asset :: _description"
+    },
+    {
+      "key": "Бесплатный отдых: 2:00",
+      "ru": "Бесплатный отдых: 2:00",
+      "en": "Free rest: 2:00",
+      "tr": "Ücretsiz dinlenme: 2:00",
+      "context": "Assets/Scenes/2.Base.unity :: Label"
+    },
+    {
+      "key": "Благословление",
+      "ru": "Благословление",
+      "en": "Blessing",
+      "tr": "Lütuf",
+      "context": "Assets/Prefabs/Blessings/BlessingBattleCard.prefab :: Name; Assets/Prefabs/Blessings/BlessingShopCard.prefab :: Name"
+    },
+    {
+      "key": "Благословление Императора",
+      "ru": "Благословление Императора",
+      "en": "Emperor's Blessing",
+      "tr": "İmparatorun Lütfu",
+      "context": "Assets/Scenes/3.Arena.unity :: Title; Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+    },
+    {
+      "key": "Благословления",
+      "ru": "Благословления",
+      "en": "Blessings",
+      "tr": "Lütuflar",
+      "context": "Assets/Scenes/2.Base.unity :: Text (TMP)"
+    },
+    {
+      "key": "Блокировано",
+      "ru": "Блокировано",
+      "en": "Blocked",
+      "tr": "Engellenen",
+      "context": "Assets/Scenes/3.Arena.unity :: Column4"
+    },
+    {
+      "key": "Бонусы и восстановление",
+      "ru": "Бонусы и восстановление",
+      "en": "Bonuses and recovery",
+      "tr": "Bonuslar ve iyileşme",
+      "context": "Assets/Scenes/2.Base.unity :: Label"
+    },
+    {
+      "key": "Бронированные секуторы с оглушением.",
+      "ru": "Бронированные секуторы с оглушением.",
+      "en": "Armored secutors with a stunning strike.",
+      "tr": "Sersemletme yeteneğine sahip zırhlı secutorlar.",
+      "context": "Assets/Configs/Wave/Secutors1.asset :: _description"
+    },
+    {
+      "key": "Будут удалены забег, валюта, открытые юниты и формации, постройки, снаряжение и благословления.\nЭто действие нельзя отменить.",
+      "ru": "Будут удалены забег, валюта, открытые юниты и формации, постройки, снаряжение и благословления.\nЭто действие нельзя отменить.",
+      "en": "Your run, currency, unlocked units and formations, buildings, equipment and blessings will be deleted.\nThis cannot be undone.",
+      "tr": "Koşunuz, paranız, açılan birimler ve dizilişler, binalar, ekipmanlar ve lütuflar silinecek.\nBu işlem geri alınamaz.",
+      "context": "Assets/Scenes/1.MainMenu.unity :: Placeholder"
+    },
+    {
+      "key": "В бой",
+      "ru": "В бой",
+      "en": "Fight",
+      "tr": "Savaş",
+      "context": "Assets/Scenes/3.Arena.unity :: Text (TMP)"
+    },
+    {
+      "key": "В лупанарий",
+      "ru": "В лупанарий",
+      "en": "To base",
+      "tr": "Üsse dön",
+      "context": "Assets/Scenes/3.Arena.unity :: Text (TMP)"
+    },
+    {
+      "key": "ВАШ ОТРЯД",
+      "ru": "ВАШ ОТРЯД",
+      "en": "YOUR SQUAD",
+      "tr": "EKİBİNİZ",
+      "context": "Assets/Scenes/3.Arena.unity :: TeamTitle"
+    },
+    {
+      "key": "Волк",
+      "ru": "Волк",
+      "en": "Wolf",
+      "tr": "Kurt",
+      "context": "Assets/Configs/UI/HealthView.asset :: _entries.Array.data[6]._displayName"
+    },
+    {
+      "key": "Волчья стая",
+      "ru": "Волчья стая",
+      "en": "Wolf pack",
+      "tr": "Kurt sürüsü",
+      "context": "Assets/Configs/Wave/Wolfs1.asset :: _displayName"
+    },
+    {
+      "key": "Восстанавливает 150 здоровья живым бойцам в радиусе 1,6, включая врагов. Один заряд.",
+      "ru": "Восстанавливает 150 здоровья живым бойцам в радиусе 1,6, включая врагов. Один заряд.",
+      "en": "Restores 150 health to living fighters within 1.6 units, including enemies. One charge.",
+      "tr": "1,6 birim içindeki hayatta olan savaşçılara 150 can kazandırır. Düşmanlar da etkilenir. Tek yük.",
+      "context": "Assets/Configs/Blessings/ointment.asset :: _description"
+    },
+    {
+      "key": "Всем гладиаторам +1 брони; складывается с классовым снаряжением.",
+      "ru": "Всем гладиаторам +1 брони; складывается с классовым снаряжением.",
+      "en": "+1 armor to all gladiators; stacks with class equipment.",
+      "tr": "Tüm gladyatörlere +1 zırh; sınıf ekipmanıyla birlikte uygulanır.",
+      "context": "Assets/Configs/Equipment/LorikaHlamata.asset :: _description"
+    },
+    {
+      "key": "Всем гладиаторам +8% здоровья.",
+      "ru": "Всем гладиаторам +8% здоровья.",
+      "en": "+8% health to all gladiators.",
+      "tr": "Tüm gladyatörlere +%8 can.",
+      "context": "Assets/Configs/Equipment/Posca.asset :: _description"
+    },
+    {
+      "key": "Выберите благословление, затем место на арене",
+      "ru": "Выберите благословление, затем место на арене",
+      "en": "Choose a blessing, then a spot in the arena",
+      "tr": "Bir lütuf, ardından arenada bir konum seçin",
+      "context": "Assets/Scenes/3.Arena.unity :: Hint; Assets\\Code\\Presentation\\Blessings\\BlessingBattleView.cs"
+    },
+    {
+      "key": "Выберите контракт",
+      "ru": "Выберите контракт",
+      "en": "Choose a contract",
+      "tr": "Bir sözleşme seçin",
+      "context": "Assets/Scenes/3.Arena.unity :: Heading"
+    },
+    {
+      "key": "Выберите строй перед боем",
+      "ru": "Выберите строй перед боем",
+      "en": "Choose a formation before battle",
+      "tr": "Savaştan önce bir diziliş seçin",
+      "context": "Assets/Scenes/3.Arena.unity :: Text (TMP); Assets\\Code\\Presentation\\Run\\FormationSelectionView.cs"
+    },
+    {
+      "key": "Выбрать",
+      "ru": "Выбрать",
+      "en": "Select",
+      "tr": "Seç",
+      "context": "Assets/Prefabs/Arena/UI/FormationCardView.prefab :: Text (TMP); Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+    },
+    {
+      "key": "Выбрать контракт",
+      "ru": "Выбрать контракт",
+      "en": "Select contract",
+      "tr": "Sözleşmeyi seç",
+      "context": "Assets/Scenes/3.Arena.unity :: Text (TMP); Assets/Scenes/3.Arena.unity :: Text (TMP)"
+    },
+    {
+      "key": "Выжило",
+      "ru": "Выжило",
+      "en": "Survived",
+      "tr": "Sağ kalan",
+      "context": "Assets/Scenes/3.Arena.unity :: Column1"
+    },
+    {
+      "key": "Выносливые звери с сильным ударом.",
+      "ru": "Выносливые звери с сильным ударом.",
+      "en": "Tough beasts with a powerful strike.",
+      "tr": "Güçlü vuruşları olan dayanıklı hayvanlar.",
+      "context": "Assets/Configs/Wave/Lions1.asset :: _description"
+    },
+    {
+      "key": "Гимназия",
+      "ru": "Гимназия",
+      "en": "Gymnasium",
+      "tr": "Eğitim alanı",
+      "context": "Assets/Configs/Buildings/Gymnasium.asset :: _displayName"
+    },
+    {
+      "key": "Гладиатор",
+      "ru": "Гладиатор",
+      "en": "Gladiator",
+      "tr": "Gladyatör",
+      "context": "Assets/Prefabs/Base/BaseSquadUnit.prefab :: Name; Assets/Prefabs/Units/UnitView.prefab :: Name"
+    },
+    {
+      "key": "ГЛАДИАТОРСКАЯ ШКОЛА",
+      "ru": "ГЛАДИАТОРСКАЯ ШКОЛА",
+      "en": "GLADIATOR SCHOOL",
+      "tr": "GLADYATÖR OKULU",
+      "context": "Assets/Scenes/2.Base.unity :: Subtitle"
+    },
+    {
+      "key": "Гладиаторы",
+      "ru": "Гладиаторы",
+      "en": "Gladiators",
+      "tr": "Gladyatörler",
+      "context": "Assets/Scenes/2.Base.unity :: Title; Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+    },
+    {
+      "key": "Гладиус",
+      "ru": "Гладиус",
+      "en": "Gladius",
+      "tr": "Gladius",
+      "context": "Assets/Configs/Equipment/Gladius.asset :: _displayName"
+    },
+    {
+      "key": "Гопломах",
+      "ru": "Гопломах",
+      "en": "Hoplomachus",
+      "tr": "Hoplomachus",
+      "context": "Assets/Configs/UI/HealthView.asset :: _entries.Array.data[4]._displayName"
+    },
+    {
+      "key": "Денарии: 0",
+      "ru": "Денарии: 0",
+      "en": "Denarii: 0",
+      "tr": "Denarius: 0",
+      "context": "Assets/Scenes/2.Base.unity :: Gold; Assets/Scenes/3.Arena.unity :: Balance"
+    },
+    {
+      "key": "Дополнительный бонус за просмотр",
+      "ru": "Дополнительный бонус за просмотр",
+      "en": "Extra reward for watching an ad",
+      "tr": "Reklam izleyerek ek ödül",
+      "context": "Assets/Scenes/3.Arena.unity :: Label"
+    },
+    {
+      "key": "Закрыть",
+      "ru": "Закрыть",
+      "en": "Close",
+      "tr": "Kapat",
+      "context": "Assets/Scenes/1.MainMenu.unity :: Label"
+    },
+    {
+      "key": "Замедляет цель на 35% на 2 секунды.",
+      "ru": "Замедляет цель на 35% на 2 секунды.",
+      "en": "Slows the target by 35% for 2 seconds.",
+      "tr": "Hedefi 2 saniyeliğine %35 yavaşlatır.",
+      "context": "Assets/Configs/Abilities/Net.asset :: _description"
+    },
+    {
+      "key": "Заточка оружия",
+      "ru": "Заточка оружия",
+      "en": "Weapon sharpening",
+      "tr": "Silah bileme",
+      "context": "Assets/Configs/Upgrades/SharpGladius.asset :: _displayName"
+    },
+    {
+      "key": "Здесь будет отдыхать ваш отряд\n<color=#806F55><size=19>Начните забег и выберите бойцов</size></color>",
+      "ru": "Здесь будет отдыхать ваш отряд\n<color=#806F55><size=19>Начните забег и выберите бойцов</size></color>",
+      "en": "Your squad will rest here\n<color=#806F55><size=19>Start a run and choose your fighters</size></color>",
+      "tr": "Ekibiniz burada dinlenecek\n<color=#806F55><size=19>Bir koşu başlatın ve savaşçılarınızı seçin</size></color>",
+      "context": "Assets/Scenes/2.Base.unity :: EmptySquad"
+    },
+    {
+      "key": "Изменить строй",
+      "ru": "Изменить строй",
+      "en": "Change formation",
+      "tr": "Dizilişi değiştir",
+      "context": "Assets/Scenes/3.Arena.unity :: Text (TMP)"
+    },
+    {
+      "key": "Императорский пыл",
+      "ru": "Императорский пыл",
+      "en": "Imperial fervor",
+      "tr": "İmparatorluk coşkusu",
+      "context": "Assets/Configs/Blessings/fervor.asset :: _displayName"
+    },
+    {
+      "key": "Итоги боя",
+      "ru": "Итоги боя",
+      "en": "Battle results",
+      "tr": "Savaş sonuçları",
+      "context": "Assets/Scenes/3.Arena.unity :: Heading"
+    },
+    {
+      "key": "К награде",
+      "ru": "К награде",
+      "en": "Claim reward",
+      "tr": "Ödüle geç",
+      "context": "Assets/Scenes/3.Arena.unity :: Text (TMP)"
+    },
+    {
+      "key": "Каждый уровень: +0,5 брони и +2 процентных пункта шанса крита всем гладиаторам.",
+      "ru": "Каждый уровень: +0,5 брони и +2 процентных пункта шанса крита всем гладиаторам.",
+      "en": "Each level: +0.5 armor and +2 percentage points of critical chance to all gladiators.",
+      "tr": "Her seviye: tüm gladyatörlere +0,5 zırh ve +2 yüzde puan kritik vuruş şansı.",
+      "context": "Assets/Configs/Buildings/Forge.asset :: _description"
+    },
+    {
+      "key": "Каждый уровень: +10% максимального здоровья всем гладиаторам.",
+      "ru": "Каждый уровень: +10% максимального здоровья всем гладиаторам.",
+      "en": "Each level: +10% maximum health to all gladiators.",
+      "tr": "Her seviye: tüm gladyatörlere +%10 azami can.",
+      "context": "Assets/Configs/Buildings/Hospital.asset :: _description"
+    },
+    {
+      "key": "Каждый уровень: +8% урона всем гладиаторам.",
+      "ru": "Каждый уровень: +8% урона всем гладиаторам.",
+      "en": "Each level: +8% damage to all gladiators.",
+      "tr": "Her seviye: tüm gladyatörlere +%8 hasar.",
+      "context": "Assets/Configs/Buildings/Gymnasium.asset :: _description"
+    },
+    {
+      "key": "Каждый уровень: ретиариям +0,1 дальности и −3% перезарядки атаки.",
+      "ru": "Каждый уровень: ретиариям +0,1 дальности и −3% перезарядки атаки.",
+      "en": "Each level: +0.1 range and −3% attack cooldown for retiarii.",
+      "tr": "Her seviye: retiariuslara +0,1 menzil ve −%3 saldırı bekleme süresi.",
+      "context": "Assets/Configs/Buildings/Nets.asset :: _description"
+    },
+    {
+      "key": "Кипящая смола",
+      "ru": "Кипящая смола",
+      "en": "Boiling tar",
+      "tr": "Kaynar katran",
+      "context": "Assets/Configs/Blessings/tar.asset :: _displayName"
+    },
+    {
+      "key": "Класс",
+      "ru": "Класс",
+      "en": "Class",
+      "tr": "Sınıf",
+      "context": "Assets/Scenes/3.Arena.unity :: Column0"
+    },
+    {
+      "key": "Клин",
+      "ru": "Клин",
+      "en": "Wedge",
+      "tr": "Kama",
+      "context": "Assets/Configs/Formations/Swine.asset :: _displayName"
+    },
+    {
+      "key": "Колонна",
+      "ru": "Колонна",
+      "en": "Column",
+      "tr": "Kol",
+      "context": "Assets/Configs/Formations/Column.asset :: _displayName"
+    },
+    {
+      "key": "Круг",
+      "ru": "Круг",
+      "en": "Circle",
+      "tr": "Çember",
+      "context": "Assets/Configs/Formations/Circle.asset :: _displayName"
+    },
+    {
+      "key": "Кузница",
+      "ru": "Кузница",
+      "en": "Forge",
+      "tr": "Demirhane",
+      "context": "Assets/Configs/Buildings/Forge.asset :: _displayName"
+    },
+    {
+      "key": "Купить",
+      "ru": "Купить",
+      "en": "Buy",
+      "tr": "Satın al",
+      "context": "Assets/Prefabs/Base/UI/ItemsRow.prefab :: Text (TMP); Assets/Prefabs/Blessings/BlessingBattleCard.prefab :: Label; Assets/Prefabs/Blessings/BlessingShopCard.prefab :: Label; Assets\\Code\\Presentation\\Lupanarium\\ItemRowView.cs"
+    },
+    {
+      "key": "Лазарет",
+      "ru": "Лазарет",
+      "en": "Infirmary",
+      "tr": "Revir",
+      "context": "Assets/Configs/Buildings/Hospital.asset :: _displayName"
+    },
+    {
+      "key": "Лев",
+      "ru": "Лев",
+      "en": "Lion",
+      "tr": "Aslan",
+      "context": "Assets/Configs/UI/HealthView.asset :: _entries.Array.data[5]._displayName"
+    },
+    {
+      "key": "Лорика",
+      "ru": "Лорика",
+      "en": "Lorica",
+      "tr": "Lorica",
+      "context": "Assets/Configs/Equipment/LorikaHlamata.asset :: _displayName"
+    },
+    {
+      "key": "ЛУПАНАРИЙ",
+      "ru": "ЛУПАНАРИЙ",
+      "en": "LUPANARIUM",
+      "tr": "LUPANARIUM",
+      "context": "Assets/Scenes/2.Base.unity :: Title"
+    },
+    {
+      "key": "Львы арены",
+      "ru": "Львы арены",
+      "en": "Lions of the arena",
+      "tr": "Arena aslanları",
+      "context": "Assets/Configs/Wave/Lions1.asset :: _displayName"
+    },
+    {
+      "key": "Манипула",
+      "ru": "Манипула",
+      "en": "Maniple",
+      "tr": "Manipül",
+      "context": "Assets/Configs/Formations/Manipula.asset :: _displayName"
+    },
+    {
+      "key": "Много быстрых противников без брони.",
+      "ru": "Много быстрых противников без брони.",
+      "en": "Many fast, unarmored enemies.",
+      "tr": "Çok sayıda hızlı ve zırhsız düşman.",
+      "context": "Assets/Configs/Wave/Wolfs1.asset :: _description"
+    },
+    {
+      "key": "Мурмиллон",
+      "ru": "Мурмиллон",
+      "en": "Murmillo",
+      "tr": "Murmillo",
+      "context": "Assets/Configs/UI/HealthView.asset :: _entries.Array.data[0]._displayName"
+    },
+    {
+      "key": "Мурмиллонам +1 брони и +5% здоровья.",
+      "ru": "Мурмиллонам +1 брони и +5% здоровья.",
+      "en": "+1 armor and +5% health to murmillos.",
+      "tr": "Murmillolara +1 zırh ve +%5 can.",
+      "context": "Assets/Configs/Equipment/Scutum.asset :: _description"
+    },
+    {
+      "key": "Мурмиллонам +10% урона.",
+      "ru": "Мурмиллонам +10% урона.",
+      "en": "+10% damage to murmillos.",
+      "tr": "Murmillolara +%10 hasar.",
+      "context": "Assets/Configs/Equipment/Gladius.asset :: _description"
+    },
+    {
+      "key": "На базу",
+      "ru": "На базу",
+      "en": "To base",
+      "tr": "Üsse dön",
+      "context": "Assets/Scenes/3.Arena.unity :: Text (TMP)"
+    },
+    {
+      "key": "Наберите отряд",
+      "ru": "Наберите отряд",
+      "en": "Recruit a squad",
+      "tr": "Bir ekip kurun",
+      "context": "Assets/Scenes/3.Arena.unity :: Heading"
+    },
+    {
+      "key": "Награда за победу",
+      "ru": "Награда за победу",
+      "en": "Victory reward",
+      "tr": "Zafer ödülü",
+      "context": "Assets/Scenes/3.Arena.unity :: Heading"
+    },
+    {
+      "key": "Название",
+      "ru": "Название",
+      "en": "Name",
+      "tr": "Ad",
+      "context": "Assets/Prefabs/Base/UI/ItemsRow.prefab :: Name; Assets/Prefabs/Base/UI/RosterView.prefab :: Name; Assets/Prefabs/Base/UI/SchoolBuildingView.prefab :: Name"
+    },
+    {
+      "key": "Нанесено",
+      "ru": "Нанесено",
+      "en": "Dealt",
+      "tr": "Verilen",
+      "context": "Assets/Scenes/3.Arena.unity :: Column3"
+    },
+    {
+      "key": "Нанять отряд",
+      "ru": "Нанять отряд",
+      "en": "Hire squad",
+      "tr": "Ekibi tut",
+      "context": "Assets/Prefabs/Arena/UI/SelectionCard.prefab :: Text (TMP)"
+    },
+    {
+      "key": "Настройки",
+      "ru": "Настройки",
+      "en": "Settings",
+      "tr": "Ayarlar",
+      "context": "Assets/Scenes/1.MainMenu.unity :: Label; Assets/Scenes/1.MainMenu.unity :: Title"
+    },
+    {
+      "key": "Настройки появятся здесь позже.",
+      "ru": "Настройки появятся здесь позже.",
+      "en": "Settings will be added here later.",
+      "tr": "Ayarlar daha sonra buraya eklenecek.",
+      "context": "Assets/Scenes/1.MainMenu.unity :: Placeholder"
+    },
+    {
+      "key": "Начать забег",
+      "ru": "Начать забег",
+      "en": "Start run",
+      "tr": "Koşuyu başlat",
+      "context": "Assets/Scenes/2.Base.unity :: Text (TMP); Assets\\Code\\Presentation\\Lupanarium\\LupanariumView.cs"
+    },
+    {
+      "key": "Начать новый забег",
+      "ru": "Начать новый забег",
+      "en": "Start new run",
+      "tr": "Yeni koşu başlat",
+      "context": "Assets/Scenes/1.MainMenu.unity :: Label; Assets/Scenes/3.Arena.unity :: Text (TMP); Assets\\Code\\Presentation\\Menu\\MainMenuView.cs"
+    },
+    {
+      "key": "Небольшой отряд сбалансированных бойцов.",
+      "ru": "Небольшой отряд сбалансированных бойцов.",
+      "en": "A small squad of well-rounded fighters.",
+      "tr": "Dengeli savaşçılardan oluşan küçük bir ekip.",
+      "context": "Assets/Configs/Wave/Murmillo.asset :: _description"
+    },
+    {
+      "key": "Нет активного забега",
+      "ru": "Нет активного забега",
+      "en": "No active run",
+      "tr": "Aktif koşu yok",
+      "context": "Assets/Scenes/1.MainMenu.unity :: RunStatus; Assets\\Code\\Presentation\\Menu\\MainMenuView.cs"
+    },
+    {
+      "key": "Оглушает цель на 0,45 секунды.",
+      "ru": "Оглушает цель на 0,45 секунды.",
+      "en": "Stuns the target for 0.45 seconds.",
+      "tr": "Hedefi 0,45 saniyeliğine sersemletir.",
+      "context": "Assets/Configs/Abilities/ShieldDash.asset :: _description"
+    },
+    {
+      "key": "Описание",
+      "ru": "Описание",
+      "en": "Description",
+      "tr": "Açıklama",
+      "context": "Assets/Prefabs/Blessings/BlessingBattleCard.prefab :: Description; Assets/Prefabs/Blessings/BlessingShopCard.prefab :: Description"
+    },
+    {
+      "key": "Открыть",
+      "ru": "Открыть",
+      "en": "Unlock",
+      "tr": "Kilidi aç",
+      "context": "Assets/Prefabs/Base/UI/RosterView.prefab :: Text (TMP); Assets\\Code\\Presentation\\Lupanarium\\FormationRowView.cs; Assets\\Code\\Presentation\\Lupanarium\\RosterRowView.cs"
+    },
+    {
+      "key": "Отмена",
+      "ru": "Отмена",
+      "en": "Cancel",
+      "tr": "İptal",
+      "context": "Assets/Scenes/1.MainMenu.unity :: Label; Assets/Scenes/3.Arena.unity :: Label"
+    },
+    {
+      "key": "ОТРЯД ЕЩЁ НЕ СОБРАН",
+      "ru": "ОТРЯД ЕЩЁ НЕ СОБРАН",
+      "en": "NO SQUAD YET",
+      "tr": "HENÜZ EKİP YOK",
+      "context": "Assets/Scenes/2.Base.unity :: SquadCount; Assets\\Code\\Presentation\\Lupanarium\\BaseSquadView.cs"
+    },
+    {
+      "key": "Первые соперники",
+      "ru": "Первые соперники",
+      "en": "First rivals",
+      "tr": "İlk rakipler",
+      "context": "Assets/Configs/Wave/Initial.asset :: _displayName"
+    },
+    {
+      "key": "Пилум",
+      "ru": "Пилум",
+      "en": "Pilum",
+      "tr": "Pilum",
+      "context": "Assets/Configs/Equipment/Pilum.asset :: _displayName"
+    },
+    {
+      "key": "Полный сброс прогресса",
+      "ru": "Полный сброс прогресса",
+      "en": "Reset all progress",
+      "tr": "Tüm ilerlemeyi sıfırla",
+      "context": "Assets/Scenes/1.MainMenu.unity :: Label"
+    },
+    {
+      "key": "Получено",
+      "ru": "Получено",
+      "en": "Taken",
+      "tr": "Alınan",
+      "context": "Assets/Scenes/3.Arena.unity :: Column5"
+    },
+    {
+      "key": "Получить",
+      "ru": "Получить",
+      "en": "Claim",
+      "tr": "Al",
+      "context": "Assets/Scenes/3.Arena.unity :: Text (TMP); Assets/Scenes/3.Arena.unity :: Text (TMP)"
+    },
+    {
+      "key": "Пополнение",
+      "ru": "Пополнение",
+      "en": "Reinforcements",
+      "tr": "Takviye",
+      "context": "Assets/Configs/Upgrades/SlaveMarket.asset :: _displayName"
+    },
+    {
+      "key": "Поска",
+      "ru": "Поска",
+      "en": "Posca",
+      "tr": "Posca",
+      "context": "Assets/Configs/Equipment/Posca.asset :: _displayName"
+    },
+    {
+      "key": "Преследователи",
+      "ru": "Преследователи",
+      "en": "Pursuers",
+      "tr": "Takipçiler",
+      "context": "Assets/Configs/Wave/Secutors1.asset :: _displayName"
+    },
+    {
+      "key": "Продолжить без строя",
+      "ru": "Продолжить без строя",
+      "en": "Continue without formation",
+      "tr": "Dizilişsiz devam et",
+      "context": "Assets/Scenes/3.Arena.unity :: Text (TMP)"
+    },
+    {
+      "key": "ПРОТИВНИК",
+      "ru": "ПРОТИВНИК",
+      "en": "ENEMY",
+      "tr": "DÜŞMAN",
+      "context": "Assets/Scenes/3.Arena.unity :: TeamTitle"
+    },
+    {
+      "key": "Ранения сохраняются между боями",
+      "ru": "Ранения сохраняются между боями",
+      "en": "Wounds carry over between battles",
+      "tr": "Yaralar savaşlar arasında kalır",
+      "context": "Assets/Scenes/2.Base.unity :: Label"
+    },
+    {
+      "key": "Реклама: +1 расходник",
+      "ru": "Реклама: +1 расходник",
+      "en": "Ad: +1 consumable",
+      "tr": "Reklam: +1 tüketilebilir eşya",
+      "context": "Assets/Scenes/2.Base.unity :: Label"
+    },
+    {
+      "key": "Реклама: +50 денариев",
+      "ru": "Реклама: +50 денариев",
+      "en": "Ad: +50 denarii",
+      "tr": "Reklam: +50 denarius",
+      "context": "Assets/Scenes/2.Base.unity :: Label; Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+    },
+    {
+      "key": "Реклама: восстановить отряд",
+      "ru": "Реклама: восстановить отряд",
+      "en": "Ad: heal squad",
+      "tr": "Reklam: ekibi iyileştir",
+      "context": "Assets/Scenes/2.Base.unity :: Label"
+    },
+    {
+      "key": "Реклама: удвоить награду за бой",
+      "ru": "Реклама: удвоить награду за бой",
+      "en": "Ad: double battle reward",
+      "tr": "Reklam: savaş ödülünü ikiye katla",
+      "context": "Assets/Scenes/3.Arena.unity :: Label"
+    },
+    {
+      "key": "Ретиарий",
+      "ru": "Ретиарий",
+      "en": "Retiarius",
+      "tr": "Retiarius",
+      "context": "Assets/Configs/UI/HealthView.asset :: _entries.Array.data[1]._displayName"
+    },
+    {
+      "key": "Ретиариям +10% урона и +0,1 дальности.",
+      "ru": "Ретиариям +10% урона и +0,1 дальности.",
+      "en": "+10% damage and +0.1 range to retiarii.",
+      "tr": "Retiariuslara +%10 hasar ve +0,1 menzil.",
+      "context": "Assets/Configs/Equipment/Pilum.asset :: _description"
+    },
+    {
+      "key": "Рывок",
+      "ru": "Рывок",
+      "en": "Dash",
+      "tr": "Atılma",
+      "context": "Assets/Configs/Abilities/Haste.asset :: _displayName"
+    },
+    {
+      "key": "Сбросить весь прогресс?",
+      "ru": "Сбросить весь прогресс?",
+      "en": "Reset all progress?",
+      "tr": "Tüm ilerleme sıfırlansın mı?",
+      "context": "Assets/Scenes/1.MainMenu.unity :: Title"
+    },
+    {
+      "key": "Сбросить всё",
+      "ru": "Сбросить всё",
+      "en": "Reset everything",
+      "tr": "Her şeyi sıfırla",
+      "context": "Assets/Scenes/1.MainMenu.unity :: Label"
+    },
+    {
+      "key": "Секутор",
+      "ru": "Секутор",
+      "en": "Secutor",
+      "tr": "Secutor",
+      "context": "Assets/Configs/UI/HealthView.asset :: _entries.Array.data[2]._displayName"
+    },
+    {
+      "key": "Сеть",
+      "ru": "Сеть",
+      "en": "Net",
+      "tr": "Ağ",
+      "context": "Assets/Configs/Abilities/Net.asset :: _displayName"
+    },
+    {
+      "key": "Скорость передвижения +35% на 5 секунд в радиусе 1,8, включая врагов. Не ускоряет атаки. Один заряд.",
+      "ru": "Скорость передвижения +35% на 5 секунд в радиусе 1,8, включая врагов. Не ускоряет атаки. Один заряд.",
+      "en": "+35% movement speed for 5 seconds within 1.8 units, including enemies. Does not speed up attacks. One charge.",
+      "tr": "1,8 birim içinde 5 saniyeliğine +%35 hareket hızı. Düşmanlar da etkilenir. Saldırıları hızlandırmaz. Tek yük.",
+      "context": "Assets/Configs/Blessings/fervor.asset :: _description"
+    },
+    {
+      "key": "Скутум",
+      "ru": "Скутум",
+      "en": "Scutum",
+      "tr": "Scutum",
+      "context": "Assets/Configs/Equipment/Scutum.asset :: _displayName"
+    },
+    {
+      "key": "Строй: без строя",
+      "ru": "Строй: без строя",
+      "en": "Formation: none",
+      "tr": "Diziliş: yok",
+      "context": "Assets/Scenes/3.Arena.unity :: SelectedFormation; Assets\\Code\\Presentation\\Run\\RunHudView.cs"
+    },
+    {
+      "key": "Сытная похлёбка",
+      "ru": "Сытная похлёбка",
+      "en": "Hearty stew",
+      "tr": "Doyurucu yahni",
+      "context": "Assets/Configs/Upgrades/Soup.asset :: _displayName"
+    },
+    {
+      "key": "ТРЕНИРОВОЧНЫЙ ДВОР",
+      "ru": "ТРЕНИРОВОЧНЫЙ ДВОР",
+      "en": "TRAINING YARD",
+      "tr": "EĞİTİM AVLUSU",
+      "context": "Assets/Scenes/2.Base.unity :: StageHeading"
+    },
+    {
+      "key": "Убийства",
+      "ru": "Убийства",
+      "en": "Kills",
+      "tr": "Öldürülen",
+      "context": "Assets/Scenes/3.Arena.unity :: Column2"
+    },
+    {
+      "key": "Удалить забег",
+      "ru": "Удалить забег",
+      "en": "Delete run",
+      "tr": "Koşuyu sil",
+      "context": "Assets/Scenes/1.MainMenu.unity :: Label"
+    },
+    {
+      "key": "Удалить забег — сохранить улучшения.\nПолный сброс — начать с чистого листа.",
+      "ru": "Удалить забег — сохранить улучшения.\nПолный сброс — начать с чистого листа.",
+      "en": "Delete run: keep your upgrades.\nFull reset: start from scratch.",
+      "tr": "Koşuyu sil: geliştirmeler korunur.\nTam sıfırlama: her şeye baştan başla.",
+      "context": "Assets/Scenes/1.MainMenu.unity :: DeleteHint"
+    },
+    {
+      "key": "Удар щитом",
+      "ru": "Удар щитом",
+      "en": "Shield bash",
+      "tr": "Kalkan darbesi",
+      "context": "Assets/Configs/Abilities/ShieldDash.asset :: _displayName"
+    },
+    {
+      "key": "Улучшить",
+      "ru": "Улучшить",
+      "en": "Upgrade",
+      "tr": "Geliştir",
+      "context": "Assets/Prefabs/Base/UI/SchoolBuildingView.prefab :: Text (TMP)"
+    },
+    {
+      "key": "Урон · Броня",
+      "ru": "Урон · Броня",
+      "en": "Damage · Armor",
+      "tr": "Hasar · Zırh",
+      "context": "Assets/Prefabs/Arena/UI/HealthClassRow.prefab :: CombatStats"
+    },
+    {
+      "key": "Ускоряет передвижение на 35% на 2 секунды.",
+      "ru": "Ускоряет передвижение на 35% на 2 секунды.",
+      "en": "Increases movement speed by 35% for 2 seconds.",
+      "tr": "Hareket hızını 2 saniyeliğine %35 artırır.",
+      "context": "Assets/Configs/Abilities/Haste.asset :: _description"
+    },
+    {
+      "key": "Учебная схватка. Доступна только в раундах 1–3.",
+      "ru": "Учебная схватка. Доступна только в раундах 1–3.",
+      "en": "Training bout. Available only in rounds 1–3.",
+      "tr": "Eğitim dövüşü. Yalnızca 1–3. turlarda kullanılabilir.",
+      "context": "Assets/Configs/Wave/Initial.asset :: _description"
+    },
+    {
+      "key": "Фаланга",
+      "ru": "Фаланга",
+      "en": "Phalanx",
+      "tr": "Falanks",
+      "context": "Assets/Configs/Formations/Falang.asset :: _displayName"
+    },
+    {
+      "key": "Флакон мази",
+      "ru": "Флакон мази",
+      "en": "Ointment flask",
+      "tr": "Merhem şişesi",
+      "context": "Assets/Configs/Blessings/ointment.asset :: _displayName"
+    },
+    {
+      "key": "Формация",
+      "ru": "Формация",
+      "en": "Formation",
+      "tr": "Diziliş",
+      "context": "Assets/Prefabs/Arena/UI/FormationCardView.prefab :: Name"
+    },
+    {
+      "key": "Фракиец",
+      "ru": "Фракиец",
+      "en": "Thraex",
+      "tr": "Thraex",
+      "context": "Assets/Configs/UI/HealthView.asset :: _entries.Array.data[3]._displayName"
+    },
+    {
+      "key": "Черепаха",
+      "ru": "Черепаха",
+      "en": "Testudo",
+      "tr": "Kaplumbağa",
+      "context": "Assets/Configs/Formations/Testudo.asset :: _displayName"
+    },
+    {
+      "key": "Школа сетей",
+      "ru": "Школа сетей",
+      "en": "Net school",
+      "tr": "Ağ okulu",
+      "context": "Assets/Configs/Buildings/Nets.asset :: _displayName"
+    },
+    {
+      "key": "Щиты арены",
+      "ru": "Щиты арены",
+      "en": "Shields of the arena",
+      "tr": "Arena kalkanları",
+      "context": "Assets/Configs/Wave/Murmillo.asset :: _displayName"
+    },
+    {
+      "key": "{0}: выберите круг на арене. Действует на обе стороны!",
+      "ru": "{0}: выберите круг на арене. Действует на обе стороны!",
+      "en": "{0}: choose an area in the arena. Affects both sides!",
+      "tr": "{0}: arenada bir alan seçin. Her iki tarafı da etkiler!",
+      "context": "Assets\\Code\\Presentation\\Blessings\\BlessingBattleView.cs"
+    },
+    {
+      "key": "Купить · {0} ден.\nВ запасе: {1}",
+      "ru": "Купить · {0} ден.\nВ запасе: {1}",
+      "en": "Buy · {0} den.\nIn stock: {1}",
+      "tr": "Satın al · {0} den.\nStok: {1}",
+      "context": "Assets\\Code\\Presentation\\Blessings\\BlessingCardView.cs"
+    },
+    {
+      "key": "Использовать · {0}",
+      "ru": "Использовать · {0}",
+      "en": "Use · {0}",
+      "tr": "Kullan · {0}",
+      "context": "Assets\\Code\\Presentation\\Blessings\\BlessingCardView.cs"
+    },
+    {
+      "key": "Постройки",
+      "ru": "Постройки",
+      "en": "Buildings",
+      "tr": "Binalar",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+    },
+    {
+      "key": "Арсенал",
+      "ru": "Арсенал",
+      "en": "Armory",
+      "tr": "Cephanelik",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+    },
+    {
+      "key": "Открывайте бойцов для следующих забегов",
+      "ru": "Открывайте бойцов для следующих забегов",
+      "en": "Unlock fighters for future runs",
+      "tr": "Gelecek koşular için savaşçıların kilidini açın",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+    },
+    {
+      "key": "Улучшения школы действуют во всех забегах",
+      "ru": "Улучшения школы действуют во всех забегах",
+      "en": "School upgrades apply to every run",
+      "tr": "Okul geliştirmeleri tüm koşularda geçerlidir",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+    },
+    {
+      "key": "Покупайте и надевайте снаряжение для своих бойцов",
+      "ru": "Покупайте и надевайте снаряжение для своих бойцов",
+      "en": "Buy and equip gear for your fighters",
+      "tr": "Savaşçılarınız için ekipman satın alın ve kuşanın",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+    },
+    {
+      "key": "Одна покупка — один заряд. Все эффекты в кругу действуют на обе стороны",
+      "ru": "Одна покупка — один заряд. Все эффекты в кругу действуют на обе стороны",
+      "en": "One purchase, one charge. All effects in the circle affect both sides",
+      "tr": "Her satın alım bir yük verir. Çemberdeki tüm etkiler her iki tarafa da uygulanır",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+    },
+    {
+      "key": "ОТРЯД В ЗАБЕГЕ  /  {0}",
+      "ru": "ОТРЯД В ЗАБЕГЕ  /  {0}",
+      "en": "RUN SQUAD  /  {0}",
+      "tr": "KOŞU EKİBİ  /  {0}",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\BaseSquadView.cs"
+    },
+    {
+      "key": "открыт",
+      "ru": "открыт",
+      "en": "unlocked",
+      "tr": "açık",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\FormationRowView.cs; Assets\\Code\\Presentation\\Lupanarium\\RosterRowView.cs"
+    },
+    {
+      "key": "с раунда {0}",
+      "ru": "с раунда {0}",
+      "en": "from round {0}",
+      "tr": "{0}. turdan itibaren",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\FormationRowView.cs; Assets\\Code\\Presentation\\Lupanarium\\RosterRowView.cs"
+    },
+    {
+      "key": "{0} ден.",
+      "ru": "{0} ден.",
+      "en": "{0} den.",
+      "tr": "{0} den.",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\FormationRowView.cs; Assets\\Code\\Presentation\\Lupanarium\\ItemRowView.cs; Assets\\Code\\Presentation\\Lupanarium\\RosterRowView.cs; Assets\\Code\\Presentation\\Lupanarium\\SchoolBuildingRowView.cs"
+    },
+    {
+      "key": "Открыт",
+      "ru": "Открыт",
+      "en": "Unlocked",
+      "tr": "Açık",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\FormationRowView.cs; Assets\\Code\\Presentation\\Lupanarium\\RosterRowView.cs"
+    },
+    {
+      "key": "надет",
+      "ru": "надет",
+      "en": "equipped",
+      "tr": "kuşanıldı",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\ItemRowView.cs"
+    },
+    {
+      "key": "в сундуке",
+      "ru": "в сундуке",
+      "en": "in storage",
+      "tr": "depoda",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\ItemRowView.cs"
+    },
+    {
+      "key": "Надеть",
+      "ru": "Надеть",
+      "en": "Equip",
+      "tr": "Kuşan",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\ItemRowView.cs"
+    },
+    {
+      "key": "Продолжить забег",
+      "ru": "Продолжить забег",
+      "en": "Continue run",
+      "tr": "Koşuya devam et",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\LupanariumView.cs; Assets\\Code\\Presentation\\Menu\\MainMenuView.cs"
+    },
+    {
+      "key": "Денарии: {0}",
+      "ru": "Денарии: {0}",
+      "en": "Denarii: {0}",
+      "tr": "Denarius: {0}",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\LupanariumView.cs"
+    },
+    {
+      "key": "максимум",
+      "ru": "максимум",
+      "en": "max",
+      "tr": "azami",
+      "context": "Assets\\Code\\Presentation\\Lupanarium\\SchoolBuildingRowView.cs"
+    },
+    {
+      "key": "Не удалось открыть арену. Попробуйте ещё раз.",
+      "ru": "Не удалось открыть арену. Попробуйте ещё раз.",
+      "en": "Could not open the arena. Please try again.",
+      "tr": "Arena açılamadı. Lütfen tekrar deneyin.",
+      "context": "Assets\\Code\\Presentation\\Menu\\MainMenuPresenter.cs"
+    },
+    {
+      "key": "Сохранённый забег · раунд {0}",
+      "ru": "Сохранённый забег · раунд {0}",
+      "en": "Saved run · round {0}",
+      "tr": "Kayıtlı koşu · tur {0}",
+      "context": "Assets\\Code\\Presentation\\Menu\\MainMenuView.cs"
+    },
+    {
+      "key": "Реклама: +1 ",
+      "ru": "Реклама: +1 ",
+      "en": "Ad: +1 ",
+      "tr": "Reklam: +1 ",
+      "context": "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+    },
+    {
+      "key": "расходник",
+      "ru": "расходник",
+      "en": "consumable",
+      "tr": "tüketilebilir eşya",
+      "context": "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+    },
+    {
+      "key": "Реклама: восстановить весь отряд",
+      "ru": "Реклама: восстановить весь отряд",
+      "en": "Ad: heal the whole squad",
+      "tr": "Reklam: tüm ekibi iyileştir",
+      "context": "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+    },
+    {
+      "key": "Бесплатный отдых: {0}:{1:00}",
+      "ru": "Бесплатный отдых: {0}:{1:00}",
+      "en": "Free rest: {0}:{1:00}",
+      "tr": "Ücretsiz dinlenme: {0}:{1:00}",
+      "context": "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+    },
+    {
+      "key": "Восстановить отряд бесплатно",
+      "ru": "Восстановить отряд бесплатно",
+      "en": "Heal squad for free",
+      "tr": "Ekibi ücretsiz iyileştir",
+      "context": "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+    },
+    {
+      "key": "Нет активного отряда",
+      "ru": "Нет активного отряда",
+      "en": "No active squad",
+      "tr": "Aktif ekip yok",
+      "context": "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+    },
+    {
+      "key": "Все бойцы здоровы",
+      "ru": "Все бойцы здоровы",
+      "en": "All fighters are healthy",
+      "tr": "Tüm savaşçılar sağlıklı",
+      "context": "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+    },
+    {
+      "key": "Ранения сохраняются между боями.\nБез сознания: {0}. Отдых — 2 минуты.",
+      "ru": "Ранения сохраняются между боями.\nБез сознания: {0}. Отдых — 2 минуты.",
+      "en": "Wounds carry over between battles.\nUnconscious: {0}. Rest takes 2 minutes.",
+      "tr": "Yaralar savaşlar arasında kalır.\nBaygın: {0}. Dinlenme süresi: 2 dakika.",
+      "context": "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+    },
+    {
+      "key": "Реклама: ещё +{0} денариев за бой",
+      "ru": "Реклама: ещё +{0} денариев за бой",
+      "en": "Ad: +{0} extra denarii for this battle",
+      "tr": "Reklam: bu savaş için +{0} ek denarius",
+      "context": "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+    },
+    {
+      "key": "ПОБЕДА!",
+      "ru": "ПОБЕДА!",
+      "en": "VICTORY!",
+      "tr": "ZAFER!",
+      "context": "Assets\\Code\\Presentation\\Run\\BattleSummaryView.cs"
+    },
+    {
+      "key": "Раунд {0}",
+      "ru": "Раунд {0}",
+      "en": "Round {0}",
+      "tr": "Tur {0}",
+      "context": "Assets\\Code\\Presentation\\Run\\BattleSummaryView.cs; Assets\\Code\\Presentation\\Run\\ContractSelectionView.cs; Assets\\Code\\Presentation\\Run\\RunHudView.cs"
+    },
+    {
+      "key": "Заработано {0}",
+      "ru": "Заработано {0}",
+      "en": "Earned {0}",
+      "tr": "Kazanılan: {0}",
+      "context": "Assets\\Code\\Presentation\\Run\\BattleSummaryView.cs"
+    },
+    {
+      "key": "{0} золота",
+      "ru": "{0} золота",
+      "en": "{0} gold",
+      "tr": "{0} altın",
+      "context": "Assets\\Code\\Presentation\\Run\\ContractCardView.cs"
+    },
+    {
+      "key": "Денарии: {0}   •   Лучший раунд: {1}\n",
+      "ru": "Денарии: {0}   •   Лучший раунд: {1}\n",
+      "en": "Denarii: {0}   •   Best round: {1}\n",
+      "tr": "Denarius: {0}   •   En iyi tur: {1}\n",
+      "context": "Assets\\Code\\Presentation\\Run\\FormationSelectionView.cs"
+    },
+    {
+      "key": "Покупка навсегда. Денарии пополняются при возврате на базу.",
+      "ru": "Покупка навсегда. Денарии пополняются при возврате на базу.",
+      "en": "Permanent purchase. Denarii are credited when you return to base.",
+      "tr": "Kalıcı satın alım. Üsse döndüğünüzde denarius kazanırsınız.",
+      "context": "Assets\\Code\\Presentation\\Run\\FormationSelectionView.cs"
+    },
+    {
+      "key": "Всегда доступно · бесплатно",
+      "ru": "Всегда доступно · бесплатно",
+      "en": "Always available · free",
+      "tr": "Her zaman açık · ücretsiz",
+      "context": "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+    },
+    {
+      "key": "Куплено навсегда",
+      "ru": "Куплено навсегда",
+      "en": "Permanently owned",
+      "tr": "Kalıcı olarak alındı",
+      "context": "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+    },
+    {
+      "key": "Достигните раунда {0} · {1} ден.",
+      "ru": "Достигните раунда {0} · {1} ден.",
+      "en": "Reach round {0} · {1} den.",
+      "tr": "{0}. tura ulaşın · {1} den.",
+      "context": "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+    },
+    {
+      "key": "Доступно для покупки · {0} ден.",
+      "ru": "Доступно для покупки · {0} ден.",
+      "en": "Available to buy · {0} den.",
+      "tr": "Satın alınabilir · {0} den.",
+      "context": "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+    },
+    {
+      "key": "Нужно {0} ден. · не хватает {1}",
+      "ru": "Нужно {0} ден. · не хватает {1}",
+      "en": "Costs {0} den. · need {1} more",
+      "tr": "Bedeli: {0} den. · {1} daha gerekli",
+      "context": "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+    },
+    {
+      "key": "Закрыто",
+      "ru": "Закрыто",
+      "en": "Locked",
+      "tr": "Kilitli",
+      "context": "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+    },
+    {
+      "key": "Купить · {0} ден.",
+      "ru": "Купить · {0} ден.",
+      "en": "Buy · {0} den.",
+      "tr": "Satın al · {0} den.",
+      "context": "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+    },
+    {
+      "key": "никого",
+      "ru": "никого",
+      "en": "none",
+      "tr": "yok",
+      "context": "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+    },
+    {
+      "key": "Без строя",
+      "ru": "Без строя",
+      "en": "No formation",
+      "tr": "Diziliş yok",
+      "context": "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+    },
+    {
+      "key": "Отряд идёт врассыпную и сходится с врагом сразу, без бонусов и без ожидания.",
+      "ru": "Отряд идёт врассыпную и сходится с врагом сразу, без бонусов и без ожидания.",
+      "en": "The squad advances freely and engages the enemy immediately, with no bonuses or delay.",
+      "tr": "Ekip serbestçe ilerler ve bonus veya bekleme olmadan düşmanla hemen çatışır.",
+      "context": "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+    },
+    {
+      "key": "Золото: {0}",
+      "ru": "Золото: {0}",
+      "en": "Gold: {0}",
+      "tr": "Altın: {0}",
+      "context": "Assets\\Code\\Presentation\\Run\\RunHudView.cs"
+    },
+    {
+      "key": "Отряд: {0}",
+      "ru": "Отряд: {0}",
+      "en": "Squad: {0}",
+      "tr": "Ekip: {0}",
+      "context": "Assets\\Code\\Presentation\\Run\\RunHudView.cs"
+    },
+    {
+      "key": "Строй: {0}",
+      "ru": "Строй: {0}",
+      "en": "Formation: {0}",
+      "tr": "Diziliş: {0}",
+      "context": "Assets\\Code\\Presentation\\Run\\RunHudView.cs"
+    },
+    {
+      "key": "Поражение в раунде {0}",
+      "ru": "Поражение в раунде {0}",
+      "en": "Defeated in round {0}",
+      "tr": "{0}. turda yenildiniz",
+      "context": "Assets\\Code\\Presentation\\Run\\RunHudView.cs"
+    },
+    {
+      "key": "{0} бойцов",
+      "ru": "{0} бойцов",
+      "en": "Fighters: {0}",
+      "tr": "Savaşçı: {0}",
+      "context": "Assets\\Code\\Presentation\\Run\\SquadOptionCardView.cs"
+    },
+    {
+      "key": "HP {0}",
+      "ru": "HP {0}",
+      "en": "HP {0}",
+      "tr": "Can {0}",
+      "context": "Assets\\Code\\Presentation\\Run\\SquadOptionCardView.cs"
+    },
+    {
+      "key": "Урон {0}",
+      "ru": "Урон {0}",
+      "en": "Damage {0}",
+      "tr": "Hasar {0}",
+      "context": "Assets\\Code\\Presentation\\Run\\SquadOptionCardView.cs"
+    },
+    {
+      "key": "Скорость {0:0.0}",
+      "ru": "Скорость {0:0.0}",
+      "en": "Speed {0:0.0}",
+      "tr": "Hız {0:0.0}",
+      "context": "Assets\\Code\\Presentation\\Run\\SquadOptionCardView.cs"
+    },
+    {
+      "key": "С кем выходим на песок?",
+      "ru": "С кем выходим на песок?",
+      "en": "Who will enter the arena?",
+      "tr": "Arenaya kim çıkacak?",
+      "context": "Assets\\Code\\Presentation\\Run\\SquadSelectionView.cs"
+    },
+    {
+      "key": "Урон {0}  ·  Броня {1}",
+      "ru": "Урон {0}  ·  Броня {1}",
+      "en": "Damage {0}  ·  Armor {1}",
+      "tr": "Hasar {0}  ·  Zırh {1}",
+      "context": "Assets\\Code\\Gameplay\\Hud\\HealthClassRowView.cs"
+    },
+    {
+      "key": "Подключение рекламы…",
+      "ru": "Подключение рекламы…",
+      "en": "Connecting to ads…",
+      "tr": "Reklam servisine bağlanılıyor…",
+      "context": "Assets\\Code\\Infrastructure\\Platform\\YandexBridge.cs"
+    },
+    {
+      "key": "Открывается реклама…",
+      "ru": "Открывается реклама…",
+      "en": "Opening ad…",
+      "tr": "Reklam açılıyor…",
+      "context": "Assets\\Code\\Infrastructure\\Platform\\YandexBridge.cs"
+    },
+    {
+      "key": "Реклама недоступна. Игра доступна без неё.",
+      "ru": "Реклама недоступна. Игра доступна без неё.",
+      "en": "Ads are unavailable. You can keep playing.",
+      "tr": "Reklamlar kullanılamıyor. Oynamaya devam edebilirsiniz.",
+      "context": "Assets\\Code\\Infrastructure\\Platform\\YandexBridge.cs"
+    },
+    {
+      "key": "Награда получена",
+      "ru": "Награда получена",
+      "en": "Reward received",
+      "tr": "Ödül alındı",
+      "context": "Assets\\Code\\Infrastructure\\Platform\\YandexBridge.cs"
+    },
+    {
+      "key": "Реклама закрыта или недоступна",
+      "ru": "Реклама закрыта или недоступна",
+      "en": "Ad closed or unavailable",
+      "tr": "Reklam kapatıldı veya kullanılamıyor",
+      "context": "Assets\\Code\\Infrastructure\\Platform\\YandexBridge.cs"
+    },
+    {
+      "key": "Скорость боя ×{0}",
+      "ru": "Скорость боя ×{0}",
+      "en": "Battle speed ×{0}",
+      "tr": "Savaş hızı ×{0}",
+      "context": ""
+    },
+    {
+      "key": "Accept\n",
+      "ru": "Получить",
+      "en": "Claim",
+      "tr": "Al",
+      "context": "Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP); Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP); Assets/Prefabs/Arena/UI/UpgradeCardView.prefab :: Text (TMP)"
+    },
+    {
+      "key": "Button",
+      "ru": "Выбрать",
+      "en": "Select",
+      "tr": "Seç",
+      "context": "Assets/Prefabs/Arena/UI/BattleSummaryView.prefab :: Text (TMP); Assets/Prefabs/Arena/UI/ContractCardView.prefab :: Text (TMP); Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP); Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP); Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP)"
+    },
+    {
+      "key": "Clear",
+      "ru": "Закрыть",
+      "en": "Close",
+      "tr": "Kapat",
+      "context": "Assets/Scenes/3.Arena.unity :: Text (TMP)"
+    },
+    {
+      "key": "Descr",
+      "ru": "Описание",
+      "en": "Description",
+      "tr": "Açıklama",
+      "context": "Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Description; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Description; Assets/Prefabs/Arena/UI/UpgradeCardView.prefab :: Description; Assets/Scenes/3.Arena.unity :: Description; Assets/Scenes/3.Arena.unity :: Description"
+    },
+    {
+      "key": "Fight\n",
+      "ru": "В бой",
+      "en": "Fight",
+      "tr": "Savaş",
+      "context": "Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP)"
+    },
+    {
+      "key": "Lupanarium\n",
+      "ru": "В лупанарий",
+      "en": "To base",
+      "tr": "Üsse dön",
+      "context": "Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP)"
+    },
+    {
+      "key": "Name",
+      "ru": "Название",
+      "en": "Name",
+      "tr": "Ad",
+      "context": "Assets/Prefabs/Arena/UI/HealthClassRow.prefab :: NameLabel"
+    },
+    {
+      "key": "Name\n",
+      "ru": "Название",
+      "en": "Name",
+      "tr": "Ad",
+      "context": "Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Name; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Name; Assets/Prefabs/Arena/UI/UpgradeCardView.prefab :: Name; Assets/Scenes/3.Arena.unity :: Name; Assets/Scenes/3.Arena.unity :: Name"
+    },
+    {
+      "key": "New Text",
+      "ru": "Описание",
+      "en": "Description",
+      "tr": "Açıklama",
+      "context": "Assets/Prefabs/Arena/UI/BattleSummaryRowView.prefab :: Name; Assets/Prefabs/Arena/UI/BattleSummaryRowView.prefab :: Survivors; Assets/Prefabs/Arena/UI/BattleSummaryRowView.prefab :: Kills; Assets/Prefabs/Arena/UI/BattleSummaryRowView.prefab :: DD; Assets/Prefabs/Arena/UI/BattleSummaryRowView.prefab :: DP; Assets/Prefabs/Arena/UI/BattleSummaryRowView.prefab :: DT; Assets/Prefabs/Arena/UI/BattleSummaryView.prefab :: Title; Assets/Prefabs/Arena/UI/BattleSummaryView.prefab :: Round; Assets/Prefabs/Arena/UI/BattleSummaryView.prefab :: Earned Label; Assets/Prefabs/Arena/UI/BattleSummaryView.prefab :: Kills; Assets/Prefabs/Arena/UI/ContractCardView.prefab :: Name; Assets/Prefabs/Arena/UI/ContractCardView.prefab :: EnemyLabel; Assets/Prefabs/Arena/UI/ContractCardView.prefab :: Descriptions; Assets/Prefabs/Arena/UI/ContractCardView.prefab :: Reward; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: DefeatText; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP); Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Name; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: EnemyLabel; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Descriptions; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Reward; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Name; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: EnemyLabel; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Descriptions; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Reward; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Title; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Round; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Earned Label; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Kills; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP); Assets/Prefabs/Arena/UI/SelectionCard.prefab :: Name; Assets/Scenes/3.Arena.unity :: Text (TMP); Assets/Scenes/3.Arena.unity :: Name; Assets/Scenes/3.Arena.unity :: EnemyLabel; Assets/Scenes/3.Arena.unity :: Descriptions; Assets/Scenes/3.Arena.unity :: Reward; Assets/Scenes/3.Arena.unity :: Name; Assets/Scenes/3.Arena.unity :: EnemyLabel; Assets/Scenes/3.Arena.unity :: Descriptions; Assets/Scenes/3.Arena.unity :: Reward; Assets/Scenes/3.Arena.unity :: Text (TMP); Assets/Scenes/3.Arena.unity :: Title; Assets/Scenes/3.Arena.unity :: Round; Assets/Scenes/3.Arena.unity :: Earned Label; Assets/Scenes/3.Arena.unity :: Kills; Assets/Scenes/3.Arena.unity :: DefeatText"
+    },
+    {
+      "key": "Restart\n",
+      "ru": "Начать новый забег",
+      "en": "Start new run",
+      "tr": "Yeni koşu başlat",
+      "context": "Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP)"
+    },
+    {
+      "key": "Stats",
+      "ru": "Урон · Броня",
+      "en": "Damage · Armor",
+      "tr": "Hasar · Zırh",
+      "context": "Assets/Scenes/3.Arena.unity :: Statistics"
+    },
+    {
+      "key": "LUPANARIUM",
+      "ru": "LUPANARIUM",
+      "en": "LUPANARIUM",
+      "tr": "LUPANARIUM",
+      "context": "Assets/Scenes/1.MainMenu.unity :: Title"
+    },
+    {
+      "key": "×",
+      "ru": "×",
+      "en": "×",
+      "tr": "×",
+      "context": "Assets/Scenes/2.Base.unity :: Text (TMP)"
+    },
+    {
+      "key": "0",
+      "ru": "0",
+      "en": "0",
+      "tr": "0",
+      "context": "Assets/Prefabs/Arena/UI/DamageNumberView.prefab :: Text (TMP); Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Wave; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Gold; Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Squad; Assets/Scenes/3.Arena.unity :: Wave; Assets/Scenes/3.Arena.unity :: Gold; Assets/Scenes/3.Arena.unity :: Squad"
+    },
+    {
+      "key": "0/0",
+      "ru": "0/0",
+      "en": "0/0",
+      "tr": "0/0",
+      "context": "Assets/Prefabs/Arena/UI/HealthClassRow.prefab :: CountLabel; Assets/Prefabs/Base/UI/SchoolBuildingView.prefab :: Level"
+    },
+    {
+      "key": "10",
+      "ru": "10",
+      "en": "10",
+      "tr": "10",
+      "context": "Assets/Scenes/3.Arena.unity :: Text (TMP)"
+    },
+    {
+      "key": "10|10",
+      "ru": "10|10",
+      "en": "10|10",
+      "tr": "10|10",
+      "context": "Assets/Prefabs/Arena/UI/SelectionCard.prefab :: Count"
+    },
+    {
+      "key": "100\n",
+      "ru": "100\n",
+      "en": "100\n",
+      "tr": "100\n",
+      "context": "Assets/Scenes/3.Arena.unity :: Text (TMP)"
+    },
+    {
+      "key": "250",
+      "ru": "250",
+      "en": "250",
+      "tr": "250",
+      "context": "Assets/Scenes/3.Arena.unity :: Text (TMP)"
+    },
+    {
+      "key": "50",
+      "ru": "50",
+      "en": "50",
+      "tr": "50",
+      "context": "Assets/Scenes/3.Arena.unity :: Text (TMP)"
+    },
+    {
+      "key": "Fast, agile, cunning. Fights from a distance using a net and a trident.",
+      "ru": "Быстрый, ловкий, хитрый. Сражается на расстоянии с сетью и трезубцем.",
+      "en": "Fast, agile, cunning. Fights from a distance using a net and a trident.",
+      "tr": "Hızlı, çevik ve kurnaz. Ağ ve üç dişli mızrakla uzaktan savaşır.",
+      "context": "Assets/Configs/UI/HealthView.asset :: _entries.Array.data[1]._description"
+    },
+    {
+      "key": "Slow but well-armoured — a classic ‘tank’. ",
+      "ru": "Медленный, но хорошо защищённый — классический «танк».",
+      "en": "Slow but well-armored — a classic tank.",
+      "tr": "Yavaş ama iyi zırhlı, tam bir tank.",
+      "context": "Assets/Configs/UI/HealthView.asset :: _entries.Array.data[0]._description"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Code.Gameplay
 {
@@ -34,12 +34,12 @@ namespace Code.Gameplay
         [SerializeField, Min(0f)] private float _magnitude = 0.5f;
 
         public string Id => _id;
-        public string Description => _description;
+        public string Description => L10n.Text(_description);
 
         public string DisplayName =>
             string.IsNullOrWhiteSpace(_displayName)
                 ? name
-                : _displayName;
+                : L10n.Text(_displayName);
 
         public AbilitySpec Spec =>
             new(_effect, _cooldown, _range, _duration, _magnitude);

@@ -29,7 +29,7 @@ namespace Code.Gameplay
                     total += squad[i].Count;
 
             DisplayedUnitCount = total;
-            _countLabel.text = total > 0 ? $"ОТРЯД В ЗАБЕГЕ  /  {total}" : "ОТРЯД ЕЩЁ НЕ СОБРАН";
+            _countLabel.text = total > 0 ? L10n.F($"ОТРЯД В ЗАБЕГЕ  /  {total}") : L10n.Text("ОТРЯД ЕЩЁ НЕ СОБРАН");
             _emptyState.SetActive(total == 0);
 
             while (_units.Count < total)

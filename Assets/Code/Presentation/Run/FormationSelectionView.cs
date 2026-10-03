@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -33,8 +33,8 @@ namespace Code.Gameplay
         public void SetBalance(int denarii, int bestRound)
         {
             if (_balanceLabel != null)
-                _balanceLabel.text = $"Денарии: {denarii}   •   Лучший раунд: {bestRound}\n" +
-                    "Покупка навсегда. Денарии пополняются при возврате на базу.";
+                _balanceLabel.text = L10n.F($"Денарии: {denarii}   •   Лучший раунд: {bestRound}\n") +
+                    L10n.Text("Покупка навсегда. Денарии пополняются при возврате на базу.");
         }
 
         public void Show(IReadOnlyList<FormationOptionData> options)
@@ -43,7 +43,7 @@ namespace Code.Gameplay
                 throw new ArgumentNullException(nameof(options));
 
             if (_titleLabel != null)
-                _titleLabel.text = "Выберите строй перед боем";
+                _titleLabel.text = L10n.Text("Выберите строй перед боем");
 
             BuildCards(options);
             SetRootActive(true);

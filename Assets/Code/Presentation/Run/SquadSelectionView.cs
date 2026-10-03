@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -31,7 +31,7 @@ namespace Code.Gameplay
                 throw new ArgumentNullException(nameof(options));
 
             if (_titleLabel != null)
-                _titleLabel.text = "С кем выходим на песок?";
+                _titleLabel.text = L10n.Text("С кем выходим на песок?");
 
             BuildCards(options);
             SetRootActive(true);

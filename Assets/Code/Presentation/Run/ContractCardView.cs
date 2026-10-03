@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,7 +39,7 @@ namespace Code.Gameplay
                 _enemiesLabel.text = enemiesText;
 
             if (_rewardLabel != null)
-                _rewardLabel.text = $"{offer.GoldReward} золота";
+                _rewardLabel.text = L10n.F($"{offer.GoldReward} золота");
 
             if (_icon != null)
             {

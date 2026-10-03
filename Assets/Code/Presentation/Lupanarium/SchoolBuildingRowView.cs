@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -74,8 +74,8 @@ namespace Code.Gameplay
             if (_costLabel != null)
             {
                 _costLabel.text = data.HasNextLevel
-                    ? $"{data.Cost} ден."
-                    : "максимум";
+                    ? L10n.F($"{data.Cost} ден.")
+                    : L10n.Text("максимум");
             }
 
             if (_upgradeButton != null)

@@ -32,13 +32,13 @@ namespace Code.Gameplay
             if (_service == null) return;
             if (_base)
             {
-                Set(_money, AdRewardKind.Money, "Реклама: +50 денариев");
-                Set(_supplies, AdRewardKind.Supplies, "Реклама: +1 " + (_service.Supply != null ? _service.Supply.DisplayName : "расходник"));
-                Set(_heal, AdRewardKind.Heal, "Реклама: восстановить весь отряд");
+                Set(_money, AdRewardKind.Money, L10n.Text("Реклама: +50 денариев"));
+                Set(_supplies, AdRewardKind.Supplies, L10n.Text("Реклама: +1 ") + (_service.Supply != null ? _service.Supply.DisplayName : L10n.Text("расходник")));
+                Set(_heal, AdRewardKind.Heal, L10n.Text("Реклама: восстановить весь отряд"));
                 long rest = System.Math.Max(0, _run.RestReadyAt - PlatformRewardsService.Now);
                 _rest.interactable = _run.IsActive && _run.HasWounded && _run.RestReadyAt > 0 && rest == 0;
-                _rest.GetComponentInChildren<TMP_Text>().text = rest > 0 ? $"Бесплатный отдых: {rest / 60}:{rest % 60:00}" : "Восстановить отряд бесплатно";
-                _status.text = !_run.IsActive ? "Нет активного отряда" : !_run.HasWounded ? "Все бойцы здоровы" : $"Ранения сохраняются между боями.\nБез сознания: {_run.DownedCount}. Отдых — 2 минуты.";
+                _rest.GetComponentInChildren<TMP_Text>().text = rest > 0 ? L10n.F($"Бесплатный отдых: {rest / 60}:{rest % 60:00}") : L10n.Text("Восстановить отряд бесплатно");
+                _status.text = !_run.IsActive ? L10n.Text("Нет активного отряда") : !_run.HasWounded ? L10n.Text("Все бойцы здоровы") : L10n.F($"Ранения сохраняются между боями.\nБез сознания: {_run.DownedCount}. Отдых — 2 минуты.");
                 if (_service.AdsVisible && _service.Bridge != null && !string.IsNullOrEmpty(_service.Bridge.Status))
                     _status.text += "\n" + _service.Bridge.Status;
             }
@@ -49,7 +49,7 @@ namespace Code.Gameplay
                 _panel.SetActive(visible);
                 if (visible)
                 {
-                    Set(_battle, AdRewardKind.BattleBonus, $"Реклама: ещё +{_school.PendingBattleBonus} денариев за бой");
+                    Set(_battle, AdRewardKind.BattleBonus, L10n.F($"Реклама: ещё +{_school.PendingBattleBonus} денариев за бой"));
                     _status.text = _service.Bridge?.Status;
                 }
             }

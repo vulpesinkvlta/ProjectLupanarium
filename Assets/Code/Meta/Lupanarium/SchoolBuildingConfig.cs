@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,13 +45,13 @@ namespace Code.Gameplay
 
         public string Id => _id;
         public Sprite Icon => _icon;
-        public string Description => _description;
+        public string Description => L10n.Text(_description);
         public UnitClassId TargetClass => _targetClass;
 
         public string DisplayName =>
             string.IsNullOrWhiteSpace(_displayName)
                 ? name
-                : _displayName;
+                : L10n.Text(_displayName);
 
         public int MaxLevel =>
             _levels?.Length ?? 0;

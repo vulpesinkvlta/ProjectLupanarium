@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -68,17 +68,17 @@ namespace Code.Gameplay
             if (_statusLabel != null)
             {
                 _statusLabel.text = data.IsEquipped
-                    ? "надет"
+                    ? L10n.Text("надет")
                     : data.IsOwned
-                        ? "в сундуке"
-                        : $"{data.Price} ден.";
+                        ? L10n.Text("в сундуке")
+                        : L10n.F($"{data.Price} ден.");
             }
 
             if (_actionLabel != null)
             {
                 _actionLabel.text = data.IsOwned
-                    ? "Надеть"
-                    : "Купить";
+                    ? L10n.Text("Надеть")
+                    : L10n.Text("Купить");
             }
 
             if (_actionButton != null)

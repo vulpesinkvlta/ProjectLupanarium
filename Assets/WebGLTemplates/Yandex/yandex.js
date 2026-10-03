@@ -2,6 +2,20 @@
   'use strict';
   let sdk, receiver, send, paused = false, loaded = false, readySent = false;
   let running = false, currentAd = null, bannerWanted = false, bannerBusy = false, visibleAds = 0;
+  let loadingError = false;
+  function updateLoading() {
+    const code = sdk && sdk.environment && sdk.environment.i18n && sdk.environment.i18n.lang;
+    const lang = code === 'ru' || code === 'tr' ? code : 'en';
+    document.documentElement.lang = lang;
+    const text = {
+      ru: ['Загрузка игры', 'Не удалось загрузить игру. Проверьте соединение и обновите страницу.'],
+      en: ['Loading game', 'Could not load the game. Check your connection and refresh the page.'],
+      tr: ['Oyun yükleniyor', 'Oyun yüklenemedi. Bağlantınızı kontrol edip sayfayı yenileyin.']
+    };
+    const label = document.getElementById('status');
+    if (label) label.textContent = text[lang][loadingError ? 1 : 0];
+  }
+  document.addEventListener('DOMContentLoaded', updateLoading);
   function emit(method, value) { if (send) send(receiver, method, String(value)); }
   function focus() { emit('OnPageFocus', document.hidden ? '0' : '1'); }
   document.addEventListener('visibilitychange', focus);
@@ -14,6 +28,7 @@
   function init() {
     return w.YaGames.init().then(function (value) {
       sdk = value;
+      updateLoading();
       sdk.on('game_api_pause', function () { paused = true; emit('OnPlatformPause', '1'); });
       sdk.on('game_api_resume', function () { paused = false; emit('OnPlatformPause', '0'); });
       emit('OnSdkReady', ''); notifyReady();
@@ -30,6 +45,8 @@
     finally { bannerBusy = false; if (desired !== bannerWanted) updateBanner(); }
   }
   w.LupaYandex = {
+    loadingFailed: function () { loadingError = true; updateLoading(); },
+    language: function () { return sdk ? ((sdk.environment && sdk.environment.i18n && sdk.environment.i18n.lang) || 'en') : (w.lupaSdkFailed ? 'en' : ''); },
     init: init,
     failed: function () { w.lupaSdkFailed = true; emit('OnSdkError', ''); },
     attach: function (name, sender) {

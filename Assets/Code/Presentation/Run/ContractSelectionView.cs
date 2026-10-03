@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -29,7 +29,7 @@ namespace Code.Gameplay
                 throw new ArgumentNullException(nameof(offers));
 
             if (_roundLabel != null)
-                _roundLabel.text = $"Раунд {roundNumber}";
+                _roundLabel.text = L10n.F($"Раунд {roundNumber}");
 
             for (var i = 0; i < _cards.Length; i++)
             {

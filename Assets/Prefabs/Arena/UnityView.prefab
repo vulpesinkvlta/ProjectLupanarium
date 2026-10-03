@@ -36,7 +36,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7365920803001773037
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,6 +93,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!114 &3847918693003448137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +114,16 @@ MonoBehaviour:
   _deathDuration: 0.45
   _baseSortingOrder: 0
   _deadEffect: {fileID: 7237602473888267557}
+  _visual: {fileID: 0}
+  _animations: {fileID: 0}
+  _nameLabel: {fileID: 0}
+  _shadow: {fileID: 0}
+  _hopHeight: 0.16
+  _strideLength: 0.7
+  _walkTilt: 12
+  _idleAmplitude: 0.018
+  _strikeDuration: 0.2
+  _attackReach: 0.16
 --- !u!1001 &1175974337984254882
 PrefabInstance:
   m_ObjectHideFlags: 0

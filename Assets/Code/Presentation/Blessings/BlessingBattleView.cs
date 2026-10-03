@@ -64,14 +64,14 @@ namespace Code.Gameplay
             _selected = config;
             _selectedFrame = Time.frameCount;
             _flashUntil = 0;
-            _hint.text = $"{config.DisplayName}: выберите круг на арене. Действует на обе стороны!";
+            _hint.text = L10n.F($"{config.DisplayName}: выберите круг на арене. Действует на обе стороны!");
             _cancelButton.gameObject.SetActive(true);
         }
         public void Cancel()
         {
             _selected = null;
             _cancelButton.gameObject.SetActive(false);
-            _hint.text = "Выберите благословление, затем место на арене";
+            _hint.text = L10n.Text("Выберите благословление, затем место на арене");
             if (_ring != null && Time.unscaledTime >= _flashUntil) _ring.enabled = false;
         }
         public void ShowCast(Vector2 point, BlessingConfig config)

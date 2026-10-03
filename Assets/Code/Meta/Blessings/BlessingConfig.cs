@@ -20,8 +20,8 @@ namespace Code.Gameplay
         [SerializeField] private Color _color = Color.green;
 
         public string Id => _id;
-        public string DisplayName => _displayName;
-        public string Description => _description;
+        public string DisplayName => L10n.Text(_displayName);
+        public string Description => L10n.Text(_description);
         public Sprite Icon => _icon;
         public int Price => Mathf.Max(1, _price);
         public BlessingEffect Effect => _effect;

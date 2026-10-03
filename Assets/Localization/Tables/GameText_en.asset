@@ -1,0 +1,901 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: GameText_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 50a458f741e05b54aa0306e3995c627b, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 5133729792
+    m_Localized: +1 murmillo in your squad for this run.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5238587392
+    m_Localized: "+1.5 armor; \u221215% speed, +8% attack cooldown."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5251170304
+    m_Localized: +10% health to the whole squad for this run.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5251170305
+    m_Localized: "+10% health, \u22125% damage."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558912
+    m_Localized: "+12% damage, \u22128% health."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558913
+    m_Localized: "+15% range, +5% damage, \u221215% speed."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558914
+    m_Localized: "+15% speed, \u22125% health."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558915
+    m_Localized: +8% damage to the whole squad for this run.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558916
+    m_Localized: "\u22128% attack cooldown, +8% speed, \u22120.5 armor."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558917
+    m_Localized: 01   GLADIATORS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558918
+    m_Localized: 02   BUILDINGS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558919
+    m_Localized: 03   ARMORY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558920
+    m_Localized: "Deals 100 damage, reduced by armor, to everyone within 1.6 units; \u221235% speed for 4 seconds. Also hits allies. One charge."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558921
+    m_Localized: 'Free rest: 2:00'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558922
+    m_Localized: Blessing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558923
+    m_Localized: Emperor's Blessing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558924
+    m_Localized: Blessings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558925
+    m_Localized: Blocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558926
+    m_Localized: Bonuses and recovery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558927
+    m_Localized: Armored secutors with a stunning strike.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558928
+    m_Localized: 'Your run, currency, unlocked units and formations, buildings, equipment and blessings will be deleted.
+
+      This cannot be undone.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558929
+    m_Localized: Fight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558930
+    m_Localized: To base
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558931
+    m_Localized: YOUR SQUAD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558932
+    m_Localized: Wolf
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558933
+    m_Localized: Wolf pack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558934
+    m_Localized: Restores 150 health to living fighters within 1.6 units, including enemies. One charge.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558935
+    m_Localized: +1 armor to all gladiators; stacks with class equipment.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558936
+    m_Localized: +8% health to all gladiators.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558937
+    m_Localized: Choose a blessing, then a spot in the arena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558938
+    m_Localized: Choose a contract
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558939
+    m_Localized: Choose a formation before battle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558940
+    m_Localized: Select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558941
+    m_Localized: Select contract
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558942
+    m_Localized: Survived
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558943
+    m_Localized: Tough beasts with a powerful strike.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558944
+    m_Localized: Gymnasium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558945
+    m_Localized: Gladiator
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558946
+    m_Localized: GLADIATOR SCHOOL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558947
+    m_Localized: Gladiators
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558948
+    m_Localized: Gladius
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558949
+    m_Localized: Hoplomachus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558950
+    m_Localized: 'Denarii: 0'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558951
+    m_Localized: Extra reward for watching an ad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558952
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558953
+    m_Localized: Slows the target by 35% for 2 seconds.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558954
+    m_Localized: Weapon sharpening
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558955
+    m_Localized: 'Your squad will rest here
+
+      <color=#806F55><size=19>Start a run and choose your fighters</size></color>'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558956
+    m_Localized: Change formation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558957
+    m_Localized: Imperial fervor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558958
+    m_Localized: Battle results
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558959
+    m_Localized: Claim reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558960
+    m_Localized: 'Each level: +0.5 armor and +2 percentage points of critical chance to all gladiators.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558961
+    m_Localized: 'Each level: +10% maximum health to all gladiators.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558962
+    m_Localized: 'Each level: +8% damage to all gladiators.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558963
+    m_Localized: "Each level: +0.1 range and \u22123% attack cooldown for retiarii."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558964
+    m_Localized: Boiling tar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558965
+    m_Localized: Class
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558966
+    m_Localized: Wedge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558967
+    m_Localized: Column
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558968
+    m_Localized: Circle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558969
+    m_Localized: Forge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558970
+    m_Localized: Buy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558971
+    m_Localized: Infirmary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558972
+    m_Localized: Lion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558973
+    m_Localized: Lorica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558974
+    m_Localized: LUPANARIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558975
+    m_Localized: Lions of the arena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558976
+    m_Localized: Maniple
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558977
+    m_Localized: Many fast, unarmored enemies.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558978
+    m_Localized: Murmillo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558979
+    m_Localized: +1 armor and +5% health to murmillos.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558980
+    m_Localized: +10% damage to murmillos.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558981
+    m_Localized: To base
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558982
+    m_Localized: Recruit a squad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558983
+    m_Localized: Victory reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558984
+    m_Localized: Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558985
+    m_Localized: Dealt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558986
+    m_Localized: Hire squad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558987
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558988
+    m_Localized: Settings will be added here later.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558989
+    m_Localized: Start run
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558990
+    m_Localized: Start new run
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558991
+    m_Localized: A small squad of well-rounded fighters.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558992
+    m_Localized: No active run
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558993
+    m_Localized: Stuns the target for 0.45 seconds.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558994
+    m_Localized: Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558995
+    m_Localized: Unlock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558996
+    m_Localized: Cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558997
+    m_Localized: NO SQUAD YET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558998
+    m_Localized: First rivals
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259558999
+    m_Localized: Pilum
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559000
+    m_Localized: Reset all progress
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559001
+    m_Localized: Taken
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559002
+    m_Localized: Claim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559003
+    m_Localized: Reinforcements
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559004
+    m_Localized: Posca
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559005
+    m_Localized: Pursuers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559006
+    m_Localized: Continue without formation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559007
+    m_Localized: ENEMY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559008
+    m_Localized: Wounds carry over between battles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559009
+    m_Localized: 'Ad: +1 consumable'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559010
+    m_Localized: 'Ad: +50 denarii'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559011
+    m_Localized: 'Ad: heal squad'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559012
+    m_Localized: 'Ad: double battle reward'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559013
+    m_Localized: Retiarius
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559014
+    m_Localized: +10% damage and +0.1 range to retiarii.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559015
+    m_Localized: Dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559016
+    m_Localized: Reset all progress?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559017
+    m_Localized: Reset everything
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559018
+    m_Localized: Secutor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559019
+    m_Localized: Net
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559020
+    m_Localized: +35% movement speed for 5 seconds within 1.8 units, including enemies. Does not speed up attacks. One charge.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559021
+    m_Localized: Scutum
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559022
+    m_Localized: 'Formation: none'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559023
+    m_Localized: Hearty stew
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559024
+    m_Localized: TRAINING YARD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559025
+    m_Localized: Kills
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559026
+    m_Localized: Delete run
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559027
+    m_Localized: 'Delete run: keep your upgrades.
+
+      Full reset: start from scratch.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559028
+    m_Localized: Shield bash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559029
+    m_Localized: Upgrade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559030
+    m_Localized: "Damage \xB7 Armor"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559031
+    m_Localized: Increases movement speed by 35% for 2 seconds.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559032
+    m_Localized: "Training bout. Available only in rounds 1\u20133."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559033
+    m_Localized: Phalanx
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559034
+    m_Localized: Ointment flask
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559035
+    m_Localized: Formation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559036
+    m_Localized: Thraex
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559037
+    m_Localized: Testudo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559038
+    m_Localized: Net school
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559039
+    m_Localized: Shields of the arena
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559040
+    m_Localized: '{0}: choose an area in the arena. Affects both sides!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559041
+    m_Localized: "Buy \xB7 {0} den.\nIn stock: {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559042
+    m_Localized: "Use \xB7 {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559043
+    m_Localized: Buildings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559044
+    m_Localized: Armory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559045
+    m_Localized: Unlock fighters for future runs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559046
+    m_Localized: School upgrades apply to every run
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559047
+    m_Localized: Buy and equip gear for your fighters
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559048
+    m_Localized: One purchase, one charge. All effects in the circle affect both sides
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559049
+    m_Localized: RUN SQUAD  /  {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559050
+    m_Localized: unlocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559051
+    m_Localized: from round {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559052
+    m_Localized: '{0} den.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559053
+    m_Localized: Unlocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559054
+    m_Localized: equipped
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559055
+    m_Localized: in storage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559056
+    m_Localized: Equip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559057
+    m_Localized: Continue run
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559058
+    m_Localized: 'Denarii: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559059
+    m_Localized: max
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559060
+    m_Localized: Could not open the arena. Please try again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559061
+    m_Localized: "Saved run \xB7 round {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559062
+    m_Localized: 'Ad: +1 '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559063
+    m_Localized: consumable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559064
+    m_Localized: 'Ad: heal the whole squad'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559065
+    m_Localized: 'Free rest: {0}:{1:00}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559066
+    m_Localized: Heal squad for free
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559067
+    m_Localized: No active squad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559068
+    m_Localized: All fighters are healthy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559069
+    m_Localized: 'Wounds carry over between battles.
+
+      Unconscious: {0}. Rest takes 2 minutes.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559070
+    m_Localized: 'Ad: +{0} extra denarii for this battle'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559071
+    m_Localized: VICTORY!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559072
+    m_Localized: Round {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559073
+    m_Localized: Earned {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559074
+    m_Localized: '{0} gold'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559075
+    m_Localized: "Denarii: {0}   \u2022   Best round: {1}\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559076
+    m_Localized: Permanent purchase. Denarii are credited when you return to base.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559077
+    m_Localized: "Always available \xB7 free"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559078
+    m_Localized: Permanently owned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559079
+    m_Localized: "Reach round {0} \xB7 {1} den."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559080
+    m_Localized: "Available to buy \xB7 {0} den."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559081
+    m_Localized: "Costs {0} den. \xB7 need {1} more"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559082
+    m_Localized: Locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559083
+    m_Localized: "Buy \xB7 {0} den."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559084
+    m_Localized: none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559085
+    m_Localized: No formation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559086
+    m_Localized: The squad advances freely and engages the enemy immediately, with no bonuses or delay.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559087
+    m_Localized: 'Gold: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559088
+    m_Localized: 'Squad: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559089
+    m_Localized: 'Formation: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559090
+    m_Localized: Defeated in round {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559091
+    m_Localized: 'Fighters: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559092
+    m_Localized: HP {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559093
+    m_Localized: Damage {0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559094
+    m_Localized: Speed {0:0.0}
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559095
+    m_Localized: Who will enter the arena?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559096
+    m_Localized: "Damage {0}  \xB7  Armor {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559097
+    m_Localized: "Connecting to ads\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559098
+    m_Localized: "Opening ad\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559099
+    m_Localized: Ads are unavailable. You can keep playing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559100
+    m_Localized: Reward received
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559101
+    m_Localized: Ad closed or unavailable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559102
+    m_Localized: "Battle speed \xD7{0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559103
+    m_Localized: Claim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559104
+    m_Localized: Select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559105
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559106
+    m_Localized: Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559107
+    m_Localized: Fight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559108
+    m_Localized: To base
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559109
+    m_Localized: Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559110
+    m_Localized: Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559111
+    m_Localized: Description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559112
+    m_Localized: Start new run
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559113
+    m_Localized: "Damage \xB7 Armor"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559114
+    m_Localized: LUPANARIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559115
+    m_Localized: "\xD7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559116
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559117
+    m_Localized: 0/0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559118
+    m_Localized: 10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559119
+    m_Localized: 10|10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559120
+    m_Localized: '100
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559121
+    m_Localized: 250
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559122
+    m_Localized: 50
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559123
+    m_Localized: Fast, agile, cunning. Fights from a distance using a net and a trident.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5259559124
+    m_Localized: "Slow but well-armored \u2014 a classic tank."
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -1,16 +1,19 @@
 const fs=require('node:fs'), vm=require('node:vm'), assert=require('node:assert/strict');
-async function fixture() {
+async function fixture(language='en') {
  const events=[], handlers={}, timers=new Map();let serial=0, callbacks;
- const sdk={on:(n,f)=>handlers[n]=f,features:{LoadingAPI:{ready:()=>events.push(['ready'])},GameplayAPI:{start:()=>events.push(['start']),stop:()=>events.push(['stop'])}},adv:{
+ const sdk={environment:{i18n:{lang:language}},on:(n,f)=>handlers[n]=f,features:{LoadingAPI:{ready:()=>events.push(['ready'])},GameplayAPI:{start:()=>events.push(['start']),stop:()=>events.push(['stop'])}},adv:{
  showRewardedVideo:o=>{callbacks=o.callbacks;},showFullscreenAdv:o=>{callbacks=o.callbacks;},showBannerAdv:async()=>({stickyAdvIsShowing:true}),hideBannerAdv:async()=>({stickyAdvIsShowing:false})}};
  const window={YaGames:{init:async()=>sdk},addEventListener:()=>{}};
- const document={hidden:false,addEventListener:()=>{},documentElement:{classList:{toggle:()=>{},remove:()=>{}}}};
+ const status={textContent:''};
+ const document={getElementById:()=>status,hidden:false,addEventListener:()=>{},documentElement:{classList:{toggle:()=>{},remove:()=>{}}}};
  const context={window,document,setTimeout:f=>{timers.set(++serial,f);return serial;},clearTimeout:id=>timers.delete(id)};
  vm.runInNewContext(fs.readFileSync('Assets/WebGLTemplates/Yandex/yandex.js','utf8'),context);
  const api=window.LupaYandex;api.attach('Receiver',(o,m,v)=>events.push([m,v]));await api.init();
- return {api,events,handlers,document,timers,callbacks:()=>callbacks};
+ return {api,events,handlers,document,status,timers,callbacks:()=>callbacks};
 }
 (async()=>{
+ for(const lang of ['ru','en','tr']) { const v=await fixture(lang); assert.equal(v.api.language(),lang); assert.equal(v.document.documentElement.lang,lang); assert.ok(v.status.textContent.length>0); v.api.loadingFailed(); assert.ok(v.status.textContent.length>25); }
+ let unsupported=await fixture('de'); assert.equal(unsupported.document.documentElement.lang,'en');
  let f=await fixture();f.api.ready();f.api.ready();assert.equal(f.events.filter(e=>e[0]==='ready').length,1);
  f.api.ad(true,1);f.callbacks().onRewarded();f.callbacks().onRewarded();f.callbacks().onClose();f.callbacks().onClose();
  assert.equal(f.events.filter(e=>e[0]==='OnAdReward').length,1);assert.equal(f.events.filter(e=>e[0]==='OnAdClosed').length,1);

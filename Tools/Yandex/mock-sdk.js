@@ -19,6 +19,7 @@
     document.body.append(cover); listeners.game_api_pause?.(); callbacks.onOpen?.(); log('opened');
   }
   window.YaGames = { init: async () => ({
+    environment: { i18n: { lang: new URLSearchParams(location.search).get('lang') || 'en' } },
     on: (name, fn) => { listeners[name] = fn; },
     features: { LoadingAPI: { ready: () => log('ready') }, GameplayAPI: { start: () => log('gameplay start'), stop: () => log('gameplay stop') } },
     adv: {

@@ -1,4 +1,5 @@
 mergeInto(LibraryManager.library, {
+  YG_Language: function () { return stringToNewUTF8(window.LupaYandex ? window.LupaYandex.language() : 'en'); },
   YG_Init: function (receiver) { window.LupaYandex.attach(UTF8ToString(receiver), function(o,m,v) { SendMessage(o,m,v); }); },
   YG_Ready: function () { window.LupaYandex.ready(); },
   YG_Gameplay: function (active) { window.LupaYandex.gameplay(!!active); },

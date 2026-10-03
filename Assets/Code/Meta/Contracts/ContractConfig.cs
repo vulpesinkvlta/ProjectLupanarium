@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Code.Gameplay
@@ -40,7 +40,7 @@ namespace Code.Gameplay
 
         public string Id => _id;
         public Sprite Icon => _icon;
-        public string Description => _description;
+        public string Description => L10n.Text(_description);
         public FormationConfig EnemyFormation => _enemyFormation;
         public int GoldReward => _goldReward;
         public int MinimumRound => _minimumRound;
@@ -53,7 +53,7 @@ namespace Code.Gameplay
         public string DisplayName =>
             string.IsNullOrWhiteSpace(_displayName)
                 ? name
-                : _displayName;
+                : L10n.Text(_displayName);
 
         /// <summary>Сколько всего врагов в контракте.</summary>
         public int TotalEnemyCount

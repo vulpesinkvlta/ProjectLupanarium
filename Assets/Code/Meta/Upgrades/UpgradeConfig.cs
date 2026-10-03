@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Code.Gameplay
@@ -48,9 +48,9 @@ namespace Code.Gameplay
         public string DisplayName =>
             string.IsNullOrWhiteSpace(_displayName)
                 ? name
-                : _displayName;
+                : L10n.Text(_displayName);
 
-        public string Description => _description;
+        public string Description => L10n.Text(_description);
 
         public bool AddsUnits =>
             _unitToAdd != null && _unitAddCount > 0;

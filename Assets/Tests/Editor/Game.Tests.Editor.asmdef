@@ -1,6 +1,6 @@
 {
     "name": "Game.Tests.Editor",
-    "references": ["Game.GamePlay", "VContainer", "UnityEngine.UI", "Unity.TextMeshPro"],
+    "references": ["Game.GamePlay", "VContainer", "UnityEngine.UI", "Unity.TextMeshPro", "Unity.Localization", "Unity.Localization.Editor", "Unity.ResourceManager"],
     "includePlatforms": ["Editor"],
     "optionalUnityReferences": ["TestAssemblies"],
     "autoReferenced": false

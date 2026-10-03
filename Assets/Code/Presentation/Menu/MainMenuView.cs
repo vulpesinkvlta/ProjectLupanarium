@@ -51,8 +51,8 @@ namespace Code.Gameplay
         public void Refresh(bool hasRun, int round)
         {
             _hasRun = hasRun;
-            _playLabel.text = hasRun ? "Продолжить забег" : "Начать новый забег";
-            _statusLabel.text = hasRun ? $"Сохранённый забег · раунд {round}" : "Нет активного забега";
+            _playLabel.text = hasRun ? L10n.Text("Продолжить забег") : L10n.Text("Начать новый забег");
+            _statusLabel.text = hasRun ? L10n.F($"Сохранённый забег · раунд {round}") : L10n.Text("Нет активного забега");
             SetBusy(false);
         }
 

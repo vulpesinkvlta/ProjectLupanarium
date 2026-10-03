@@ -1,0 +1,178 @@
+DYNAMIC Assets/Prefabs/Arena/UI/BattleSummaryRowView.prefab :: Name :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/BattleSummaryRowView.prefab :: Survivors :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/BattleSummaryRowView.prefab :: Kills :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/BattleSummaryRowView.prefab :: DD :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/BattleSummaryRowView.prefab :: DP :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/BattleSummaryRowView.prefab :: DT :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/BattleSummaryView.prefab :: Title :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/BattleSummaryView.prefab :: Round :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/BattleSummaryView.prefab :: Earned Label :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/BattleSummaryView.prefab :: Kills :: New Text
+BOUND Assets/Prefabs/Arena/UI/BattleSummaryView.prefab :: Text (TMP) :: Button
+BOUND Assets/Prefabs/Arena/UI/ContractCardView.prefab :: Text (TMP) :: Button
+DYNAMIC Assets/Prefabs/Arena/UI/ContractCardView.prefab :: Name :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/ContractCardView.prefab :: EnemyLabel :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/ContractCardView.prefab :: Descriptions :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/ContractCardView.prefab :: Reward :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/DamageNumberView.prefab :: Text (TMP) :: 0
+DYNAMIC Assets/Prefabs/Arena/UI/FormationCardView.prefab :: Text (TMP) :: Выбрать
+DYNAMIC Assets/Prefabs/Arena/UI/FormationCardView.prefab :: Name :: Формация
+DYNAMIC Assets/Prefabs/Arena/UI/FormationCardView.prefab :: Description :: 
+DYNAMIC Assets/Prefabs/Arena/UI/FormationCardView.prefab :: Status :: 
+DYNAMIC Assets/Prefabs/Arena/UI/HealthClassRow.prefab :: NameLabel :: Name
+DYNAMIC Assets/Prefabs/Arena/UI/HealthClassRow.prefab :: CountLabel :: 0/0
+DYNAMIC Assets/Prefabs/Arena/UI/HealthClassRow.prefab :: CombatStats :: Урон · Броня
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Wave :: 0
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Gold :: 0
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Squad :: 0
+BOUND Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP) :: Fight 
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: DefeatText :: New Text
+BOUND Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP) :: Restart 
+BOUND Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP) :: Accept 
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Name :: Name 
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Description :: Descr
+BOUND Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP) :: Accept 
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Name :: Name 
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Description :: Descr
+BOUND Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP) :: Lupanarium 
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP) :: New Text
+BOUND Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP) :: Button
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Name :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: EnemyLabel :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Descriptions :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Reward :: New Text
+BOUND Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP) :: Button
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Name :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: EnemyLabel :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Descriptions :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Reward :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Title :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Round :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Earned Label :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Kills :: New Text
+BOUND Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP) :: Button
+DYNAMIC Assets/Prefabs/Arena/UI/RunHudCanvas.prefab :: Text (TMP) :: New Text
+BOUND Assets/Prefabs/Arena/UI/SelectionCard.prefab :: Text (TMP) :: Нанять отряд
+DYNAMIC Assets/Prefabs/Arena/UI/SelectionCard.prefab :: Count :: 10|10
+DYNAMIC Assets/Prefabs/Arena/UI/SelectionCard.prefab :: Name :: New Text
+DYNAMIC Assets/Prefabs/Arena/UI/SelectionCard.prefab :: _descriptionLabel :: 
+DYNAMIC Assets/Prefabs/Arena/UI/SelectionCard.prefab :: _healthLabel :: 
+DYNAMIC Assets/Prefabs/Arena/UI/SelectionCard.prefab :: _damageLabel :: 
+DYNAMIC Assets/Prefabs/Arena/UI/SelectionCard.prefab :: _speedLabel :: 
+BOUND Assets/Prefabs/Arena/UI/UpgradeCardView.prefab :: Text (TMP) :: Accept 
+DYNAMIC Assets/Prefabs/Arena/UI/UpgradeCardView.prefab :: Name :: Name 
+DYNAMIC Assets/Prefabs/Arena/UI/UpgradeCardView.prefab :: Description :: Descr
+DYNAMIC Assets/Prefabs/Base/BaseSquadUnit.prefab :: Name :: Гладиатор
+DYNAMIC Assets/Prefabs/Base/UI/ItemsRow.prefab :: Name :: Название
+DYNAMIC Assets/Prefabs/Base/UI/ItemsRow.prefab :: Status :: 
+DYNAMIC Assets/Prefabs/Base/UI/ItemsRow.prefab :: Descr :: 
+DYNAMIC Assets/Prefabs/Base/UI/ItemsRow.prefab :: Text (TMP) :: Купить
+DYNAMIC Assets/Prefabs/Base/UI/RosterView.prefab :: Name :: Название
+DYNAMIC Assets/Prefabs/Base/UI/RosterView.prefab :: Status :: 
+DYNAMIC Assets/Prefabs/Base/UI/RosterView.prefab :: Text (TMP) :: Открыть
+DYNAMIC Assets/Prefabs/Base/UI/SchoolBuildingView.prefab :: Name :: Название
+DYNAMIC Assets/Prefabs/Base/UI/SchoolBuildingView.prefab :: Description :: 
+DYNAMIC Assets/Prefabs/Base/UI/SchoolBuildingView.prefab :: Level :: 0/0
+DYNAMIC Assets/Prefabs/Base/UI/SchoolBuildingView.prefab :: Price :: 
+BOUND Assets/Prefabs/Base/UI/SchoolBuildingView.prefab :: Text (TMP) :: Улучшить
+DYNAMIC Assets/Prefabs/Blessings/BlessingBattleCard.prefab :: Name :: Благословление
+DYNAMIC Assets/Prefabs/Blessings/BlessingBattleCard.prefab :: Description :: Описание
+DYNAMIC Assets/Prefabs/Blessings/BlessingBattleCard.prefab :: Label :: Купить
+DYNAMIC Assets/Prefabs/Blessings/BlessingShopCard.prefab :: Name :: Благословление
+DYNAMIC Assets/Prefabs/Blessings/BlessingShopCard.prefab :: Description :: Описание
+DYNAMIC Assets/Prefabs/Blessings/BlessingShopCard.prefab :: Label :: Купить
+DYNAMIC Assets/Prefabs/Units/UnitView.prefab :: Name :: Гладиатор
+BOUND Assets/Scenes/1.MainMenu.unity :: Title :: LUPANARIUM
+DYNAMIC Assets/Scenes/1.MainMenu.unity :: RunStatus :: Нет активного забега
+DYNAMIC Assets/Scenes/1.MainMenu.unity :: Label :: Начать новый забег
+BOUND Assets/Scenes/1.MainMenu.unity :: Label :: Удалить забег
+BOUND Assets/Scenes/1.MainMenu.unity :: Label :: Настройки
+BOUND Assets/Scenes/1.MainMenu.unity :: DeleteHint :: Удалить забег — сохранить улучшения. Полный сброс — начать с чистого листа.
+BOUND Assets/Scenes/1.MainMenu.unity :: Label :: Полный сброс прогресса
+BOUND Assets/Scenes/1.MainMenu.unity :: Title :: Настройки
+BOUND Assets/Scenes/1.MainMenu.unity :: Placeholder :: Настройки появятся здесь позже.
+BOUND Assets/Scenes/1.MainMenu.unity :: Label :: Закрыть
+BOUND Assets/Scenes/1.MainMenu.unity :: Title :: Сбросить весь прогресс?
+BOUND Assets/Scenes/1.MainMenu.unity :: Placeholder :: Будут удалены забег, валюта, открытые юниты и формации, постройки, снаряжение и благословления. Это действие нельзя отменить.
+BOUND Assets/Scenes/1.MainMenu.unity :: Label :: Отмена
+BOUND Assets/Scenes/1.MainMenu.unity :: Label :: Сбросить всё
+BOUND Assets/Scenes/2.Base.unity :: Title :: ЛУПАНАРИЙ
+BOUND Assets/Scenes/2.Base.unity :: Subtitle :: ГЛАДИАТОРСКАЯ ШКОЛА
+DYNAMIC Assets/Scenes/2.Base.unity :: Gold :: Денарии: 0
+DYNAMIC Assets/Scenes/2.Base.unity :: Text (TMP) :: Начать забег
+BOUND Assets/Scenes/2.Base.unity :: StageHeading :: ТРЕНИРОВОЧНЫЙ ДВОР
+DYNAMIC Assets/Scenes/2.Base.unity :: SquadCount :: ОТРЯД ЕЩЁ НЕ СОБРАН
+BOUND Assets/Scenes/2.Base.unity :: EmptySquad :: Здесь будет отдыхать ваш отряд <color=#806F55><size=19>Начните забег и выберите бойцов</size></color>
+DYNAMIC Assets/Scenes/2.Base.unity :: Title :: Гладиаторы
+DYNAMIC Assets/Scenes/2.Base.unity :: Description :: 
+BOUND Assets/Scenes/2.Base.unity :: Text (TMP) :: ×
+BOUND Assets/Scenes/2.Base.unity :: Text (TMP) :: 01   ГЛАДИАТОРЫ
+BOUND Assets/Scenes/2.Base.unity :: Text (TMP) :: 02   ПОСТРОЙКИ
+BOUND Assets/Scenes/2.Base.unity :: Text (TMP) :: 03   АРСЕНАЛ
+BOUND Assets/Scenes/2.Base.unity :: Text (TMP) :: Благословления
+DYNAMIC Assets/Scenes/2.Base.unity :: Label :: Реклама: +50 денариев
+DYNAMIC Assets/Scenes/2.Base.unity :: Label :: Реклама: +1 расходник
+DYNAMIC Assets/Scenes/2.Base.unity :: Label :: Реклама: восстановить отряд
+DYNAMIC Assets/Scenes/2.Base.unity :: Label :: Бесплатный отдых: 2:00
+DYNAMIC Assets/Scenes/2.Base.unity :: Label :: Ранения сохраняются между боями
+BOUND Assets/Scenes/2.Base.unity :: Label :: Бонусы и восстановление
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: 10
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: 50
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: 100 
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: 250
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: Clear
+DYNAMIC Assets/Scenes/3.Arena.unity :: Statistics :: Stats
+BOUND Assets/Scenes/3.Arena.unity :: TeamTitle :: ВАШ ОТРЯД
+BOUND Assets/Scenes/3.Arena.unity :: TeamTitle :: ПРОТИВНИК
+DYNAMIC Assets/Scenes/3.Arena.unity :: Wave :: 0
+DYNAMIC Assets/Scenes/3.Arena.unity :: Gold :: 0
+DYNAMIC Assets/Scenes/3.Arena.unity :: Squad :: 0
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: В лупанарий
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: В бой
+DYNAMIC Assets/Scenes/3.Arena.unity :: SelectedFormation :: Строй: без строя
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: Изменить строй
+DYNAMIC Assets/Scenes/3.Arena.unity :: Text (TMP) :: Выберите строй перед боем
+DYNAMIC Assets/Scenes/3.Arena.unity :: Balance :: Денарии: 0
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: Продолжить без строя
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: На базу
+BOUND Assets/Scenes/3.Arena.unity :: Title :: Благословление Императора
+DYNAMIC Assets/Scenes/3.Arena.unity :: Hint :: Выберите благословление, затем место на арене
+BOUND Assets/Scenes/3.Arena.unity :: Label :: Отмена
+BOUND Assets/Scenes/3.Arena.unity :: Heading :: Выберите контракт
+DYNAMIC Assets/Scenes/3.Arena.unity :: Text (TMP) :: New Text
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: Выбрать контракт
+DYNAMIC Assets/Scenes/3.Arena.unity :: Name :: New Text
+DYNAMIC Assets/Scenes/3.Arena.unity :: EnemyLabel :: New Text
+DYNAMIC Assets/Scenes/3.Arena.unity :: Descriptions :: New Text
+DYNAMIC Assets/Scenes/3.Arena.unity :: Reward :: New Text
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: Выбрать контракт
+DYNAMIC Assets/Scenes/3.Arena.unity :: Name :: New Text
+DYNAMIC Assets/Scenes/3.Arena.unity :: EnemyLabel :: New Text
+DYNAMIC Assets/Scenes/3.Arena.unity :: Descriptions :: New Text
+DYNAMIC Assets/Scenes/3.Arena.unity :: Reward :: New Text
+BOUND Assets/Scenes/3.Arena.unity :: Heading :: Награда за победу
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: Получить
+DYNAMIC Assets/Scenes/3.Arena.unity :: Name :: Name 
+DYNAMIC Assets/Scenes/3.Arena.unity :: Description :: Descr
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: Получить
+DYNAMIC Assets/Scenes/3.Arena.unity :: Name :: Name 
+DYNAMIC Assets/Scenes/3.Arena.unity :: Description :: Descr
+DYNAMIC Assets/Scenes/3.Arena.unity :: Text (TMP) :: New Text
+BOUND Assets/Scenes/3.Arena.unity :: Heading :: Наберите отряд
+DYNAMIC Assets/Scenes/3.Arena.unity :: Title :: New Text
+BOUND Assets/Scenes/3.Arena.unity :: Heading :: Итоги боя
+DYNAMIC Assets/Scenes/3.Arena.unity :: Round :: New Text
+DYNAMIC Assets/Scenes/3.Arena.unity :: Earned Label :: New Text
+DYNAMIC Assets/Scenes/3.Arena.unity :: Kills :: New Text
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: К награде
+BOUND Assets/Scenes/3.Arena.unity :: Column0 :: Класс
+BOUND Assets/Scenes/3.Arena.unity :: Column1 :: Выжило
+BOUND Assets/Scenes/3.Arena.unity :: Column2 :: Убийства
+BOUND Assets/Scenes/3.Arena.unity :: Column3 :: Нанесено
+BOUND Assets/Scenes/3.Arena.unity :: Column4 :: Блокировано
+BOUND Assets/Scenes/3.Arena.unity :: Column5 :: Получено
+DYNAMIC Assets/Scenes/3.Arena.unity :: DefeatText :: New Text
+BOUND Assets/Scenes/3.Arena.unity :: Text (TMP) :: Начать новый забег
+DYNAMIC Assets/Scenes/3.Arena.unity :: Label :: Реклама: удвоить награду за бой
+DYNAMIC Assets/Scenes/3.Arena.unity :: Label :: Дополнительный бонус за просмотр
+DYNAMIC Assets/Scenes/3.Arena.unity :: Label :: Скорость боя ×1

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,10 +58,10 @@ namespace Code.Gameplay
             public string DisplayName =>
                 string.IsNullOrWhiteSpace(_displayName)
                     ? _classId.ToString()
-                    : _displayName;
+                    : L10n.Text(_displayName);
 
             public string Description =>
-                _description ?? string.Empty;
+                L10n.Text(_description ?? string.Empty);
 
             public Sprite Icon => _icon;
             public Color AccentColor => _accentColor;

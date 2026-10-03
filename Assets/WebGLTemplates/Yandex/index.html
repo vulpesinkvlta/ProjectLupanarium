@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
@@ -19,7 +19,7 @@
 </head>
 <body>
   <div id="game"><canvas id="unity-canvas" tabindex="0"></canvas></div>
-  <div id="loading"><span id="status">Загрузка игры</span><progress id="progress" max="1" value="0"></progress></div>
+  <div id="loading"><span id="status">Loading game</span><progress id="progress" max="1" value="0"></progress></div>
   <script>
     document.addEventListener('contextmenu',function(e){e.preventDefault();});
     document.addEventListener('dragstart',function(e){e.preventDefault();});
@@ -35,8 +35,8 @@
       devicePixelRatio:Math.min(window.devicePixelRatio||1,1.5)
     };
     const loader=document.createElement('script');loader.src=buildUrl+'/{{{ LOADER_FILENAME }}}';
-    loader.onload=function(){createUnityInstance(canvas,config,function(p){document.getElementById('progress').value=p;}).then(function(instance){window.unityInstance=instance;document.getElementById('loading').style.display='none';}).catch(function(){document.getElementById('status').textContent='Не удалось загрузить игру. Обновите страницу.';});};
-    loader.onerror=function(){document.getElementById('status').textContent='Ошибка загрузки. Проверьте соединение и обновите страницу.';};
+    loader.onload=function(){createUnityInstance(canvas,config,function(p){document.getElementById('progress').value=p;}).then(function(instance){window.unityInstance=instance;document.getElementById('loading').style.display='none';}).catch(function(){LupaYandex.loadingFailed();});};
+    loader.onerror=function(){LupaYandex.loadingFailed();};
     document.body.appendChild(loader);
   </script>
 </body>

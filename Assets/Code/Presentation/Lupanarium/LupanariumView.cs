@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -59,7 +59,7 @@ namespace Code.Gameplay
 
             TMP_Text label = _startRunButton.GetComponentInChildren<TMP_Text>(true);
             if (label != null)
-                label.text = hasActiveRun ? "Продолжить забег" : "Начать забег";
+                label.text = hasActiveRun ? L10n.Text("Продолжить забег") : L10n.Text("Начать забег");
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Code.Gameplay
         public void SetDenarii(int denarii)
         {
             if (_denariiLabel != null)
-                _denariiLabel.text = $"Денарии: {denarii}";
+                _denariiLabel.text = L10n.F($"Денарии: {denarii}");
         }
 
         private void Awake()

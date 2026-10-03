@@ -1,0 +1,237 @@
+{
+  "{0}: выберите круг на арене. Действует на обе стороны!": [
+    "Assets\\Code\\Presentation\\Blessings\\BlessingBattleView.cs"
+  ],
+  "Выберите благословление, затем место на арене": [
+    "Assets\\Code\\Presentation\\Blessings\\BlessingBattleView.cs"
+  ],
+  "Купить · {0} ден.\nВ запасе: {1}": [
+    "Assets\\Code\\Presentation\\Blessings\\BlessingCardView.cs"
+  ],
+  "Использовать · {0}": [
+    "Assets\\Code\\Presentation\\Blessings\\BlessingCardView.cs"
+  ],
+  "Гладиаторы": [
+    "Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+  ],
+  "Постройки": [
+    "Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+  ],
+  "Арсенал": [
+    "Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+  ],
+  "Благословление Императора": [
+    "Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+  ],
+  "Открывайте бойцов для следующих забегов": [
+    "Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+  ],
+  "Улучшения школы действуют во всех забегах": [
+    "Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+  ],
+  "Покупайте и надевайте снаряжение для своих бойцов": [
+    "Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+  ],
+  "Одна покупка — один заряд. Все эффекты в кругу действуют на обе стороны": [
+    "Assets\\Code\\Presentation\\Lupanarium\\BasePanelNavigation.cs"
+  ],
+  "ОТРЯД В ЗАБЕГЕ  /  {0}": [
+    "Assets\\Code\\Presentation\\Lupanarium\\BaseSquadView.cs"
+  ],
+  "ОТРЯД ЕЩЁ НЕ СОБРАН": [
+    "Assets\\Code\\Presentation\\Lupanarium\\BaseSquadView.cs"
+  ],
+  "открыт": [
+    "Assets\\Code\\Presentation\\Lupanarium\\FormationRowView.cs",
+    "Assets\\Code\\Presentation\\Lupanarium\\RosterRowView.cs"
+  ],
+  "с раунда {0}": [
+    "Assets\\Code\\Presentation\\Lupanarium\\FormationRowView.cs",
+    "Assets\\Code\\Presentation\\Lupanarium\\RosterRowView.cs"
+  ],
+  "{0} ден.": [
+    "Assets\\Code\\Presentation\\Lupanarium\\FormationRowView.cs",
+    "Assets\\Code\\Presentation\\Lupanarium\\ItemRowView.cs",
+    "Assets\\Code\\Presentation\\Lupanarium\\RosterRowView.cs",
+    "Assets\\Code\\Presentation\\Lupanarium\\SchoolBuildingRowView.cs"
+  ],
+  "Открыт": [
+    "Assets\\Code\\Presentation\\Lupanarium\\FormationRowView.cs",
+    "Assets\\Code\\Presentation\\Lupanarium\\RosterRowView.cs"
+  ],
+  "Открыть": [
+    "Assets\\Code\\Presentation\\Lupanarium\\FormationRowView.cs",
+    "Assets\\Code\\Presentation\\Lupanarium\\RosterRowView.cs"
+  ],
+  "надет": [
+    "Assets\\Code\\Presentation\\Lupanarium\\ItemRowView.cs"
+  ],
+  "в сундуке": [
+    "Assets\\Code\\Presentation\\Lupanarium\\ItemRowView.cs"
+  ],
+  "Надеть": [
+    "Assets\\Code\\Presentation\\Lupanarium\\ItemRowView.cs"
+  ],
+  "Купить": [
+    "Assets\\Code\\Presentation\\Lupanarium\\ItemRowView.cs"
+  ],
+  "Продолжить забег": [
+    "Assets\\Code\\Presentation\\Lupanarium\\LupanariumView.cs",
+    "Assets\\Code\\Presentation\\Menu\\MainMenuView.cs"
+  ],
+  "Начать забег": [
+    "Assets\\Code\\Presentation\\Lupanarium\\LupanariumView.cs"
+  ],
+  "Денарии: {0}": [
+    "Assets\\Code\\Presentation\\Lupanarium\\LupanariumView.cs"
+  ],
+  "максимум": [
+    "Assets\\Code\\Presentation\\Lupanarium\\SchoolBuildingRowView.cs"
+  ],
+  "Не удалось открыть арену. Попробуйте ещё раз.": [
+    "Assets\\Code\\Presentation\\Menu\\MainMenuPresenter.cs"
+  ],
+  "Начать новый забег": [
+    "Assets\\Code\\Presentation\\Menu\\MainMenuView.cs"
+  ],
+  "Сохранённый забег · раунд {0}": [
+    "Assets\\Code\\Presentation\\Menu\\MainMenuView.cs"
+  ],
+  "Нет активного забега": [
+    "Assets\\Code\\Presentation\\Menu\\MainMenuView.cs"
+  ],
+  "Реклама: +50 денариев": [
+    "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+  ],
+  "Реклама: +1 ": [
+    "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+  ],
+  "расходник": [
+    "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+  ],
+  "Реклама: восстановить весь отряд": [
+    "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+  ],
+  "Бесплатный отдых: {0}:{1:00}": [
+    "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+  ],
+  "Восстановить отряд бесплатно": [
+    "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+  ],
+  "Нет активного отряда": [
+    "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+  ],
+  "Все бойцы здоровы": [
+    "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+  ],
+  "Ранения сохраняются между боями.\nБез сознания: {0}. Отдых — 2 минуты.": [
+    "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+  ],
+  "Реклама: ещё +{0} денариев за бой": [
+    "Assets\\Code\\Presentation\\Platform\\PlatformRewardsView.cs"
+  ],
+  "ПОБЕДА!": [
+    "Assets\\Code\\Presentation\\Run\\BattleSummaryView.cs"
+  ],
+  "Раунд {0}": [
+    "Assets\\Code\\Presentation\\Run\\BattleSummaryView.cs",
+    "Assets\\Code\\Presentation\\Run\\ContractSelectionView.cs",
+    "Assets\\Code\\Presentation\\Run\\RunHudView.cs"
+  ],
+  "Заработано {0}": [
+    "Assets\\Code\\Presentation\\Run\\BattleSummaryView.cs"
+  ],
+  "{0} золота": [
+    "Assets\\Code\\Presentation\\Run\\ContractCardView.cs"
+  ],
+  "Денарии: {0}   •   Лучший раунд: {1}\n": [
+    "Assets\\Code\\Presentation\\Run\\FormationSelectionView.cs"
+  ],
+  "Покупка навсегда. Денарии пополняются при возврате на базу.": [
+    "Assets\\Code\\Presentation\\Run\\FormationSelectionView.cs"
+  ],
+  "Выберите строй перед боем": [
+    "Assets\\Code\\Presentation\\Run\\FormationSelectionView.cs"
+  ],
+  "Всегда доступно · бесплатно": [
+    "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+  ],
+  "Куплено навсегда": [
+    "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+  ],
+  "Достигните раунда {0} · {1} ден.": [
+    "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+  ],
+  "Доступно для покупки · {0} ден.": [
+    "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+  ],
+  "Нужно {0} ден. · не хватает {1}": [
+    "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+  ],
+  "Выбрать": [
+    "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+  ],
+  "Закрыто": [
+    "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+  ],
+  "Купить · {0} ден.": [
+    "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+  ],
+  "никого": [
+    "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+  ],
+  "Без строя": [
+    "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+  ],
+  "Отряд идёт врассыпную и сходится с врагом сразу, без бонусов и без ожидания.": [
+    "Assets\\Code\\Presentation\\Run\\RunFlowPresenter.cs"
+  ],
+  "Золото: {0}": [
+    "Assets\\Code\\Presentation\\Run\\RunHudView.cs"
+  ],
+  "Отряд: {0}": [
+    "Assets\\Code\\Presentation\\Run\\RunHudView.cs"
+  ],
+  "Строй: без строя": [
+    "Assets\\Code\\Presentation\\Run\\RunHudView.cs"
+  ],
+  "Строй: {0}": [
+    "Assets\\Code\\Presentation\\Run\\RunHudView.cs"
+  ],
+  "Поражение в раунде {0}": [
+    "Assets\\Code\\Presentation\\Run\\RunHudView.cs"
+  ],
+  "{0} бойцов": [
+    "Assets\\Code\\Presentation\\Run\\SquadOptionCardView.cs"
+  ],
+  "HP {0}": [
+    "Assets\\Code\\Presentation\\Run\\SquadOptionCardView.cs"
+  ],
+  "Урон {0}": [
+    "Assets\\Code\\Presentation\\Run\\SquadOptionCardView.cs"
+  ],
+  "Скорость {0:0.0}": [
+    "Assets\\Code\\Presentation\\Run\\SquadOptionCardView.cs"
+  ],
+  "С кем выходим на песок?": [
+    "Assets\\Code\\Presentation\\Run\\SquadSelectionView.cs"
+  ],
+  "Урон {0}  ·  Броня {1}": [
+    "Assets\\Code\\Gameplay\\Hud\\HealthClassRowView.cs"
+  ],
+  "Подключение рекламы…": [
+    "Assets\\Code\\Infrastructure\\Platform\\YandexBridge.cs"
+  ],
+  "Открывается реклама…": [
+    "Assets\\Code\\Infrastructure\\Platform\\YandexBridge.cs"
+  ],
+  "Реклама недоступна. Игра доступна без неё.": [
+    "Assets\\Code\\Infrastructure\\Platform\\YandexBridge.cs"
+  ],
+  "Награда получена": [
+    "Assets\\Code\\Infrastructure\\Platform\\YandexBridge.cs"
+  ],
+  "Реклама закрыта или недоступна": [
+    "Assets\\Code\\Infrastructure\\Platform\\YandexBridge.cs"
+  ]
+}

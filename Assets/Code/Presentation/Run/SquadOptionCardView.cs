@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +38,7 @@ namespace Code.Gameplay
                 _nameLabel.text = data.ClassName;
 
             if (_countLabel != null)
-                _countLabel.text = $"{data.Count} бойцов";
+                _countLabel.text = L10n.F($"{data.Count} бойцов");
 
             if (_descriptionLabel != null)
                 _descriptionLabel.text = data.Description;
@@ -46,15 +46,15 @@ namespace Code.Gameplay
             // Здоровье и урон округляем: дробные значения появляются
             // из бонусов школы и на карточке только мешают сравнивать.
             if (_healthLabel != null)
-                _healthLabel.text = $"HP {Mathf.RoundToInt(data.Health)}";
+                _healthLabel.text = L10n.F($"HP {Mathf.RoundToInt(data.Health)}");
 
             if (_damageLabel != null)
-                _damageLabel.text = $"Урон {Mathf.RoundToInt(data.Damage)}";
+                _damageLabel.text = L10n.F($"Урон {Mathf.RoundToInt(data.Damage)}");
 
             // Скорость целыми числами почти не отличается — оставляем
             // один знак после запятой, иначе колонка выглядит одинаковой.
             if (_speedLabel != null)
-                _speedLabel.text = $"Скорость {data.Speed:0.0}";
+                _speedLabel.text = L10n.F($"Скорость {data.Speed:0.0}");
 
             if (_icon != null)
             {

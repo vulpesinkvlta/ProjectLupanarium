@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -44,13 +44,13 @@ namespace Code.Gameplay
                 throw new ArgumentNullException(nameof(rows));
 
             if (_titleLabel != null)
-                _titleLabel.text = "ПОБЕДА!";
+                _titleLabel.text = L10n.Text("ПОБЕДА!");
 
             if (_roundLabel != null)
-                _roundLabel.text = $"Раунд {roundNumber}";
+                _roundLabel.text = L10n.F($"Раунд {roundNumber}");
 
             if (_earnedLabel != null)
-                _earnedLabel.text = $"Заработано {goldEarned}";
+                _earnedLabel.text = L10n.F($"Заработано {goldEarned}");
 
             if (_killsLabel != null)
                 _killsLabel.text = killsText;

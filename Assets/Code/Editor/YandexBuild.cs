@@ -30,6 +30,9 @@ namespace Code.Editor
         public static void Build()
         {
             Configure();
+            LocalizationSetup.Validate();
+            UnityEditor.AddressableAssets.Settings.AddressableAssetSettings.BuildPlayerContent(out var content);
+            if (!string.IsNullOrEmpty(content.Error)) throw new BuildFailedException(content.Error);
             Directory.CreateDirectory("Builds/Yandex");
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions {
                 scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray(),

@@ -23,7 +23,7 @@ namespace Code.Gameplay
         public bool Ready { get; private set; }
         public bool Busy { get; private set; }
         public bool Paused => _platformPause || _focusPause || _adVisible || Busy;
-        public string Status { get; private set; } = "Подключение рекламы…";
+        public string Status { get; private set; } = L10n.Text("Подключение рекламы…");
         public Action Tick;
         private Action _reward, _closed;
         private int _request;
@@ -58,13 +58,13 @@ namespace Code.Gameplay
         {
             if (!Enabled || !Ready || Busy || Paused) return false;
             Busy = true; _granted = false; _reward = reward; _closed = closed; _request++;
-            Status = "Открывается реклама…";
+            Status = L10n.Text("Открывается реклама…");
             ApplyPause(); Gameplay(false);
             YG_Ad(rewarded ? 1 : 0, _request);
             return true;
         }
         [Preserve] public void OnSdkReady(string unused) { Ready = true; Status = ""; }
-        [Preserve] public void OnSdkError(string unused) { Status = "Реклама недоступна. Игра доступна без неё."; }
+        [Preserve] public void OnSdkError(string unused) { Status = L10n.Text("Реклама недоступна. Игра доступна без неё."); }
         [Preserve] public void OnPlatformPause(string value) { _platformPause = value == "1"; ApplyPause(); }
         [Preserve] public void OnAdVisibility(string value) { _adVisible = value == "1"; ApplyPause(); }
         [Preserve] public void OnPageFocus(string value) { _focusPause = value != "1"; ApplyPause(); }
@@ -78,7 +78,7 @@ namespace Code.Gameplay
         {
             if (!Busy || value != _request.ToString()) return;
             Busy = false; _reward = null;
-            Status = _granted ? "Награда получена" : "Реклама закрыта или недоступна";
+            Status = _granted ? L10n.Text("Награда получена") : L10n.Text("Реклама закрыта или недоступна");
             ApplyPause();
             var action = _closed; _closed = null; action?.Invoke();
         }

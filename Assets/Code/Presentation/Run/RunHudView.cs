@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,13 +43,13 @@ namespace Code.Gameplay
         public void SetRunInfo(int waveNumber, int gold, int squadSize)
         {
             if (_waveLabel != null)
-                _waveLabel.text = $"Раунд {waveNumber}";
+                _waveLabel.text = L10n.F($"Раунд {waveNumber}");
 
             if (_goldLabel != null)
-                _goldLabel.text = $"Золото: {gold}";
+                _goldLabel.text = L10n.F($"Золото: {gold}");
 
             if (_squadLabel != null)
-                _squadLabel.text = $"Отряд: {squadSize}";
+                _squadLabel.text = L10n.F($"Отряд: {squadSize}");
         }
 
         public void SetFormation(string formationName)
@@ -58,8 +58,8 @@ namespace Code.Gameplay
             {
                 _formationLabel.text =
                     string.IsNullOrEmpty(formationName)
-                        ? "Строй: без строя"
-                        : $"Строй: {formationName}";
+                        ? L10n.Text("Строй: без строя")
+                        : L10n.F($"Строй: {formationName}");
             }
         }
 
@@ -80,7 +80,7 @@ namespace Code.Gameplay
         public void SetDefeatText(int waveNumber)
         {
             if (_defeatLabel != null)
-                _defeatLabel.text = $"Поражение в раунде {waveNumber}";
+                _defeatLabel.text = L10n.F($"Поражение в раунде {waveNumber}");
         }
 
         private void Awake()

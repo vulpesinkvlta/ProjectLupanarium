@@ -1,4 +1,4 @@
-﻿using TMPro;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +22,7 @@ namespace Code.Gameplay
         {
             if (_statsLabel == null) return;
             string Range(float min, float max) => Mathf.Approximately(min, max) ? $"{min:0.#}" : $"{min:0.#}–{max:0.#}";
-            _statsLabel.text = $"Урон {Range(minDamage, maxDamage)}  ·  Броня {Range(minArmor, maxArmor)}";
+            _statsLabel.text = L10n.F($"Урон {Range(minDamage, maxDamage)}  ·  Броня {Range(minArmor, maxArmor)}");
         }
 
         [Header("Segments")]

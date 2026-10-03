@@ -37,7 +37,7 @@ namespace Code.Gameplay
             if (!_controller.Play())
             {
                 _view.SetBusy(false);
-                _view.ShowError("Не удалось открыть арену. Попробуйте ещё раз.");
+                _view.ShowError(L10n.Text("Не удалось открыть арену. Попробуйте ещё раз."));
             }
         }
 

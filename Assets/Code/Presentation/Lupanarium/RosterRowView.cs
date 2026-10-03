@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -73,14 +73,14 @@ namespace Code.Gameplay
                 // Порог по раунду важнее цены: пока игрок не дошёл,
                 // сумма денариев ему ничего не скажет.
                 _statusLabel.text = data.IsUnlocked
-                    ? "открыт"
+                    ? L10n.Text("открыт")
                     : !data.MeetsRound
-                        ? $"с раунда {data.RequiredRound}"
-                        : $"{data.Price} ден.";
+                        ? L10n.F($"с раунда {data.RequiredRound}")
+                        : L10n.F($"{data.Price} ден.");
             }
 
             if (_unlockLabel != null)
-                _unlockLabel.text = data.IsUnlocked ? "Открыт" : "Открыть";
+                _unlockLabel.text = data.IsUnlocked ? L10n.Text("Открыт") : L10n.Text("Открыть");
 
             if (_unlockButton != null)
             {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -15,11 +15,11 @@ namespace Code.Gameplay
     /// </summary>
     public sealed class RunFlowPresenter : IStartable, IDisposable
     {
-        private const string NoFormationName = "Без строя";
+        private static string NoFormationName => L10n.Text( "Без строя");
 
-        private const string NoFormationDescription =
+        private static string NoFormationDescription => L10n.Text(
             "Отряд идёт врассыпную и сходится с врагом сразу, " +
-            "без бонусов и без ожидания.";
+            "без бонусов и без ожидания.");
 
         private static readonly UnitClassId[] TrackedClasses =
             BuildTrackedClasses();
@@ -231,12 +231,12 @@ namespace Code.Gameplay
                 bool owned = formation == null || (entry != null && _lupanarium.IsFormationUnlocked(entry));
                 bool meetsRound = entry == null || _lupanarium.MeetsRoundRequirement(entry);
                 bool canBuy = entry != null && _lupanarium.CanUnlockFormation(entry);
-                string status = formation == null ? "Всегда доступно · бесплатно"
-                    : owned ? "Куплено навсегда"
-                    : !meetsRound ? $"Достигните раунда {entry.RequiredBestRound} · {entry.Price} ден."
-                    : canBuy ? $"Доступно для покупки · {entry.Price} ден."
-                    : $"Нужно {entry.Price} ден. · не хватает {entry.Price - _lupanarium.Denarii}";
-                string action = owned ? "Выбрать" : !meetsRound ? "Закрыто" : $"Купить · {entry.Price} ден.";
+                string status = formation == null ? L10n.Text("Всегда доступно · бесплатно")
+                    : owned ? L10n.Text("Куплено навсегда")
+                    : !meetsRound ? L10n.F($"Достигните раунда {entry.RequiredBestRound} · {entry.Price} ден.")
+                    : canBuy ? L10n.F($"Доступно для покупки · {entry.Price} ден.")
+                    : L10n.F($"Нужно {entry.Price} ден. · не хватает {entry.Price - _lupanarium.Denarii}");
+                string action = owned ? L10n.Text("Выбрать") : !meetsRound ? L10n.Text("Закрыто") : L10n.F($"Купить · {entry.Price} ден.");
 
                 _formationOptions.Add(
                     new FormationOptionData(
@@ -362,7 +362,7 @@ namespace Code.Gameplay
 
             return _builder.Length > 0
                 ? _builder.ToString()
-                : "никого";
+                : L10n.Text("никого");
         }
 
         private void BuildEnemyTexts(IReadOnlyList<ContractOffer> offers)

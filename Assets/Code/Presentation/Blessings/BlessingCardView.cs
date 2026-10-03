@@ -28,7 +28,7 @@ namespace Code.Gameplay
         public void Refresh(LupanariumState school, bool shop, bool available)
         {
             int count = school.GetBlessingCharges(Config.Id);
-            _actionLabel.text = shop ? $"Купить · {Config.Price} ден.\nВ запасе: {count}" : $"Использовать · {count}";
+            _actionLabel.text = shop ? L10n.F($"Купить · {Config.Price} ден.\nВ запасе: {count}") : L10n.F($"Использовать · {count}");
             _button.interactable = available && (shop ? school.CanBuyBlessing(Config) : count > 0);
         }
     }

@@ -60,8 +60,8 @@ namespace Code.Gameplay
             _panelLayer.SetActive(true);
             for (var i = 0; i < _panels.Length; i++)
                 _panels[i].SetActive(i == index);
-            _heading.text = Titles[index];
-            _description.text = Descriptions[index];
+            _heading.text = L10n.Text(Titles[index]);
+            _description.text = L10n.Text(Descriptions[index]);
 
             // Размеры динамических карточек должны быть известны прежде,
             // чем ScrollRect рассчитает границы после открытия панели.

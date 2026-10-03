@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Code.Gameplay
@@ -45,7 +45,7 @@ namespace Code.Gameplay
 
         public string Id => _id;
         public Sprite Icon => _icon;
-        public string Description => _description;
+        public string Description => L10n.Text(_description);
 
         public FormationLayout Layout => _layout;
 
@@ -68,7 +68,7 @@ namespace Code.Gameplay
         public string DisplayName =>
             string.IsNullOrWhiteSpace(_displayName)
                 ? name
-                : _displayName;
+                : L10n.Text(_displayName);
 
 #if UNITY_EDITOR
         private void OnValidate()
