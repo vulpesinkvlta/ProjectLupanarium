@@ -90,8 +90,13 @@ BOUND Assets/Scenes/1.MainMenu.unity :: Label :: Настройки
 BOUND Assets/Scenes/1.MainMenu.unity :: DeleteHint :: Удалить забег — сохранить улучшения. Полный сброс — начать с чистого листа.
 BOUND Assets/Scenes/1.MainMenu.unity :: Label :: Полный сброс прогресса
 BOUND Assets/Scenes/1.MainMenu.unity :: Title :: Настройки
-BOUND Assets/Scenes/1.MainMenu.unity :: Placeholder :: Настройки появятся здесь позже.
+DYNAMIC Assets/Scenes/1.MainMenu.unity :: Placeholder :: settings.language.hint
 BOUND Assets/Scenes/1.MainMenu.unity :: Label :: Закрыть
+DYNAMIC Assets/Scenes/1.MainMenu.unity :: LanguageHeading :: settings.language.title
+DYNAMIC Assets/Scenes/1.MainMenu.unity :: Label :: Русский
+DYNAMIC Assets/Scenes/1.MainMenu.unity :: Label :: English
+DYNAMIC Assets/Scenes/1.MainMenu.unity :: Label :: Türkçe
+DYNAMIC Assets/Scenes/1.MainMenu.unity :: Label :: settings.language.auto
 BOUND Assets/Scenes/1.MainMenu.unity :: Title :: Сбросить весь прогресс?
 BOUND Assets/Scenes/1.MainMenu.unity :: Placeholder :: Будут удалены забег, валюта, открытые юниты и формации, постройки, снаряжение и благословления. Это действие нельзя отменить.
 BOUND Assets/Scenes/1.MainMenu.unity :: Label :: Отмена

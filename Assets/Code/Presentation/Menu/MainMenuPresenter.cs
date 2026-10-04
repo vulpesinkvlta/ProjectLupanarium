@@ -19,6 +19,7 @@ namespace Code.Gameplay
             _view.PlayRequested += Play;
             _view.DeleteRequested += Delete;
             _view.ResetAllRequested += ResetAll;
+            L10n.LanguageChanged += Refresh;
             Refresh();
         }
 
@@ -27,6 +28,7 @@ namespace Code.Gameplay
             _view.PlayRequested -= Play;
             _view.DeleteRequested -= Delete;
             _view.ResetAllRequested -= ResetAll;
+            L10n.LanguageChanged -= Refresh;
         }
 
         private void Refresh() => _view.Refresh(_controller.HasActiveRun, _controller.Round);

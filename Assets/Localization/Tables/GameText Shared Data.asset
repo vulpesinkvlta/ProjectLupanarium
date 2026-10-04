@@ -895,6 +895,18 @@ MonoBehaviour:
     m_Key: "Slow but well-armoured \u2014 a classic \u2018tank\u2019. "
     m_Metadata:
       m_Items: []
+  - m_Id: 262111233998848
+    m_Key: settings.language.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 262111292719104
+    m_Key: settings.language.auto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 262111292719105
+    m_Key: settings.language.hint
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

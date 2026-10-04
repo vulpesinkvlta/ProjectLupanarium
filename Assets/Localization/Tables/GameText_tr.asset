@@ -888,6 +888,18 @@ MonoBehaviour:
     m_Localized: "Yava\u015F ama iyi z\u0131rhl\u0131, tam bir tank."
     m_Metadata:
       m_Items: []
+  - m_Id: 262111233998848
+    m_Localized: Oyun dili
+    m_Metadata:
+      m_Items: []
+  - m_Id: 262111292719104
+    m_Localized: "Otomatik \u2014 platform dili"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 262111292719105
+    m_Localized: "Se\xE7iminiz kaydedilir ve t\xFCm oyuna uygulan\u0131r. Otomatik mod Yandex Games dilini kullan\u0131r."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -689,7 +689,6 @@ GameObject:
   - component: {fileID: 28276186}
   - component: {fileID: 28276185}
   - component: {fileID: 28276184}
-  - component: {fileID: 28276183}
   m_Layer: 0
   m_Name: BattleSpeedCanvas
   m_TagString: Untagged
@@ -697,20 +696,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &28276183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 28276182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a03b59bc0f74306b5efc28020ddf062, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.SafeAreaFitter
-  _ignoreHorizontal: 0
-  _ignoreVertical: 0
 --- !u!114 &28276184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,7 +786,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1890343466}
+  - {fileID: 958713207}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5097,6 +5082,57 @@ MonoBehaviour:
   _spawn250Button: {fileID: 2004950774}
   _clearButton: {fileID: 1623279802}
   _statisticsLabel: {fileID: 1726516377}
+--- !u!1 &958713206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 958713207}
+  - component: {fileID: 958713208}
+  m_Layer: 0
+  m_Name: SafeArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &958713207
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958713206}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1890343466}
+  m_Father: {fileID: 28276188}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &958713208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958713206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a03b59bc0f74306b5efc28020ddf062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.SafeAreaFitter
+  _ignoreHorizontal: 0
+  _ignoreVertical: 0
 --- !u!1 &1008048572
 GameObject:
   m_ObjectHideFlags: 0
@@ -10167,7 +10203,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 534270764}
-  m_Father: {fileID: 28276188}
+  m_Father: {fileID: 958713207}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

@@ -16,9 +16,18 @@ namespace Code.Gameplay
         public const string TableName = "GameText";
         private static readonly Dictionary<string,StringTable> Tables = new();
         public static bool IsReady { get; private set; }
+        public const string PreferenceKey = "settings.language";
+        public static event Action LanguageChanged;
+        private static bool _initializing;
+        private static string _automaticLanguage = "en";
+        public static bool IsAutomatic => !PlayerPrefs.HasKey(PreferenceKey);
         [DllImport("__Internal")] private static extern string YG_Language();
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void Reset() { Tables.Clear(); IsReady = false; }
+        private static void Reset()
+        {
+            LocalizationSettings.SelectedLocaleChanged -= OnLocaleChanged;
+            Tables.Clear(); IsReady = false; _initializing = false; LanguageChanged = null;
+        }
         public static string NormalizeLanguage(string code)
         {
             string language=(code??"").ToLowerInvariant().Split('-','_')[0];
@@ -27,6 +36,8 @@ namespace Code.Gameplay
         public static IEnumerator Initialize()
         {
             if(IsReady)yield break;
+            if (_initializing) { while (!IsReady) yield return null; yield break; }
+            _initializing = true;
             string language=Application.systemLanguage==SystemLanguage.Russian ? "ru" : Application.systemLanguage==SystemLanguage.Turkish ? "tr" : "en";
 #if UNITY_WEBGL && YANDEX_GAMES && !UNITY_EDITOR
             float deadline=Time.realtimeSinceStartup+15;
@@ -43,8 +54,31 @@ namespace Code.Gameplay
                 yield return operation;
                 if(operation.Result!=null)Tables[code]=operation.Result;
             }
+            _automaticLanguage = language;
+            language = IsAutomatic ? language : NormalizeLanguage(PlayerPrefs.GetString(PreferenceKey));
             LocalizationSettings.SelectedLocale=LocalizationSettings.AvailableLocales.GetLocale(language);
             IsReady=true;
+            _initializing = false;
+            LocalizationSettings.SelectedLocaleChanged += OnLocaleChanged;
+            LanguageChanged?.Invoke();
+        }
+        private static void OnLocaleChanged(Locale _) { if (IsReady) LanguageChanged?.Invoke(); }
+        public static void SetLanguage(string code)
+        {
+            if (!IsReady) return;
+            code = NormalizeLanguage(code);
+            PlayerPrefs.SetString(PreferenceKey, code);
+            PlayerPrefs.Save();
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(code);
+            LanguageChanged?.Invoke(); // Also updates Auto/manual state when the locale is unchanged.
+        }
+        public static void UseAutomaticLanguage()
+        {
+            if (!IsReady) return;
+            PlayerPrefs.DeleteKey(PreferenceKey);
+            PlayerPrefs.Save();
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(_automaticLanguage);
+            LanguageChanged?.Invoke();
         }
         public static string Text(string key)
         {

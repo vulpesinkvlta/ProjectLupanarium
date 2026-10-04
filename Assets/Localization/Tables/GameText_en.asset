@@ -896,6 +896,18 @@ MonoBehaviour:
     m_Localized: "Slow but well-armored \u2014 a classic tank."
     m_Metadata:
       m_Items: []
+  - m_Id: 262111233998848
+    m_Localized: Game language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 262111292719104
+    m_Localized: "Automatic \u2014 platform language"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 262111292719105
+    m_Localized: Your choice is saved and applies to the whole game. Automatic mode uses the Yandex Games language.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

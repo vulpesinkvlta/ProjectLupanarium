@@ -48,7 +48,34 @@ namespace Code.Tests
             var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Localization/Fonts/GameFont.asset");
             var collection = LocalizationEditorSettings.GetStringTableCollection("GameText");
             var chars = collection.StringTables.SelectMany(t => t.Values).SelectMany(e => Regex.Replace(e.Value, "<[^>]+>", "")).Where(c => !char.IsControl(c)).Distinct();
-            foreach (char c in chars) Assert.That(font.HasCharacter(c), Is.True, "Missing glyph: " + c);
+            // Unity may clear a dynamic atlas after Play Mode or a build. Validate the source font,
+            // rather than assuming every glyph happens to remain cached from the previous session.
+            font.TryAddCharacters(new string(chars.ToArray()), out string missing);
+            Assert.That(missing, Is.Null.Or.Empty, "Unsupported glyphs in translated content");
+        }
+
+        [Test]
+        public void EveryAuthoredContentNameAndDescriptionHasAllThreeTranslations()
+        {
+            var collection = LocalizationEditorSettings.GetStringTableCollection("GameText");
+            int count = 0;
+            foreach (string guid in AssetDatabase.FindAssets("t:ScriptableObject", new[] { "Assets/Configs" }))
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                var property = new SerializedObject(AssetDatabase.LoadMainAssetAtPath(path)).GetIterator();
+                while (property.Next(true))
+                {
+                    if (property.propertyType != SerializedPropertyType.String ||
+                        (property.name != "_displayName" && property.name != "_description") || string.IsNullOrWhiteSpace(property.stringValue)) continue;
+                    foreach (string code in new[] { "ru", "en", "tr" })
+                    {
+                        var table = collection.GetTable(new LocaleIdentifier(code)) as StringTable;
+                        Assert.That(table.GetEntry(property.stringValue)?.Value, Is.Not.Null.And.Not.Empty, path + " / " + code);
+                    }
+                    count++;
+                }
+            }
+            Assert.That(count, Is.GreaterThan(0));
         }
 
         [TestCase("1.MainMenu")][TestCase("2.Base")][TestCase("3.Arena")]

@@ -1518,6 +1518,27 @@
       "en": "Slow but well-armored — a classic tank.",
       "tr": "Yavaş ama iyi zırhlı, tam bir tank.",
       "context": "Assets/Configs/UI/HealthView.asset :: _entries.Array.data[0]._description"
+    },
+    {
+      "key": "settings.language.title",
+      "ru": "Язык игры",
+      "en": "Game language",
+      "tr": "Oyun dili",
+      "context": "Main menu language settings"
+    },
+    {
+      "key": "settings.language.auto",
+      "ru": "Автоматически — язык платформы",
+      "en": "Automatic — platform language",
+      "tr": "Otomatik — platform dili",
+      "context": "Main menu language settings"
+    },
+    {
+      "key": "settings.language.hint",
+      "ru": "Выбор сохраняется и применяется ко всей игре. Автоматический режим использует язык Яндекс Игр.",
+      "en": "Your choice is saved and applies to the whole game. Automatic mode uses the Yandex Games language.",
+      "tr": "Seçiminiz kaydedilir ve tüm oyuna uygulanır. Otomatik mod Yandex Games dilini kullanır.",
+      "context": "Main menu language settings"
     }
   ]
 }

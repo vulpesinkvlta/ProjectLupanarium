@@ -87,6 +87,7 @@ namespace Code.Editor
             {
                 var scene = EditorSceneManager.OpenScene(path);
                 if (path.Contains("3.Arena")) CreateSpeedControl(font);
+                if (path.Contains("1.MainMenu")) CreateLanguageControls(scene, font);
                 var roots = scene.GetRootGameObjects();
                 foreach (var root in roots) Localize(root, font, report, path, roots);
                 EditorSceneManager.MarkSceneDirty(scene);
@@ -157,7 +158,7 @@ namespace Code.Editor
                     if (property.objectReferenceValue is TMP_FontAsset) property.objectReferenceValue = font;
                     if (property.objectReferenceValue is UnityEngine.UI.Button button &&
                         ((behaviour is LupanariumView && property.name == "_startRunButton") ||
-                         (behaviour is PlatformRewardsView && property.name != "_toggle")))
+                         (behaviour is PlatformRewardsView && property.name != "_toggle") || behaviour is LanguageSettingsView))
                         foreach (var child in button.GetComponentsInChildren<TMP_Text>(true)) dynamicLabels.Add(child);
                 }
                 serialized.ApplyModifiedPropertiesWithoutUndo();
@@ -222,6 +223,53 @@ namespace Code.Editor
             serialized.FindProperty("_button").objectReferenceValue = button.GetComponent<UnityEngine.UI.Button>();
             serialized.FindProperty("_label").objectReferenceValue = label; serialized.ApplyModifiedPropertiesWithoutUndo();
             EnsureSafeArea(root);
+        }
+
+        private static void CreateLanguageControls(UnityEngine.SceneManagement.Scene scene, TMP_FontAsset font)
+        {
+            var view = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<MainMenuView>(true)).Single();
+            if (view.GetComponent<LanguageSettingsView>() != null) return;
+            var menu = new SerializedObject(view);
+            var settings = (GameObject)menu.FindProperty("_settingsPanel").objectReferenceValue;
+            var panel = settings.transform.Find("Panel") as RectTransform;
+            panel.sizeDelta = new Vector2(720, 520);
+            var title = panel.Find("Title") as RectTransform;
+            title.anchoredPosition = new Vector2(0, 205);
+            var hint = panel.Find("Placeholder").GetComponent<TMP_Text>();
+            var binding = hint.GetComponent<LocalizeStringEvent>();
+            if (binding != null) UnityEngine.Object.DestroyImmediate(binding);
+            hint.rectTransform.anchoredPosition = new Vector2(0, -80);
+            hint.rectTransform.sizeDelta = new Vector2(630, 80);
+            hint.text = "settings.language.hint";
+            var heading = UnityEngine.Object.Instantiate(hint, panel);
+            heading.name = "LanguageHeading"; heading.rectTransform.anchoredPosition = new Vector2(0, 140);
+            heading.rectTransform.sizeDelta = new Vector2(600, 40); heading.text = "settings.language.title";
+            var close = (UnityEngine.UI.Button)menu.FindProperty("_closeSettingsButton").objectReferenceValue;
+            (close.transform as RectTransform).anchoredPosition = new Vector2(0, -195);
+            UnityEngine.UI.Button Choice(string name, string caption, Vector2 position, float width)
+            {
+                var button = UnityEngine.Object.Instantiate(close, panel);
+                button.name = name; button.onClick = new UnityEngine.UI.Button.ButtonClickedEvent();
+                var rect = button.transform as RectTransform; rect.anchoredPosition = position; rect.sizeDelta = new Vector2(width, 58);
+                var label = button.GetComponentInChildren<TMP_Text>(true);
+                var localized = label.GetComponent<LocalizeStringEvent>();
+                if (localized != null) UnityEngine.Object.DestroyImmediate(localized);
+                label.text = caption; label.font = font;
+                return button;
+            }
+            var russian = Choice("Russian", "Русский", new Vector2(-205, 70), 195);
+            var english = Choice("English", "English", new Vector2(0, 70), 195);
+            var turkish = Choice("Turkish", "Türkçe", new Vector2(205, 70), 195);
+            var automatic = Choice("Automatic", "settings.language.auto", new Vector2(0, 0), 605);
+            var component = view.gameObject.AddComponent<LanguageSettingsView>();
+            var serialized = new SerializedObject(component);
+            serialized.FindProperty("_russian").objectReferenceValue = russian;
+            serialized.FindProperty("_english").objectReferenceValue = english;
+            serialized.FindProperty("_turkish").objectReferenceValue = turkish;
+            serialized.FindProperty("_automatic").objectReferenceValue = automatic;
+            serialized.FindProperty("_heading").objectReferenceValue = heading;
+            serialized.FindProperty("_hint").objectReferenceValue = hint;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
         }
 
         private static void EnsureSafeArea(GameObject root)
