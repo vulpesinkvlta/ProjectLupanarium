@@ -769,7 +769,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_UseReflectionProbes: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 25
@@ -1848,7 +1848,7 @@ MonoBehaviour:
   _unitViewPrefab: {fileID: 2713770008969905352, guid: fee91b888e62f2942aa2e217fbe1ba95, type: 3}
   _unitViewRoot: {fileID: 1540367771}
   _arenaCenter: {x: 0, y: 0}
-  _arenaRadius: 8
+  _arenaRadius: 6.5
   _boundsGizmoColor: {r: 1, g: 0.85, b: 0.3, a: 0.6}
 --- !u!4 &316067307
 Transform:
@@ -3237,7 +3237,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4291291383
   m_fontColor: {r: 0.97, g: 0.91, b: 0.78, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3250,7 +3250,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2

@@ -1090,7 +1090,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LUPANARIUM
+  m_text: LUDUS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dfe0af0e231e89f49b68f6998e8ae104, type: 2}
   m_sharedMaterial: {fileID: -2328304669473699429, guid: dfe0af0e231e89f49b68f6998e8ae104, type: 2}

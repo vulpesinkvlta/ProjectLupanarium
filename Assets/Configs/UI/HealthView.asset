@@ -48,3 +48,48 @@ MonoBehaviour:
     _description: 
     _icon: {fileID: 0}
     _accentColor: {r: 1, g: 1, b: 1, a: 1}
+  - _classId: 8
+    _displayName: Tripple T
+    _description: "\u0422\u0443\u043D\u0433 \u0442\u0443\u043D\u0433 \u0442\u0443\u043D\u0433 \u043F\u043E\u0431\u0430\u0448\u043A\u0435"
+    _icon: {fileID: -7728508110350350606, guid: 9012d7b31f3c9264aa12fb49dd6c91d0, type: 3}
+    _accentColor: {r: 1, g: 1, b: 1, a: 1}
+  - _classId: 9
+    _displayName: Tralalela
+    _description: Sneaker head shark
+    _icon: {fileID: -8297911890360866163, guid: 7028d939d473d5f498d52577c29eaff1, type: 3}
+    _accentColor: {r: 1, g: 1, b: 1, a: 1}
+  - _classId: 10
+    _displayName: Bobritto Gangsteritto
+    _description: Bobre not so Dobre
+    _icon: {fileID: -6244348089769218222, guid: e01ab53a4c602144fb01965d2e304478, type: 3}
+    _accentColor: {r: 1, g: 1, b: 1, a: 1}
+  - _classId: 11
+    _displayName: Lirili Larila
+    _description: Our Slon!!!
+    _icon: {fileID: 6155851168181793633, guid: f436bad2695db78498206affe9d2d7f9, type: 3}
+    _accentColor: {r: 1, g: 1, b: 1, a: 1}
+  - _classId: 12
+    _displayName: Trippi Troppa
+    _description: Troppa Trippi
+    _icon: {fileID: -7629681675730051688, guid: 6e975db35f49fa74a9e60ad46eb94a9f, type: 3}
+    _accentColor: {r: 1, g: 1, b: 1, a: 1}
+  - _classId: 13
+    _displayName: Shammer Hark
+    _description: It's Hammer Shark with Hammer
+    _icon: {fileID: -1970234584811276620, guid: 868097aabc6bd1041a0b0ab9d1fb6358, type: 3}
+    _accentColor: {r: 1, g: 1, b: 1, a: 1}
+  - _classId: 14
+    _displayName: Skibiditto
+    _description: You know
+    _icon: {fileID: 4378185707337744243, guid: 868097aabc6bd1041a0b0ab9d1fb6358, type: 3}
+    _accentColor: {r: 1, g: 1, b: 1, a: 1}
+  - _classId: 16
+    _displayName: Bulshitto
+    _description: Idk literally idk
+    _icon: {fileID: -6201088850323404242, guid: 868097aabc6bd1041a0b0ab9d1fb6358, type: 3}
+    _accentColor: {r: 1, g: 1, b: 1, a: 1}
+  - _classId: 15
+    _displayName: Petuchara
+    _description: Mr.Petuch. Average internet user
+    _icon: {fileID: -1622699752276397768, guid: 868097aabc6bd1041a0b0ab9d1fb6358, type: 3}
+    _accentColor: {r: 1, g: 1, b: 1, a: 1}

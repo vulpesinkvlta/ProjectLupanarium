@@ -14,6 +14,18 @@ namespace Code.Gameplay
 
         // Звери выступают на стороне арены против гладиаторов.
         Lion = 6,
-        Wolf = 7
+        Wolf = 7,
+
+        // Временные юниты
+
+        Tirpplet = 8,
+        Tralalaela = 9,
+        Bobrtito = 10,
+        Lirililarila = 11,
+        TrippiTroppa = 12,
+        ShammerHark = 13,
+        Skibidito = 14,
+        Petushara = 15,
+        Bullshitto = 16,
     }
 }

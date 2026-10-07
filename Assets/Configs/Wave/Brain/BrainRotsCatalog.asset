@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf629b6ab444412a9636b08f262ea891, type: 3}
+  m_Name: BrainRotsCatalog
+  m_EditorClassIdentifier: Game.GamePlay::Code.Gameplay.ContractCatalog
+  _contracts:
+  - {fileID: 11400000, guid: b0edc4e612c5ffb4bbcd1a99ee36e58d, type: 2}
+  - {fileID: 11400000, guid: 38cd8e2d2b9a0e349b5ed572ac420ff2, type: 2}
+  - {fileID: 11400000, guid: 436a7bfd7f2f8154ab6262dc5d11fcfb, type: 2}
+  - {fileID: 11400000, guid: a67a0033cf869f9429f9786a61d3caf3, type: 2}
+  - {fileID: 11400000, guid: afd202551c20953488a6c2613da3e5d4, type: 2}
+  - {fileID: 11400000, guid: b6ee03b5cb939794fb629479cb875e5c, type: 2}
+  - {fileID: 11400000, guid: eb9a9528422cdc54795c9763725664d7, type: 2}
+  - {fileID: 11400000, guid: 3d8d0dcd7e6d4ee45abb7a532fbb557c, type: 2}
+  _enemyGrowthPerRound: 0.15
+  _goldGrowthPerRound: 0.12
+  _compoundEnemyGrowth: 0
+  _maximumEnemiesPerSquad: 256
